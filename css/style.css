@@ -549,18 +549,34 @@ main {
    ========================================================= */
 
 .topbar {
+   display: none;
 
     height: 76px;
 
     padding: 0 5vw;
-
-    display: flex;
 
     justify-content: space-between;
 
     align-items: center;
 
     border-bottom: 1px solid var(--line);
+}
+
+/* =========================================================
+   MOBILE HEADER
+   O TOPBAR EXISTE APENAS EM TELAS PEQUENAS
+   ========================================================= */
+
+.topbar {
+    display: none;
+}
+
+@media (max-width: 760px) {
+
+    .topbar {
+        display: flex;
+    }
+
 }
 
 
