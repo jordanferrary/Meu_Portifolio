@@ -151,7 +151,7 @@ align-items: start;
 }
 
 /* =========================================================
-CARDS
+CYBER PANEL
 ========================================================= */
 
 .contact-card {
@@ -171,44 +171,99 @@ background:
         rgba(4,10,20,.82)
     );
 
+overflow: hidden;
+
 }
 
-.contact-card::before,
+/* Luz interna sutil */
+
 .contact-card::after {
 
 content: "";
 
 position: absolute;
 
-width: 22px;
-height: 22px;
-
-border-color:
-    var(--gold);
-
-border-style: solid;
+inset: 0;
 
 pointer-events: none;
 
+background:
+    radial-gradient(
+        circle at 85% 15%,
+        rgba(40,191,255,.07),
+        transparent 28%
+    );
+
+z-index: 0;
+
 }
 
+/* =========================================================
+ORNAMENTAL CORNERS
+Mesma linguagem do style.css global
+========================================================= */
+
 .contact-card::before {
+
+content: "";
+
+position: absolute;
+
+width: 25px;
+height: 25px;
 
 top: -1px;
 left: -1px;
 
-border-width:
-    1px 0 0 1px;
+border-top:
+    1px solid
+    var(--gold);
+
+border-left:
+    1px solid
+    var(--gold);
+
+pointer-events: none;
+
+z-index: 5;
 
 }
 
-.contact-card::after {
+/* canto inferior */
 
-right: -1px;
-bottom: -1px;
+.contact-card {
 
-border-width:
-    0 1px 1px 0;
+--corner-size: 25px;
+
+}
+
+.contact-card > * {
+
+position: relative;
+
+z-index: 2;
+
+}
+
+/* pequeno detalhe no canto inferior direito */
+
+.contact-card .form-header::after,
+.communication-card .network-section::after {
+
+content: "";
+
+position: absolute;
+
+width: 8px;
+height: 8px;
+
+border-right:
+    1px solid
+    var(--gold);
+
+border-bottom:
+    1px solid
+    var(--gold);
 
 }
 
@@ -319,9 +374,11 @@ align-items: center;
 
 gap: 15px;
 
+position: relative;
+
 border:
     1px solid
-    rgba(40,191,255,.25);
+    rgba(40,191,255,.28);
 
 background:
     linear-gradient(
@@ -330,9 +387,51 @@ background:
         rgba(4,10,20,.2)
     );
 
-position: relative;
-
 transition: .3s ease;
+
+}
+
+.email-channel::before {
+
+content: "";
+
+position: absolute;
+
+top: -1px;
+right: -1px;
+
+width: 15px;
+height: 15px;
+
+border-top:
+    1px solid
+    var(--cyan);
+
+border-right:
+    1px solid
+    var(--cyan);
+
+}
+
+.email-channel::after {
+
+content: "";
+
+position: absolute;
+
+bottom: -1px;
+left: -1px;
+
+width: 15px;
+height: 15px;
+
+border-bottom:
+    1px solid
+    var(--gold);
+
+border-left:
+    1px solid
+    var(--gold);
 
 }
 
@@ -360,71 +459,43 @@ place-items: center;
 
 border:
     1px solid
-    var(--gold);
+    var(--cyan);
 
 color:
-    var(--gold);
+    var(--cyan);
 
 font-family:
     "Space Grotesk";
 
-font-size: 17px;
+font-size: 14px;
 
 transform:
     rotate(45deg);
 
-}
-
-.channel-icon::first-letter {
-
-display: block;
+box-shadow:
+    0 0 18px
+    rgba(40,191,255,.08);
 
 }
 
 .email-icon {
 
-transform:
-    rotate(45deg);
-
-}
-
-.email-channel .channel-icon {
-
 position: relative;
 
 }
 
-.email-channel .channel-icon {
+.email-icon::before {
 
-text-align: center;
-
-}
-
-.email-channel .channel-icon {
-
-line-height: 1;
-
-}
-
-.email-channel .channel-icon {
-
-color: var(--cyan);
-
-border-color:
-    var(--cyan);
-
-}
-
-.email-channel .channel-icon {
+content: "@";
 
 transform:
-    rotate(45deg);
+    rotate(-45deg);
 
 }
 
-.email-channel .channel-icon {
+.email-icon {
 
-font-size: 14px;
+font-size: 0;
 
 }
 
@@ -442,7 +513,8 @@ display: block;
 
 margin-bottom: 6px;
 
-color: #65758b;
+color:
+    #65758b;
 
 font-size: 6px;
 
@@ -493,12 +565,14 @@ font-size: 18px;
 }
 
 /* =========================================================
-NETWORK SECTION
+NETWORK
 ========================================================= */
 
 .network-section {
 
 margin-top: 35px;
+
+position: relative;
 
 }
 
@@ -512,7 +586,8 @@ gap: 9px;
 
 margin-bottom: 12px;
 
-color: #748398;
+color:
+    #748398;
 
 font-size: 7px;
 
@@ -530,7 +605,7 @@ font-size: 14px;
 }
 
 /* =========================================================
-NETWORK LINK
+NETWORK LINKS
 ========================================================= */
 
 .network-link {
@@ -551,7 +626,8 @@ border-top:
     1px solid
     var(--line);
 
-color: #aab7c8;
+color:
+    #aab7c8;
 
 transition: .25s ease;
 
@@ -601,8 +677,6 @@ font-family:
 
 font-size: 8px;
 
-letter-spacing: 0;
-
 }
 
 .network-info {
@@ -615,7 +689,8 @@ flex: 1;
 
 display: block;
 
-color: #d8e3ef;
+color:
+    #d8e3ef;
 
 font-size: 8px;
 
@@ -629,7 +704,8 @@ display: block;
 
 margin-top: 5px;
 
-color: #5f7085;
+color:
+    #5f7085;
 
 font-size: 7px;
 
@@ -677,6 +753,8 @@ align-items:
 border-bottom:
     1px solid
     var(--line);
+
+position: relative;
 
 }
 
@@ -745,7 +823,7 @@ letter-spacing: .16em;
 }
 
 /* =========================================================
-INPUTS
+INPUT / SELECT / TEXTAREA
 ========================================================= */
 
 .contact-form input,
@@ -786,14 +864,6 @@ resize: vertical;
 
 }
 
-.contact-form select {
-
-appearance: none;
-
-cursor: pointer;
-
-}
-
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
 
@@ -815,6 +885,138 @@ background:
 box-shadow:
     0 0 20px
     rgba(40,191,255,.06);
+
+}
+
+/* =========================================================
+CUSTOM SELECT
+========================================================= */
+
+/*
+Remove completamente a aparência nativa.
+*/
+
+.contact-form select {
+
+appearance: none;
+
+-webkit-appearance: none;
+
+-moz-appearance: none;
+
+cursor: pointer;
+
+position: relative;
+
+padding-right: 48px;
+
+color:
+    #b7c5d6;
+
+}
+
+/*
+Seta geométrica criada com CSS.
+*/
+
+.contact-form label:has(select) {
+
+position: relative;
+
+}
+
+.contact-form label:has(select)::after {
+
+content: "";
+
+position: absolute;
+
+right: 16px;
+
+bottom: 15px;
+
+width: 8px;
+height: 8px;
+
+border-right:
+    1px solid
+    var(--cyan);
+
+border-bottom:
+    1px solid
+    var(--cyan);
+
+transform:
+    rotate(45deg);
+
+pointer-events: none;
+
+transition: .25s ease;
+
+}
+
+.contact-form label:has(select)::before {
+
+content: "";
+
+position: absolute;
+
+right: 43px;
+
+bottom: 9px;
+
+width: 1px;
+height: 20px;
+
+background:
+    rgba(115,160,205,.25);
+
+pointer-events: none;
+
+}
+
+/*
+Estado hover.
+*/
+
+.contact-form label:has(select):hover::after {
+
+border-color:
+    var(--gold);
+
+filter:
+    drop-shadow(
+        0 0 5px
+        rgba(217,182,109,.5)
+    );
+
+}
+
+/*
+Estado focus.
+*/
+
+.contact-form label:has(select):focus-within::after {
+
+transform:
+    rotate(225deg);
+
+border-color:
+    var(--gold);
+
+}
+
+/*
+Opções do navegador.
+*/
+
+.contact-form select option {
+
+background:
+    #07101c;
+
+color:
+    #dce8f5;
 
 }
 
@@ -869,8 +1071,8 @@ content: "";
 
 position: absolute;
 
-width: 9px;
-height: 9px;
+width: 10px;
+height: 10px;
 
 border-color:
     var(--gold);
@@ -915,6 +1117,9 @@ font-weight: 400;
 transform:
     translateY(-3px);
 
+border-color:
+    var(--cyan);
+
 box-shadow:
     0 0 35px
     rgba(40,191,255,.16);
@@ -922,7 +1127,7 @@ box-shadow:
 }
 
 /* =========================================================
-STATUS MESSAGE
+STATUS
 ========================================================= */
 
 .form-status {
