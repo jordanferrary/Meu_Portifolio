@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>2D ARCHIVE // JORDAN FERRARY</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+
+</head>
+
+<body>
+
+<main>
+
+<section class="gallery-page">
+
+    <header class="gallery-header">
+
+        <div class="gallery-kicker">
+            JORDAN FERRARY // ARCHIVE 01
+        </div>
+
+        <h1 class="gallery-title">
+            2D ART
+        </h1>
+
+        <p class="gallery-description">
+
+            Pinturas digitais, ilustrações e estudos
+            visuais desenvolvidos ao longo do processo
+            criativo.
+
+        </p>
+
+    </header>
+
+
+    <div class="gallery-controls">
+
+        <button class="filter-button active" data-filter="all">
+            ALL
+        </button>
+
+        <button class="filter-button" data-filter="painting">
+            PAINTING
+        </button>
+
+        <button class="filter-button" data-filter="illustration">
+            ILLUSTRATION
+        </button>
+
+        <button class="filter-button" data-filter="study">
+            STUDIES
+        </button>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+
+        <article
+            class="gallery-card"
+            data-category="painting"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/2d-01.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    DIGITAL PAINTING
+                </small>
+
+                <h3>
+                    PROJECT 01
+                </h3>
+
+                <p>
+                    Atmospheric digital artwork.
+                </p>
+
+                <a
+                    href="project-01.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="gallery-card"
+            data-category="illustration"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/2d-02.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    ILLUSTRATION
+                </small>
+
+                <h3>
+                    PROJECT 02
+                </h3>
+
+                <p>
+                    Character and visual development.
+                </p>
+
+                <a
+                    href="project-02.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="gallery-card"
+            data-category="study"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/2d-03.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    STUDY
+                </small>
+
+                <h3>
+                    PROJECT 03
+                </h3>
+
+                <p>
+                    Composition and lighting study.
+                </p>
+
+                <a
+                    href="project-03.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const buttons =
+    document.querySelectorAll(".filter-button");
+
+const cards =
+    document.querySelectorAll(".gallery-card");
+
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        const filter =
+            button.dataset.filter;
+
+        cards.forEach(card => {
+
+            if (
+                filter === "all" ||
+                card.dataset.category === filter
+            ) {
+
+                card.style.display = "";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
