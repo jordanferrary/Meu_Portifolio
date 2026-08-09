@@ -1,126 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>JORDAN FERRARY // CONTACT</title>
 
-    <title>CONTACT // JORDAN FERRARY</title>
-
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/contact.css">
-
+    <link rel="stylesheet" href="contact.css">
 </head>
 
 <body>
 
-<main>
+    <main class="contact-page">
 
-<section class="contact-page">
+        <a href="../index.html" class="back">
+            ← BACK TO ARCHIVE
+        </a>
 
-    <header class="contact-header">
+        <section class="contact-container">
 
-        <div class="contact-kicker">
-            JORDAN FERRARY // CONTACT
-        </div>
+            <div class="contact-header">
 
-        <h1 class="contact-title">
+                <span class="eyebrow">
+                    CONTACT // COMMUNICATION CHANNEL
+                </span>
 
-            LET'S BUILD
-            <br>
+                <h1>
+                    LET'S BUILD
+                    <br>
+                    <span>SOMETHING.</span>
+                </h1>
 
-            <span>SOMETHING.</span>
+                <p>
+                    Tem um projeto, ideia ou colaboração em mente?
+                    Entre em contato e vamos transformar a ideia
+                    em algo visual.
+                </p>
 
-        </h1>
-
-        <p class="contact-description">
-
-            Tem um projeto, ideia ou oportunidade?
-            Entre em contato comigo através de um
-            dos canais abaixo.
-
-        </p>
-
-    </header>
-
-
-    <div class="contact-grid">
+            </div>
 
 
-        <div class="contact-card">
+            <div class="contact-grid">
 
-            <small>
-                EMAIL
-            </small>
+                <!-- INFORMAÇÕES -->
 
-            <a href="mailto:jordan.ferrary.me@gmail.com">
-                jordan.ferrary.me@gmail.com
-            </a>
+                <div class="contact-info">
 
-        </div>
+                    <div class="info-label">
+                        DIRECT CHANNEL
+                    </div>
 
-
-        <div class="contact-card">
-
-            <small>
-                INSTAGRAM
-            </small>
-
-            <a
-                href="https://instagram.com/jordan_.ferrary"
-                target="_blank"
-                rel="noopener"
-            >
-                @jordan_.ferrary
-            </a>
-
-        </div>
+                    <a
+                        href="mailto:jordanferrary.art@gmail.com"
+                        class="email"
+                    >
+                        jordanferrary.art@gmail.com
+                    </a>
 
 
-        <div class="contact-card">
+                    <div class="social-links">
 
-            <small>
-                ARTSTATION
-            </small>
+                        <a
+                            href="https://instagram.com/jordan_.ferrary"
+                            target="_blank"
+                        >
+                            <span>01</span>
+                            INSTAGRAM
+                            <b>↗</b>
+                        </a>
 
-            <a 
-                href="https://www.artstation.com/jordan_ferrary"
-                target="_blank"
-                rel="noopener"
-            >
-                /jordan_ferrary
-            </a>
+                        <a 
+                            href="https://www.artstation.com/jordan_ferrary"
+                            target="_blank"
+                        >
+                            <span>02</span>
+                            ARTSTATION
+                            <b>↗</b>
+                        </a>
 
-        </div>
+                        <a 
+                            href="https://www.behance.net/jordanferrary"
+                            target="_blank"
+                        >
+                            <span>03</span>
+                            BEHANCE
+                            <b>↗</b>
+                        </a>
+
+                    </div>
+
+                </div>
 
 
-        <div class="contact-card">
+                <!-- FORMULÁRIO -->
 
-            <small>
-                BEHANCE
-            </small>
+                <form
+                    class="contact-form"
+                    id="contactForm"
+                >
 
-            <a 
-                href="https://www.behance.net/jordanferrary"
-                target="_blank"
-                rel="noopener"
-            >
-                /jordanferrary
-            </a>
+                    <div class="form-header">
+                        <span>TRANSMISSION</span>
+                        <small>STATUS: READY</small>
+                    </div>
 
-        </div>
 
-    </div>
+                    <label>
+                        YOUR NAME
 
-</section>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="ENTER YOUR NAME"
+                            required
+                        >
+                    </label>
 
-</main>
+
+                    <label>
+                        YOUR EMAIL
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="ENTER YOUR EMAIL"
+                            required
+                        >
+                    </label>
+
+
+                    <label>
+                        PROJECT TYPE
+
+                        <select
+                            name="project"
+                            required
+                        >
+
+                            <option value="">
+                                SELECT PROJECT TYPE
+                            </option>
+
+                            <option value="2D">
+                                2D / DIGITAL ART
+                            </option>
+
+                            <option value="3D">
+                                3D / CGI
+                            </option>
+
+                            <option value="COLLABORATION">
+                                COLLABORATION
+                            </option>
+
+                            <option value="OTHER">
+                                OTHER
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        MESSAGE
+
+                        <textarea
+                            name="message"
+                            placeholder="DESCRIBE YOUR PROJECT..."
+                            rows="6"
+                            required
+                        ></textarea>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="submit"
+                    >
+
+                        SEND TRANSMISSION
+
+                        <span>↗</span>
+
+                    </button>
+
+
+                    <div
+                        class="form-status"
+                        id="formStatus"
+                    ></div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <span>
+                © 2026 JORDAN FERRARY
+            </span>
+
+            <span>
+                ALL SYSTEMS OPERATIONAL ●
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="contact.js"></script>
 
 </body>
-
 </html>
