@@ -1,6 +1,6 @@
 /* =========================================================
 JORDAN FERRARY // CONTACT
-CYBER FANTASY COMMUNICATION INTERFACE
+CYBER FANTASY CONTACT INTERFACE
 ========================================================= */
 
 /* =========================================================
@@ -28,7 +28,7 @@ display: inline-flex;
 
 align-items: center;
 
-gap: 8px;
+gap: 9px;
 
 margin-bottom: 65px;
 
@@ -51,6 +51,14 @@ transform:
 
 }
 
+.back-symbol {
+
+color: var(--cyan);
+
+font-size: 14px;
+
+}
+
 /* =========================================================
 HEADER
 ========================================================= */
@@ -63,9 +71,7 @@ margin-bottom: 60px;
 
 }
 
-.eyebrow {
-
-display: block;
+.contact-kicker {
 
 color: var(--gold);
 
@@ -75,11 +81,9 @@ letter-spacing: .22em;
 
 }
 
-.contact-header h1 {
+.contact-title {
 
-margin:
-    18px
-    0;
+margin: 18px 0;
 
 font-family:
     "Space Grotesk",
@@ -98,7 +102,7 @@ letter-spacing: -.045em;
 
 }
 
-.contact-header h1 span {
+.contact-title span {
 
 color: white;
 
@@ -108,7 +112,7 @@ text-shadow:
 
 }
 
-.contact-header p {
+.contact-description {
 
 max-width: 650px;
 
@@ -125,7 +129,7 @@ letter-spacing: .03em;
 }
 
 /* =========================================================
-MAIN GRID
+CONTACT GRID
 ========================================================= */
 
 .contact-grid {
@@ -133,8 +137,8 @@ MAIN GRID
 display: grid;
 
 grid-template-columns:
-    .85fr
-    1.15fr;
+    .9fr
+    1.1fr;
 
 gap: 20px;
 
@@ -143,10 +147,12 @@ align-items: start;
 }
 
 /* =========================================================
-CONTACT INFO
+CONTACT CARD
 ========================================================= */
 
-.contact-info {
+.contact-card {
+
+position: relative;
 
 padding: 30px;
 
@@ -157,71 +163,76 @@ border:
 background:
     linear-gradient(
         145deg,
-        rgba(12,26,45,.78),
+        rgba(12,26,45,.8),
         rgba(4,10,20,.82)
     );
-
-position: relative;
-
-}
-
-/* Cantos no mesmo padrão do style.css */
-
-.contact-info::before {
-
-content: "";
-
-position: absolute;
-
-width: 24px;
-height: 24px;
-
-top: -1px;
-left: -1px;
-
-border-top:
-    1px solid
-    var(--gold);
-
-border-left:
-    1px solid
-    var(--gold);
-
-pointer-events: none;
-
-}
-
-.contact-info::after {
-
-content: "";
-
-position: absolute;
-
-width: 24px;
-height: 24px;
-
-right: -1px;
-bottom: -1px;
-
-border-right:
-    1px solid
-    var(--gold);
-
-border-bottom:
-    1px solid
-    var(--gold);
-
-pointer-events: none;
 
 }
 
 /* =========================================================
-DIRECT CHANNEL
+ORNAMENTAL BORDERS
+Mesmo sistema visual do style.css
 ========================================================= */
 
-.info-label {
+.contact-card::before,
+.contact-card::after {
 
-padding-bottom: 16px;
+content: "";
+
+position: absolute;
+
+width: 22px;
+height: 22px;
+
+border-color:
+    var(--gold);
+
+border-style:
+    solid;
+
+pointer-events: none;
+
+z-index: 5;
+
+}
+
+.contact-card::before {
+
+top: -1px;
+left: -1px;
+
+border-width:
+    1px 0 0 1px;
+
+}
+
+.contact-card::after {
+
+right: -1px;
+bottom: -1px;
+
+border-width:
+    0 1px 1px 0;
+
+}
+
+/* =========================================================
+COMMUNICATION NODE
+========================================================= */
+
+.channel-header {
+
+display: flex;
+
+justify-content:
+    space-between;
+
+align-items:
+    flex-start;
+
+gap: 20px;
+
+padding-bottom: 18px;
 
 margin-bottom: 20px;
 
@@ -229,71 +240,121 @@ border-bottom:
     1px solid
     var(--line);
 
+}
+
+.channel-kicker {
+
+display: block;
+
+margin-bottom: 8px;
+
 color:
     var(--cyan);
 
-font-size: 9px;
+font-size: 8px;
 
 letter-spacing: .18em;
 
 }
 
-/* =========================================================
-EMAIL
-========================================================= */
+.channel-header h2 {
 
-.email {
+margin: 0;
+
+font-family:
+    "Space Grotesk";
+
+font-size: 23px;
+
+letter-spacing: .08em;
+
+}
+
+.channel-status {
+
+display: flex;
+
+align-items: center;
+
+gap: 7px;
+
+color:
+    #65758b;
+
+font-size: 7px;
+
+letter-spacing: .12em;
+
+white-space:
+    nowrap;
+
+}
+
+.channel-status i,
+.form-status-indicator i {
+
+width: 6px;
+height: 6px;
 
 display: block;
 
+border-radius: 50%;
+
+background:
+    #54ff9b;
+
+box-shadow:
+    0 0 10px
+    rgba(84,255,155,.6);
+
+}
+
+/* =========================================================
+EMAIL CHANNEL
+========================================================= */
+
+.email-channel {
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
 padding:
-    17px
     16px;
 
 border:
     1px solid
-    rgba(40,191,255,.28);
+    rgba(40,191,255,.22);
 
 background:
     linear-gradient(
         90deg,
-        rgba(40,191,255,.07),
+        rgba(40,191,255,.06),
         rgba(4,10,20,.35)
-    );
-
-color:
-    #dce9f7;
-
-font-family:
-    "Space Grotesk",
-    sans-serif;
-
-font-size:
-    clamp(
-        12px,
-        1.4vw,
-        17px
     );
 
 position: relative;
 
-transition: .25s ease;
+transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
 
 }
 
-/* Canto ciano */
-
-.email::before {
+.email-channel::before {
 
 content: "";
 
 position: absolute;
 
-width: 13px;
-height: 13px;
-
 top: -1px;
 right: -1px;
+
+width: 13px;
+height: 13px;
 
 border-top:
     1px solid
@@ -305,19 +366,17 @@ border-right:
 
 }
 
-/* Canto dourado */
-
-.email::after {
+.email-channel::after {
 
 content: "";
 
 position: absolute;
 
-width: 13px;
-height: 13px;
-
 left: -1px;
 bottom: -1px;
+
+width: 13px;
+height: 13px;
 
 border-left:
     1px solid
@@ -329,41 +388,130 @@ border-bottom:
 
 }
 
-.email:hover {
+.email-channel:hover {
 
 border-color:
-    rgba(40,191,255,.65);
+    rgba(40,191,255,.55);
 
-color:
-    white;
+background:
+    linear-gradient(
+        90deg,
+        rgba(40,191,255,.1),
+        rgba(4,10,20,.45)
+    );
 
 box-shadow:
     0 0 25px
-    rgba(40,191,255,.08);
+    rgba(40,191,255,.06);
+
+}
+
+.channel-icon {
+
+width: 38px;
+height: 38px;
+
+flex-shrink: 0;
+
+display: grid;
+
+place-items: center;
+
+border:
+    1px solid
+    rgba(217,182,109,.55);
+
+color:
+    var(--gold);
+
+font-family:
+    "Space Grotesk";
+
+font-size: 16px;
+
+}
+
+.channel-content {
+
+min-width: 0;
+
+}
+
+.channel-label {
+
+display: block;
+
+margin-bottom: 5px;
+
+color:
+    #65758b;
+
+font-size: 7px;
+
+letter-spacing: .14em;
+
+}
+
+.channel-email {
+
+display: block;
+
+overflow: hidden;
+
+color:
+    #dce8f5;
+
+font-family:
+    "Space Grotesk";
+
+font-size:
+    clamp(
+        11px,
+        1.25vw,
+        15px
+    );
+
+text-overflow:
+    ellipsis;
+
+white-space:
+    nowrap;
+
+}
+
+.channel-arrow {
+
+margin-left: auto;
+
+color:
+    var(--cyan);
+
+font-size: 18px;
 
 }
 
 /* =========================================================
-SOCIAL LINKS
+SOCIAL NETWORKS
 ========================================================= */
 
-.social-links {
+.network-section {
 
-margin-top: 32px;
+margin-top: 30px;
 
 }
 
-.social-links::before {
+.network-heading {
 
-content:
-    "NETWORK CHANNELS";
+display: flex;
 
-display: block;
+align-items: center;
+
+gap: 9px;
 
 margin-bottom: 10px;
 
 color:
-    #68788e;
+    #65758b;
 
 font-size: 7px;
 
@@ -371,19 +519,27 @@ letter-spacing: .18em;
 
 }
 
-.social-links a {
+.network-icon {
+
+color:
+    var(--gold);
+
+font-size: 12px;
+
+}
+
+.network-link {
 
 min-height: 58px;
-
-padding:
-    0
-    8px;
 
 display: flex;
 
 align-items: center;
 
 gap: 14px;
+
+padding:
+    0 8px;
 
 border-top:
     1px solid
@@ -392,15 +548,12 @@ border-top:
 color:
     #aab7c8;
 
-font-size: 8px;
-
-letter-spacing: .13em;
-
-transition: .25s ease;
+transition:
+    .25s ease;
 
 }
 
-.social-links a:last-child {
+.network-link:last-child {
 
 border-bottom:
     1px solid
@@ -408,9 +561,10 @@ border-bottom:
 
 }
 
-.social-links a:hover {
+.network-link:hover {
 
-padding-left: 14px;
+padding-left:
+    14px;
 
 color:
     white;
@@ -424,10 +578,12 @@ background:
 
 }
 
-.social-links a span {
+.network-brand {
 
-width: 28px;
-height: 28px;
+width: 30px;
+height: 30px;
+
+flex-shrink: 0;
 
 display: grid;
 
@@ -435,16 +591,65 @@ place-items: center;
 
 border:
     1px solid
-    rgba(217,182,109,.55);
+    rgba(217,182,109,.5);
 
 color:
     var(--gold);
 
-font-size: 7px;
+font-family:
+    "Space Grotesk";
+
+font-size: 8px;
+
+transition:
+    .25s ease;
 
 }
 
-.social-links a b {
+.network-link:hover .network-brand {
+
+border-color:
+    var(--cyan);
+
+color:
+    var(--cyan);
+
+box-shadow:
+    0 0 12px
+    rgba(40,191,255,.12);
+
+}
+
+.network-info {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 4px;
+
+}
+
+.network-info strong {
+
+font-size: 8px;
+
+letter-spacing: .13em;
+
+}
+
+.network-info small {
+
+color:
+    #65758b;
+
+font-size: 7px;
+
+letter-spacing: .05em;
+
+}
+
+.network-arrow {
 
 margin-left: auto;
 
@@ -452,81 +657,6 @@ color:
     var(--cyan);
 
 font-size: 15px;
-
-font-weight: 400;
-
-}
-
-/* =========================================================
-FORM
-========================================================= */
-
-.contact-form {
-
-padding: 30px;
-
-border:
-    1px solid
-    var(--line);
-
-background:
-    linear-gradient(
-        145deg,
-        rgba(12,26,45,.78),
-        rgba(4,10,20,.82)
-    );
-
-position: relative;
-
-}
-
-/* Cantos */
-
-.contact-form::before {
-
-content: "";
-
-position: absolute;
-
-width: 24px;
-height: 24px;
-
-top: -1px;
-left: -1px;
-
-border-top:
-    1px solid
-    var(--gold);
-
-border-left:
-    1px solid
-    var(--gold);
-
-pointer-events: none;
-
-}
-
-.contact-form::after {
-
-content: "";
-
-position: absolute;
-
-width: 24px;
-height: 24px;
-
-right: -1px;
-bottom: -1px;
-
-border-right:
-    1px solid
-    var(--gold);
-
-border-bottom:
-    1px solid
-    var(--gold);
-
-pointer-events: none;
 
 }
 
@@ -544,9 +674,11 @@ justify-content:
 align-items:
     center;
 
-padding-bottom: 17px;
+gap: 20px;
 
-margin-bottom: 22px;
+padding-bottom: 18px;
+
+margin-bottom: 23px;
 
 border-bottom:
     1px solid
@@ -555,6 +687,8 @@ border-bottom:
 }
 
 .form-header span {
+
+display: block;
 
 color:
     var(--cyan);
@@ -567,6 +701,27 @@ letter-spacing: .18em;
 
 .form-header small {
 
+display: block;
+
+margin-top: 5px;
+
+color:
+    #65758b;
+
+font-size: 7px;
+
+letter-spacing: .12em;
+
+}
+
+.form-status-indicator {
+
+display: flex;
+
+align-items: center;
+
+gap: 7px;
+
 color:
     #54ff9b;
 
@@ -577,16 +732,16 @@ letter-spacing: .12em;
 }
 
 /* =========================================================
-LABELS
+FORM FIELDS
 ========================================================= */
 
 .contact-form label {
 
 display: grid;
 
-gap: 9px;
+gap: 8px;
 
-margin-bottom: 20px;
+margin-bottom: 19px;
 
 color:
     #8998aa;
@@ -597,18 +752,11 @@ letter-spacing: .16em;
 
 }
 
-/* =========================================================
-INPUTS
-========================================================= */
-
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
 
 width: 100%;
-
-padding:
-    14px;
 
 border:
     1px solid
@@ -617,7 +765,7 @@ border:
 outline: none;
 
 background:
-    rgba(3,9,18,.75);
+    rgba(3,9,18,.78);
 
 color:
     var(--text);
@@ -636,11 +784,24 @@ transition:
 
 }
 
+.contact-form input {
+
+height: 48px;
+
+padding:
+    0 14px;
+
+}
+
 .contact-form textarea {
 
 min-height: 140px;
 
-resize: vertical;
+padding:
+    14px;
+
+resize:
+    vertical;
 
 }
 
@@ -656,10 +817,10 @@ color:
 .contact-form textarea:focus {
 
 border-color:
-    rgba(40,191,255,.7);
+    rgba(40,191,255,.65);
 
 background:
-    rgba(8,24,42,.8);
+    rgba(8,24,42,.82);
 
 box-shadow:
     0 0 20px
@@ -669,32 +830,33 @@ box-shadow:
 
 /* =========================================================
 PROJECT TYPE
-CUSTOM SELECT
 ========================================================= */
 
-.contact-form label:has(select) {
+.contact-form label[for="project"] {
 
 position: relative;
 
 }
 
-/* Remove aparência padrão */
-
 .contact-form select {
 
-min-height: 48px;
+height: 48px;
 
 padding:
-    0
-    48px
-    0
-    14px;
+    0 48px
+    0 14px;
 
-appearance: none;
--webkit-appearance: none;
--moz-appearance: none;
+appearance:
+    none;
 
-cursor: pointer;
+-webkit-appearance:
+    none;
+
+-moz-appearance:
+    none;
+
+cursor:
+    pointer;
 
 color:
     #aebdd0;
@@ -703,16 +865,17 @@ background:
     linear-gradient(
         145deg,
         rgba(12,26,45,.8),
-        rgba(4,10,20,.9)
+        rgba(4,10,20,.92)
     );
 
 }
 
-/* Divisor + seta */
+/* Seta */
 
-.contact-form label:has(select)::after {
+.contact-form label[for="project"]::after {
 
-content: "";
+content:
+    "⌄";
 
 position: absolute;
 
@@ -720,7 +883,7 @@ right: 0;
 
 bottom: 0;
 
-width: 43px;
+width: 44px;
 height: 48px;
 
 display: grid;
@@ -729,20 +892,21 @@ place-items: center;
 
 border-left:
     1px solid
-    rgba(115,160,205,.25);
+    rgba(115,160,205,.22);
 
 color:
     var(--cyan);
 
-font-size: 17px;
+font-size: 16px;
 
-pointer-events: none;
+pointer-events:
+    none;
 
 }
 
-/* Cantinho dourado */
+/* Canto dourado */
 
-.contact-form label:has(select)::before {
+.contact-form label[for="project"]::before {
 
 content: "";
 
@@ -750,7 +914,7 @@ position: absolute;
 
 left: -1px;
 
-bottom: 0;
+bottom: -1px;
 
 width: 13px;
 height: 13px;
@@ -763,13 +927,12 @@ border-bottom:
     1px solid
     var(--gold);
 
-pointer-events: none;
+pointer-events:
+    none;
 
 z-index: 2;
 
 }
-
-/* Hover */
 
 .contact-form select:hover {
 
@@ -778,8 +941,6 @@ border-color:
 
 }
 
-/* Focus */
-
 .contact-form select:focus {
 
 border-color:
@@ -787,11 +948,9 @@ border-color:
 
 box-shadow:
     0 0 20px
-    rgba(40,191,255,.06);
+    rgba(40,191,255,.07);
 
 }
-
-/* Opções */
 
 .contact-form select option {
 
@@ -811,11 +970,7 @@ SUBMIT
 
 width: 100%;
 
-min-height: 52px;
-
-padding:
-    0
-    15px;
+height: 52px;
 
 display: flex;
 
@@ -823,6 +978,9 @@ align-items: center;
 
 justify-content:
     space-between;
+
+padding:
+    0 15px;
 
 border:
     1px solid
@@ -838,7 +996,11 @@ background:
 color:
     white;
 
-cursor: pointer;
+cursor:
+    pointer;
+
+font:
+    inherit;
 
 font-size: 9px;
 
@@ -846,11 +1008,10 @@ letter-spacing: .15em;
 
 position: relative;
 
-transition: .25s ease;
+transition:
+    .25s ease;
 
 }
-
-/* Cantos do botão */
 
 .submit::before,
 .submit::after {
@@ -872,8 +1033,8 @@ border-style:
 
 .submit::before {
 
-top: -1px;
 left: -1px;
+top: -1px;
 
 border-width:
     1px 0 0 1px;
@@ -904,22 +1065,27 @@ box-shadow:
 
 }
 
-.submit span {
+.submit b {
 
 color:
     var(--cyan);
 
 font-size: 20px;
 
+font-weight:
+    400;
+
 }
 
 /* =========================================================
-FORM STATUS
+STATUS
 ========================================================= */
 
 .form-status {
 
-min-height: 14px;
+min-height: 16px;
+
+margin-top: 10px;
 
 color:
     var(--cyan);
@@ -991,14 +1157,12 @@ MOBILE
 
 }
 
-
 .back {
 
     margin-bottom:
         50px;
 
 }
-
 
 .contact-header {
 
@@ -1007,8 +1171,7 @@ MOBILE
 
 }
 
-
-.contact-header h1 {
+.contact-title {
 
     font-size:
         clamp(
@@ -1019,38 +1182,47 @@ MOBILE
 
 }
 
-
-.contact-header p {
+.contact-description {
 
     font-size:
         12px;
 
 }
 
-
-.contact-info,
-.contact-form {
+.contact-card {
 
     padding:
         22px;
 
 }
 
+.channel-header {
+
+    flex-direction:
+        column;
+
+}
+
+.channel-status {
+
+    align-self:
+        flex-start;
+
+}
+
+.channel-email {
+
+    font-size:
+        11px;
+
+}
 
 .form-header {
 
-    gap: 15px;
+    align-items:
+        flex-start;
 
 }
-
-
-.form-header small {
-
-    white-space:
-        nowrap;
-
-}
-
 
 .contact-page footer {
 
@@ -1073,26 +1245,31 @@ SMALL MOBILE
 
 @media(max-width:420px) {
 
-.contact-header h1 {
+.contact-card {
 
-    font-size:
-        45px;
-
-}
-
-
-.email {
-
-    font-size:
-        11px;
+    padding:
+        18px;
 
 }
 
-
-.social-links a {
+.email-channel {
 
     gap:
         10px;
+
+}
+
+.channel-icon {
+
+    width: 34px;
+    height: 34px;
+
+}
+
+.channel-arrow {
+
+    display:
+        none;
 
 }
 
