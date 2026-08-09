@@ -1,0 +1,78 @@
+/* =========================================================
+   CONTACT ME
+   ========================================================= */
+
+.contact-page {
+    min-height: 100vh;
+    padding: 80px 5vw;
+}
+
+.contact-header {
+    max-width: 850px;
+    margin-bottom: 60px;
+}
+
+.contact-kicker {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: .22em;
+}
+
+.contact-title {
+    margin: 18px 0;
+    font-family: "Space Grotesk";
+    font-size: clamp(55px, 8vw, 110px);
+    line-height: .85;
+}
+
+.contact-title span {
+    color: white;
+}
+
+.contact-description {
+    max-width: 650px;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.contact-card {
+    padding: 30px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.contact-card small {
+    color: #637187;
+    font-size: 7px;
+    letter-spacing: .18em;
+}
+
+.contact-card a {
+    display: block;
+    margin-top: 14px;
+    color: var(--cyan);
+    font-family: "Space Grotesk";
+    font-size: 20px;
+}
+
+.contact-card a:hover {
+    text-shadow: 0 0 15px rgba(40,191,255,.5);
+}
+
+@media(max-width:700px) {
+
+    .contact-page {
+        padding: 50px 22px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
