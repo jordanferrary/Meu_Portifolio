@@ -2,40 +2,59 @@
 JORDAN FERRARY // CONTACT SYSTEM
 ========================================================= */
 
-const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
+const contactForm =
+document.getElementById("contactForm");
+
+const formStatus =
+document.getElementById("formStatus");
 
 if (contactForm) {
 
-contactForm.addEventListener("submit", function (event) {
+contactForm.addEventListener(
+    "submit",
+    function (event) {
 
-    event.preventDefault();
-
-    const formData = new FormData(contactForm);
-
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const project = formData.get("project");
-    const message = formData.get("message");
+        event.preventDefault();
 
 
-    /*
-     * DESTINATION
-     */
-
-    const destination =
-        "jordan.ferrary.me@gmail.com";
+        const formData =
+            new FormData(contactForm);
 
 
-    /*
-     * EMAIL
-     */
+        const name =
+            formData.get("name");
 
-    const subject =
-        `PROJECT INQUIRY // ${project}`;
+        const email =
+            formData.get("email");
+
+        const project =
+            formData.get("project");
+
+        const message =
+            formData.get("message");
 
 
-    const body =
+        /*
+         * DESTINATION
+         */
+
+        const destination =
+            "jordan.ferrary.me@gmail.com";
+
+
+        /*
+         * SUBJECT
+         */
+
+        const subject =
+            `PROJECT INQUIRY // ${project}`;
+
+
+        /*
+         * MESSAGE
+         */
+
+        const body =
 
 `Hello Jordan,
 
@@ -53,32 +72,35 @@ ${message}
 
 ---
 
-Sent through Jordan Ferrary Digital Archive`;
+Sent through
+JORDAN FERRARY // DIGITAL ARCHIVE`;
 
-    /*
-     * OPEN EMAIL CLIENT
-     */
+        /*
+         * MAILTO
+         */
 
-    const mailto =
-        `mailto:${destination}` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
-
-
-    /*
-     * STATUS
-     */
-
-    formStatus.textContent =
-        "TRANSMISSION READY // OPENING MAIL CLIENT...";
+        const mailto =
+            `mailto:${destination}` +
+            `?subject=${encodeURIComponent(subject)}` +
+            `&body=${encodeURIComponent(body)}`;
 
 
-    /*
-     * OPEN
-     */
+        /*
+         * STATUS
+         */
 
-    window.location.href = mailto;
+        formStatus.textContent =
+            "TRANSMISSION READY // OPENING MAIL CLIENT...";
 
-});
+
+        /*
+         * OPEN EMAIL
+         */
+
+        window.location.href =
+            mailto;
+
+    }
+);
 
 }

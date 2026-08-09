@@ -1,6 +1,6 @@
 /* =========================================================
 JORDAN FERRARY // CONTACT
-CYBER FANTASY CONTACT INTERFACE
+CYBER FANTASY COMMUNICATION INTERFACE
 ========================================================= */
 
 /* =========================================================
@@ -8,8 +8,14 @@ PAGE
 ========================================================= */
 
 .contact-page {
+
 min-height: 100vh;
-padding: 55px 5vw 35px;
+
+padding:
+    55px
+    5vw
+    35px;
+
 }
 
 /* =========================================================
@@ -17,23 +23,40 @@ BACK
 ========================================================= */
 
 .back {
+
 display: inline-flex;
+
 align-items: center;
+
+gap: 9px;
 
 margin-bottom: 70px;
 
 color: #68788e;
 
 font-size: 8px;
+
 letter-spacing: .16em;
 
 transition: .25s ease;
 
 }
 
+.back-symbol {
+
+color: var(--gold);
+
+font-size: 15px;
+
+}
+
 .back:hover {
+
 color: var(--cyan);
-transform: translateX(-4px);
+
+transform:
+    translateX(-4px);
+
 }
 
 /* =========================================================
@@ -41,26 +64,41 @@ HEADER
 ========================================================= */
 
 .contact-header {
+
 max-width: 850px;
+
 margin-bottom: 60px;
+
 }
 
 .contact-kicker {
+
 display: block;
 
 color: var(--gold);
 
 font-size: 9px;
+
 letter-spacing: .22em;
 
 }
 
 .contact-title {
-margin: 18px 0;
 
-font-family: "Space Grotesk", sans-serif;
+margin:
+    18px
+    0;
 
-font-size: clamp(55px, 8vw, 110px);
+font-family:
+    "Space Grotesk",
+    sans-serif;
+
+font-size:
+    clamp(
+        55px,
+        8vw,
+        110px
+    );
 
 line-height: .85;
 
@@ -69,17 +107,20 @@ letter-spacing: -.045em;
 }
 
 .contact-title span {
+
 color: white;
 
 text-shadow:
-    0 0 30px rgba(130,190,255,.15);
+    0 0 30px
+    rgba(130,190,255,.15);
 
 }
 
 .contact-description {
+
 max-width: 650px;
 
-margin: 28px 0 0;
+margin-top: 28px;
 
 color: var(--muted);
 
@@ -96,10 +137,12 @@ GRID
 ========================================================= */
 
 .contact-grid {
+
 display: grid;
 
 grid-template-columns:
-    .8fr 1.2fr;
+    .85fr
+    1.15fr;
 
 gap: 20px;
 
@@ -108,37 +151,40 @@ align-items: start;
 }
 
 /* =========================================================
-CARD
+CARDS
 ========================================================= */
 
 .contact-card {
+
 position: relative;
 
 padding: 30px;
 
-border: 1px solid var(--line);
+border:
+    1px solid
+    var(--line);
 
 background:
     linear-gradient(
         145deg,
-        rgba(12,26,45,.8),
-        rgba(4,10,20,.75)
+        rgba(12,26,45,.82),
+        rgba(4,10,20,.82)
     );
 
 }
 
-/* Ornamental corners */
-
 .contact-card::before,
 .contact-card::after {
+
 content: "";
 
 position: absolute;
 
-width: 20px;
-height: 20px;
+width: 22px;
+height: 22px;
 
-border-color: var(--gold);
+border-color:
+    var(--gold);
 
 border-style: solid;
 
@@ -147,29 +193,326 @@ pointer-events: none;
 }
 
 .contact-card::before {
+
 top: -1px;
 left: -1px;
 
-border-width: 1px 0 0 1px;
+border-width:
+    1px 0 0 1px;
 
 }
 
 .contact-card::after {
+
 right: -1px;
 bottom: -1px;
 
-border-width: 0 1px 1px 0;
+border-width:
+    0 1px 1px 0;
 
 }
 
 /* =========================================================
-DIRECT CHANNEL
+COMMUNICATION HEADER
 ========================================================= */
 
-.contact-card > small {
+.channel-header {
+
+display: flex;
+
+justify-content:
+    space-between;
+
+align-items:
+    flex-start;
+
+gap: 20px;
+
+padding-bottom: 20px;
+
+border-bottom:
+    1px solid
+    var(--line);
+
+}
+
+.channel-kicker {
+
 display: block;
 
-color: #637187;
+margin-bottom: 8px;
+
+color:
+    var(--gold);
+
+font-size: 7px;
+
+letter-spacing: .2em;
+
+}
+
+.channel-header h2 {
+
+margin: 0;
+
+font-family:
+    "Space Grotesk",
+    sans-serif;
+
+font-size: 22px;
+
+letter-spacing: .08em;
+
+}
+
+.channel-status {
+
+display: flex;
+
+align-items: center;
+
+gap: 6px;
+
+color: #54ff9b;
+
+font-size: 7px;
+
+letter-spacing: .12em;
+
+white-space: nowrap;
+
+}
+
+.channel-status i,
+.form-status-indicator i {
+
+width: 6px;
+height: 6px;
+
+display: inline-block;
+
+border-radius: 50%;
+
+background: #54ff9b;
+
+box-shadow:
+    0 0 10px
+    rgba(84,255,155,.7);
+
+}
+
+/* =========================================================
+EMAIL CHANNEL
+========================================================= */
+
+.email-channel {
+
+min-height: 92px;
+
+margin-top: 20px;
+
+padding: 18px;
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+border:
+    1px solid
+    rgba(40,191,255,.25);
+
+background:
+    linear-gradient(
+        90deg,
+        rgba(40,191,255,.07),
+        rgba(4,10,20,.2)
+    );
+
+position: relative;
+
+transition: .3s ease;
+
+}
+
+.email-channel:hover {
+
+border-color:
+    rgba(40,191,255,.65);
+
+box-shadow:
+    0 0 25px
+    rgba(40,191,255,.08);
+
+}
+
+.channel-icon {
+
+width: 42px;
+height: 42px;
+
+flex-shrink: 0;
+
+display: grid;
+
+place-items: center;
+
+border:
+    1px solid
+    var(--gold);
+
+color:
+    var(--gold);
+
+font-family:
+    "Space Grotesk";
+
+font-size: 17px;
+
+transform:
+    rotate(45deg);
+
+}
+
+.channel-icon::first-letter {
+
+display: block;
+
+}
+
+.email-icon {
+
+transform:
+    rotate(45deg);
+
+}
+
+.email-channel .channel-icon {
+
+position: relative;
+
+}
+
+.email-channel .channel-icon {
+
+text-align: center;
+
+}
+
+.email-channel .channel-icon {
+
+line-height: 1;
+
+}
+
+.email-channel .channel-icon {
+
+color: var(--cyan);
+
+border-color:
+    var(--cyan);
+
+}
+
+.email-channel .channel-icon {
+
+transform:
+    rotate(45deg);
+
+}
+
+.email-channel .channel-icon {
+
+font-size: 14px;
+
+}
+
+.channel-content {
+
+min-width: 0;
+
+flex: 1;
+
+}
+
+.channel-label {
+
+display: block;
+
+margin-bottom: 6px;
+
+color: #65758b;
+
+font-size: 6px;
+
+letter-spacing: .16em;
+
+}
+
+.channel-email {
+
+display: block;
+
+overflow: hidden;
+
+color: white;
+
+font-family:
+    "Space Grotesk";
+
+font-size:
+    clamp(
+        12px,
+        1.4vw,
+        17px
+    );
+
+text-overflow:
+    ellipsis;
+
+white-space:
+    nowrap;
+
+}
+
+.channel-email:hover {
+
+color:
+    var(--cyan);
+
+}
+
+.channel-arrow {
+
+color:
+    var(--cyan);
+
+font-size: 18px;
+
+}
+
+/* =========================================================
+NETWORK SECTION
+========================================================= */
+
+.network-section {
+
+margin-top: 35px;
+
+}
+
+.network-heading {
+
+display: flex;
+
+align-items: center;
+
+gap: 9px;
+
+margin-bottom: 12px;
+
+color: #748398;
 
 font-size: 7px;
 
@@ -177,100 +520,129 @@ letter-spacing: .18em;
 
 }
 
-.email-link {
-display: block;
+.network-icon {
 
-margin-top: 14px;
+color:
+    var(--gold);
 
-color: var(--cyan);
-
-font-family: "Space Grotesk", sans-serif;
-
-font-size: clamp(16px, 2vw, 21px);
-
-word-break: break-word;
-
-transition: .25s ease;
-
-}
-
-.email-link:hover {
-color: white;
-
-text-shadow:
-    0 0 15px rgba(40,191,255,.5);
+font-size: 14px;
 
 }
 
 /* =========================================================
-SOCIAL LINKS
+NETWORK LINK
 ========================================================= */
 
-.social-links {
-margin-top: 45px;
+.network-link {
 
-display: grid;
+min-height: 64px;
 
-gap: 0;
-
-}
-
-.social-links a {
-min-height: 50px;
-
-padding: 0 5px;
+padding:
+    0
+    7px;
 
 display: flex;
 
 align-items: center;
 
-gap: 12px;
+gap: 14px;
 
-border-top: 1px solid var(--line);
+border-top:
+    1px solid
+    var(--line);
 
 color: #aab7c8;
-
-font-size: 8px;
-
-letter-spacing: .14em;
 
 transition: .25s ease;
 
 }
 
-.social-links a:last-child {
-border-bottom: 1px solid var(--line);
-}
+.network-link:last-child {
 
-.social-links a span {
-color: var(--gold);
-
-font-size: 7px;
+border-bottom:
+    1px solid
+    var(--line);
 
 }
 
-.social-links a b {
-margin-left: auto;
+.network-link:hover {
 
-color: var(--cyan);
-
-font-size: 14px;
-
-font-weight: 400;
-
-}
-
-.social-links a:hover {
-padding-left: 12px;
+padding-left: 14px;
 
 color: white;
 
 background:
     linear-gradient(
         90deg,
-        rgba(21,110,180,.15),
+        rgba(21,110,180,.16),
         transparent
     );
+
+}
+
+.network-brand {
+
+width: 30px;
+height: 30px;
+
+display: grid;
+
+place-items: center;
+
+border:
+    1px solid
+    rgba(217,182,109,.55);
+
+color:
+    var(--gold);
+
+font-family:
+    "Space Grotesk";
+
+font-size: 8px;
+
+letter-spacing: 0;
+
+}
+
+.network-info {
+
+flex: 1;
+
+}
+
+.network-info strong {
+
+display: block;
+
+color: #d8e3ef;
+
+font-size: 8px;
+
+letter-spacing: .13em;
+
+}
+
+.network-info small {
+
+display: block;
+
+margin-top: 5px;
+
+color: #5f7085;
+
+font-size: 7px;
+
+letter-spacing: .06em;
+
+}
+
+.network-arrow {
+
+color:
+    var(--cyan);
+
+font-size: 16px;
 
 }
 
@@ -279,9 +651,10 @@ FORM
 ========================================================= */
 
 .contact-form {
+
 display: grid;
 
-gap: 22px;
+gap: 21px;
 
 }
 
@@ -290,20 +663,29 @@ FORM HEADER
 ========================================================= */
 
 .form-header {
-padding-bottom: 16px;
+
+padding-bottom: 17px;
 
 display: flex;
 
-justify-content: space-between;
+justify-content:
+    space-between;
 
-align-items: center;
+align-items:
+    center;
 
-border-bottom: 1px solid var(--line);
+border-bottom:
+    1px solid
+    var(--line);
 
 }
 
-.form-header span {
-color: var(--cyan);
+.form-header > div:first-child span {
+
+display: block;
+
+color:
+    var(--cyan);
 
 font-size: 9px;
 
@@ -311,25 +693,50 @@ letter-spacing: .18em;
 
 }
 
-.form-header small {
-color: #54ff9b;
+.form-header > div:first-child small {
+
+display: block;
+
+margin-top: 5px;
+
+color:
+    #637187;
+
+font-size: 6px;
+
+letter-spacing: .12em;
+
+}
+
+.form-status-indicator {
+
+display: flex;
+
+align-items: center;
+
+gap: 6px;
+
+color:
+    #54ff9b;
 
 font-size: 7px;
 
-letter-spacing: .1em;
+letter-spacing: .12em;
 
 }
 
 /* =========================================================
-LABELS
+FORM LABELS
 ========================================================= */
 
 .contact-form label {
+
 display: grid;
 
 gap: 9px;
 
-color: #8998aa;
+color:
+    #8998aa;
 
 font-size: 7px;
 
@@ -344,18 +751,22 @@ INPUTS
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
+
 width: 100%;
 
 padding: 14px;
 
-border: 1px solid rgba(115,160,205,.25);
+border:
+    1px solid
+    rgba(115,160,205,.25);
 
 outline: none;
 
 background:
     rgba(3,9,18,.75);
 
-color: var(--text);
+color:
+    var(--text);
 
 font: inherit;
 
@@ -368,6 +779,7 @@ transition: .25s ease;
 }
 
 .contact-form textarea {
+
 min-height: 140px;
 
 resize: vertical;
@@ -375,6 +787,7 @@ resize: vertical;
 }
 
 .contact-form select {
+
 appearance: none;
 
 cursor: pointer;
@@ -383,40 +796,52 @@ cursor: pointer;
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-color: #46566b;
+
+color:
+    #46566b;
+
 }
 
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-border-color: rgba(40,191,255,.7);
+
+border-color:
+    rgba(40,191,255,.7);
 
 background:
     rgba(8,24,42,.8);
 
 box-shadow:
-    0 0 20px rgba(40,191,255,.06);
+    0 0 20px
+    rgba(40,191,255,.06);
 
 }
 
 /* =========================================================
-BUTTON
+SUBMIT
 ========================================================= */
 
 .submit {
+
 min-height: 54px;
 
-padding: 0 16px;
+padding:
+    0
+    16px;
 
 display: flex;
 
 align-items: center;
 
-justify-content: space-between;
+justify-content:
+    space-between;
 
 position: relative;
 
-border: 1px solid rgba(40,191,255,.65);
+border:
+    1px solid
+    rgba(40,191,255,.65);
 
 background:
     linear-gradient(
@@ -439,6 +864,7 @@ transition: .25s ease;
 
 .submit::before,
 .submit::after {
+
 content: "";
 
 position: absolute;
@@ -446,53 +872,67 @@ position: absolute;
 width: 9px;
 height: 9px;
 
-border-color: var(--gold);
+border-color:
+    var(--gold);
 
 border-style: solid;
 
 }
 
 .submit::before {
+
 top: -1px;
 left: -1px;
 
-border-width: 1px 0 0 1px;
+border-width:
+    1px 0 0 1px;
 
 }
 
 .submit::after {
+
 right: -1px;
 bottom: -1px;
 
-border-width: 0 1px 1px 0;
+border-width:
+    0 1px 1px 0;
 
 }
 
-.submit span {
-color: var(--cyan);
+.submit b {
+
+color:
+    var(--cyan);
 
 font-size: 20px;
+
+font-weight: 400;
 
 }
 
 .submit:hover {
-transform: translateY(-3px);
+
+transform:
+    translateY(-3px);
 
 box-shadow:
-    0 0 35px rgba(40,191,255,.16);
+    0 0 35px
+    rgba(40,191,255,.16);
 
 }
 
 /* =========================================================
-STATUS
+STATUS MESSAGE
 ========================================================= */
 
 .form-status {
-min-height: 15px;
 
-color: var(--cyan);
+min-height: 14px;
 
-font-size: 8px;
+color:
+    var(--cyan);
+
+font-size: 7px;
 
 letter-spacing: .1em;
 
@@ -503,17 +943,25 @@ FOOTER
 ========================================================= */
 
 .contact-page footer {
+
 margin-top: 80px;
 
-padding: 20px 0 10px;
+padding:
+    20px
+    0
+    10px;
 
 display: flex;
 
-justify-content: space-between;
+justify-content:
+    space-between;
 
-border-top: 1px solid var(--line);
+border-top:
+    1px solid
+    var(--line);
 
-color: #536175;
+color:
+    #536175;
 
 font-size: 7px;
 
@@ -528,7 +976,10 @@ TABLET
 @media(max-width:900px) {
 
 .contact-grid {
-    grid-template-columns: 1fr;
+
+    grid-template-columns:
+        1fr;
+
 }
 
 }
@@ -540,37 +991,93 @@ MOBILE
 @media(max-width:760px) {
 
 .contact-page {
+
     padding:
-        35px 22px
+        35px
+        22px
         25px;
+
 }
+
 
 .back {
+
     margin-bottom: 50px;
+
 }
+
 
 .contact-header {
+
     margin-bottom: 45px;
+
 }
+
 
 .contact-title {
-    font-size: clamp(48px, 14vw, 75px);
+
+    font-size:
+        clamp(
+            48px,
+            14vw,
+            75px
+        );
+
 }
+
 
 .contact-description {
+
     font-size: 12px;
+
 }
+
 
 .contact-card {
+
     padding: 22px;
+
 }
 
+
+.channel-header {
+
+    flex-direction:
+        column;
+
+}
+
+
+.channel-status {
+
+    margin-top: -8px;
+
+}
+
+
+.channel-email {
+
+    font-size: 12px;
+
+}
+
+
+.email-channel {
+
+    padding: 14px;
+
+}
+
+
 .contact-page footer {
+
     margin-top: 55px;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
     gap: 12px;
+
 }
 
 }
@@ -582,11 +1089,23 @@ SMALL MOBILE
 @media(max-width:420px) {
 
 .contact-title {
+
     font-size: 45px;
+
 }
 
-.email-link {
-    font-size: 15px;
+
+.channel-email {
+
+    font-size: 10px;
+
+}
+
+
+.channel-arrow {
+
+    display: none;
+
 }
 
 }
