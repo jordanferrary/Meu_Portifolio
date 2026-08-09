@@ -130,7 +130,6 @@ body::after {
         );
 }
 
-
 a {
 
     color: inherit;
@@ -144,6 +143,45 @@ button {
     font: inherit;
 }
 
+/* =========================================================
+   BACK NAVIGATION
+   ========================================================= */
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 45px;
+
+    color: #8997aa;
+
+    font-size: 8px;
+    letter-spacing: .18em;
+
+    transition: .25s ease;
+}
+
+.back-symbol {
+    color: var(--cyan);
+
+    font-size: 16px;
+
+    transition: .25s ease;
+}
+
+.back:hover {
+    color: white;
+}
+
+.back:hover .back-symbol {
+    color: var(--gold);
+
+    transform: translateX(-4px);
+
+    text-shadow:
+        0 0 12px rgba(217,182,109,.5);
+}
 
 /* =========================================================
    SIDEBAR
