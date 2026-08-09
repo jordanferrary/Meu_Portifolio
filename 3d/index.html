@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>3D ARCHIVE // JORDAN FERRARY</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+
+</head>
+
+<body>
+
+<main>
+
+<section class="gallery-page">
+
+    <header class="gallery-header">
+
+        <div class="gallery-kicker">
+            JORDAN FERRARY // ARCHIVE 02
+        </div>
+
+        <h1 class="gallery-title">
+            3D ART
+        </h1>
+
+        <p class="gallery-description">
+
+            Modelagem, ambientes, materiais,
+            iluminação, composição e renders.
+
+        </p>
+
+    </header>
+
+
+    <div class="gallery-controls">
+
+        <button class="filter-button active" data-filter="all">
+            ALL
+        </button>
+
+        <button class="filter-button" data-filter="environment">
+            ENVIRONMENT
+        </button>
+
+        <button class="filter-button" data-filter="character">
+            CHARACTER
+        </button>
+
+        <button class="filter-button" data-filter="render">
+            RENDER
+        </button>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+
+        <article
+            class="gallery-card"
+            data-category="environment"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/3d-01.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    ENVIRONMENT
+                </small>
+
+                <h3>
+                    PROJECT 01
+                </h3>
+
+                <p>
+                    Environment and world building.
+                </p>
+
+                <a
+                    href="project-01.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="gallery-card"
+            data-category="character"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/3d-02.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    CHARACTER
+                </small>
+
+                <h3>
+                    PROJECT 02
+                </h3>
+
+                <p>
+                    Character modeling and presentation.
+                </p>
+
+                <a
+                    href="project-02.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="gallery-card"
+            data-category="render"
+        >
+
+            <div
+                class="gallery-card-image"
+                style="background-image:url('../assets/thumbnails/3d-03.jpg')"
+            ></div>
+
+            <div class="gallery-card-overlay"></div>
+
+            <div class="gallery-card-content">
+
+                <small>
+                    CGI RENDER
+                </small>
+
+                <h3>
+                    PROJECT 03
+                </h3>
+
+                <p>
+                    Lighting and final render.
+                </p>
+
+                <a
+                    href="project-03.html"
+                    class="gallery-card-link"
+                >
+                    VIEW PROJECT →
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const buttons =
+    document.querySelectorAll(".filter-button");
+
+const cards =
+    document.querySelectorAll(".gallery-card");
+
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        const filter =
+            button.dataset.filter;
+
+        cards.forEach(card => {
+
+            if (
+                filter === "all" ||
+                card.dataset.category === filter
+            ) {
+
+                card.style.display = "";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
