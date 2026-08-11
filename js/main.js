@@ -1,84 +1,150 @@
-const menuToggle = document.querySelector(".menu-toggle");
-const sidebar = document.querySelector(".sidebar");
-const navLinks = document.querySelectorAll(".nav-link");
+/* =========================================================
+   JORDAN FERRARY // DIGITAL ARCHIVE
+   MAIN INTERACTIONS
+   ========================================================= */
 
-if (menuToggle && sidebar) {
+document.addEventListener("DOMContentLoaded", () => {
 
-menuToggle.addEventListener("click", () => {
+    /* =====================================================
+       ELEMENTS
+       ===================================================== */
 
-    const isOpen = sidebar.classList.toggle("menu-open");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]");
 
-    menuToggle.setAttribute(
-        "aria-expanded",
-        isOpen
-    );
 
-});
+    /* =====================================================
+       MOBILE MENU
+       ===================================================== */
 
-}
+    if (menuToggle && sidebar) {
 
-navLinks.forEach(link => {
+        menuToggle.addEventListener("click", () => {
 
-link.addEventListener("click", () => {
+            const isOpen =
+                sidebar.classList.toggle("menu-open");
 
-    navLinks.forEach(item => {
-        item.classList.remove("active");
-    });
-
-    link.classList.add("active");
-
-    if (window.innerWidth <= 760 && menuToggle && sidebar) {
-
-        sidebar.classList.remove("menu-open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-    }
-
-});
-
-});
-
-const sections = document.querySelectorAll(
-"section[id]"
-);
-
-if ("IntersectionObserver" in window) {
-
-const observer = new IntersectionObserver(
-    entries => {
-
-        entries.forEach(entry => {
-
-            if (!entry.isIntersecting) {
-                return;
-            }
-
-            const id = entry.target.id;
-
-            navLinks.forEach(link => {
-
-                link.classList.toggle(
-                    "active",
-                    link.getAttribute("href") === `#${id}`
-                );
-
-            });
+            menuToggle.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
 
         });
 
-    },
-    {
-        threshold: 0.35
     }
-);
 
 
-sections.forEach(section => {
-    observer.observe(section);
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    navLinks.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navLinks.forEach(item => {
+                item.classList.remove("active");
+            });
+
+            link.classList.add("active");
+
+
+            /* Close mobile menu */
+
+            if (window.innerWidth <= 760 && sidebar) {
+
+                sidebar.classList.remove("menu-open");
+
+                if (menuToggle) {
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ACTIVE SECTION DETECTION
+       ===================================================== */
+
+    if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) return;
+
+                    const currentId =
+                        entry.target.id;
+
+
+                    navLinks.forEach(link => {
+
+                        const target =
+                            link.getAttribute("href");
+
+
+                        link.classList.toggle(
+                            "active",
+                            target === `#${currentId}`
+                        );
+
+                    });
+
+                });
+
+            },
+            {
+                threshold: 0.35
+            }
+        );
+
+
+        sections.forEach(section => {
+
+            observer.observe(section);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       CLOSE MENU WHEN RESIZING
+       ===================================================== */
+
+    window.addEventListener("resize", () => {
+
+        if (
+            window.innerWidth > 760 &&
+            sidebar
+        ) {
+
+            sidebar.classList.remove("menu-open");
+
+            if (menuToggle) {
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+
+    });
+
 });
-
-}
