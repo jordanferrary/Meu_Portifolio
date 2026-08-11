@@ -5,10 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>3D ARCHIVE // JORDAN FERRARY</title>
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
@@ -20,223 +17,248 @@
 
 <body>
 
-<main>
+    <main>
 
-<section class="gallery-page">
+        <section class="gallery-page">
 
-    <header class="gallery-header">
+            <header class="gallery-header">
 
-        <a href="../index.html" class="back">
-    <span class="back-symbol">←</span>
-    BACK TO ARCHIVE
-</a>
+                <a href="../index.html" class="back">
+                    <span class="back-symbol">←</span>
+                    BACK TO ARCHIVE
+                </a>
 
-        <div class="gallery-kicker">
-            JORDAN FERRARY // ARCHIVE 02
-        </div>
+                <div class="gallery-kicker">
+                    JORDAN FERRARY // ARCHIVE 02
+                </div>
 
-        <h1 class="gallery-title">
-            3D ART
-        </h1>
+                <h1 class="gallery-title">
+                    3D ART
+                </h1>
 
-        <p class="gallery-description">
+                <p class="gallery-description">
 
-            Modelagem, ambientes, materiais,
-            iluminação, composição e renders.
+                    Modelagem, ambientes, materiais,
+                    iluminação, composição e renders.
 
-        </p>
+                </p>
 
-    </header>
-
-
-    <div class="gallery-controls">
-
-        <button class="filter-button active" data-filter="all">
-            ALL
-        </button>
-
-        <button class="filter-button" data-filter="environment">
-            ENVIRONMENT
-        </button>
-
-        <button class="filter-button" data-filter="character">
-            CHARACTER
-        </button>
-
-        <button class="filter-button" data-filter="render">
-            RENDER
-        </button>
-
-    </div>
+            </header>
 
 
-    <div class="gallery-grid">
+            <div class="gallery-controls">
 
+                <button class="filter-button active" data-filter="all">
+                    ALL
+                </button>
 
-        <article
-            class="gallery-card"
-            data-category="environment"
-        >
-
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-001/imagens/thumbnail.jpg')"
-            ></div>
-
-            <div class="gallery-card-overlay"></div>
-
-            <div class="gallery-card-content">
-
-                <small>
+                <button class="filter-button" data-filter="environment">
                     ENVIRONMENT
-                </small>
+                </button>
 
-                <h3>
-                    PROJECT 01
-                </h3>
-
-                <p>
-                    Environment and world building.
-                </p>
-
-                <a
-                    href="assets/projeto-001/index.html"
-                    class="gallery-card-link"
-                >
-                    VIEW PROJECT →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article
-            class="gallery-card"
-            data-category="character"
-        >
-
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-001/imagens/thumbnail.jpg')"
-            ></div>
-
-            <div class="gallery-card-overlay"></div>
-
-            <div class="gallery-card-content">
-
-                <small>
+                <button class="filter-button" data-filter="character">
                     CHARACTER
-                </small>
+                </button>
 
-                <h3>
-                    PROJECT 02
-                </h3>
-
-                <p>
-                    Character modeling and presentation.
-                </p>
-
-                <a
-                    href="assets/projeto-002/index.html"
-                    class="gallery-card-link"
-                >
-                    VIEW PROJECT →
-                </a>
+                <button class="filter-button" data-filter="render">
+                    RENDER
+                </button>
 
             </div>
 
-        </article>
+
+            <div class="gallery-grid">
 
 
-        <article
-            class="gallery-card"
-            data-category="render"
-        >
+                <article class="gallery-card" data-category="environment">
 
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-001/imagens/thumbnail.jpg')"
-            ></div>
+                    <div class="gallery-card-image"
+                        style="background-image:url('assets/projeto-001/imagens/thumbnail.jpg')"></div>
 
-            <div class="gallery-card-overlay"></div>
+                    <div class="gallery-card-overlay"></div>
 
-            <div class="gallery-card-content">
+                    <div class="gallery-card-content">
 
-                <small>
-                    CGI RENDER
-                </small>
+                        <small>
+                            ENVIRONMENT
+                        </small>
 
-                <h3>
-                    PROJECT 03
-                </h3>
+                        <h3>
+                            PROJECT 01
+                        </h3>
 
-                <p>
-                    Lighting and final render.
-                </p>
+                        <p>
+                            Environment and world building.
+                        </p>
 
-                <a
-                    href="assets/projeto-003/index.html"
-                    class="gallery-card-link"
-                >
-                    VIEW PROJECT →
-                </a>
+                        <a href="assets/projeto-001/index.html" class="gallery-card-link">
+                            VIEW PROJECT →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 1. AQUI FICA A SUA GALERIA DE OBRAS -->
+                <article class="gallery-card" data-category="character">
+
+                    <!-- Repare na classe 'zoomable' e no atributo 'data-img' que adicionamos -->
+                    <div class="gallery-card-image zoomable"
+                        style="background-image:url('assets/projeto-002/imagens/thumbnail.jpg')"
+                        data-img="assets/projeto-002/imagens/thumbnail.jpg"></div>
+
+                    <div class="gallery-card-overlay"></div>
+
+                    <div class="gallery-card-content">
+                        <small>CHARACTER</small>
+                        <h3>PROJECT 02</h3>
+                        <p>Character modeling and presentation.</p>
+                        <a href="assets/projeto-002/index.html" class="gallery-card-link">VIEW PROJECT →</a>
+                    </div>
+
+                </article>
+
+
+                <article class="gallery-card" data-category="render">
+
+                    <div class="gallery-card-image"
+                        style="background-image:url('assets/projeto-003/imagens/thumbnail.jpg')"></div>
+
+                    <div class="gallery-card-overlay"></div>
+
+                    <div class="gallery-card-content">
+
+                        <small>
+                            CGI RENDER
+                        </small>
+
+                        <h3>
+                            PROJECT 03
+                        </h3>
+
+                        <p>
+                            Lighting and final render.
+                        </p>
+
+                        <a href="assets/projeto-003/index.html" class="gallery-card-link">
+                            VIEW PROJECT →
+                        </a>
+
+                    </div>
+
+                </article>
 
             </div>
 
-        </article>
+        </section>
 
-    </div>
-
-</section>
-
-</main>
+    </main>
 
 
-<script>
+    <script>
 
-const buttons =
-    document.querySelectorAll(".filter-button");
+        const buttons =
+            document.querySelectorAll(".filter-button");
 
-const cards =
-    document.querySelectorAll(".gallery-card");
+        const cards =
+            document.querySelectorAll(".gallery-card");
 
 
-buttons.forEach(button => {
+        buttons.forEach(button => {
 
-    button.addEventListener("click", () => {
+            button.addEventListener("click", () => {
 
-        buttons.forEach(btn =>
-            btn.classList.remove("active")
-        );
+                buttons.forEach(btn =>
+                    btn.classList.remove("active")
+                );
 
-        button.classList.add("active");
+                button.classList.add("active");
 
-        const filter =
-            button.dataset.filter;
+                const filter =
+                    button.dataset.filter;
 
-        cards.forEach(card => {
+                cards.forEach(card => {
 
-            if (
-                filter === "all" ||
-                card.dataset.category === filter
-            ) {
+                    if (
+                        filter === "all" ||
+                        card.dataset.category === filter
+                    ) {
 
-                card.style.display = "";
+                        card.style.display = "";
 
-            } else {
+                    } else {
 
-                card.style.display = "none";
+                        card.style.display = "none";
 
-            }
+                    }
+
+                });
+
+            });
 
         });
 
-    });
+    </script>
 
-});
+    <script>
+        // Pega todos os elementos que têm a classe 'zoomable'
+        const zoomElements = document.querySelectorAll(".zoomable");
+        const lightbox = document.getElementById("imageLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const closeButton = document.querySelector(".lightbox-close");
 
-</script>
+        // Adiciona o evento de clique em cada imagem da galeria
+        zoomElements.forEach(element => {
+            element.addEventListener("click", () => {
+                // Pega o link da imagem lá do atributo data-img que criamos no HTML
+                const imagePath = element.getAttribute("data-img");
+
+                // Coloca a imagem no Lightbox
+                lightboxImage.src = imagePath;
+
+                // Faz o Lightbox aparecer
+                lightbox.classList.add("active");
+
+                // Trava a rolagem da página por baixo do Lightbox
+                document.body.style.overflow = "hidden";
+            });
+        });
+
+        // Função que esconde o Lightbox
+        function closeLightbox() {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = ""; // Destrava a rolagem
+
+            // Limpa a imagem depois de um tempinho só para a animação ficar suave
+            setTimeout(() => { lightboxImage.src = ""; }, 300);
+        }
+
+        // Fechar ao clicar no botão X
+        closeButton.addEventListener("click", closeLightbox);
+
+        // Fechar ao clicar na parte escura do fundo ou na própria imagem
+        lightbox.addEventListener("click", event => {
+            if (event.target === lightbox || event.target === lightboxImage) {
+                closeLightbox();
+            }
+        });
+
+        // Fechar ao apertar a tecla ESC do teclado
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape" && lightbox.classList.contains("active")) {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- 2. AQUI FICA O LIGHTBOX (Coloque antes de fechar o </body>) -->
+    <div class="image-lightbox" id="imageLightbox">
+        <button class="lightbox-close" aria-label="Fechar">×</button>
+        <img id="lightboxImage" src="" alt="">
+    </div>
+
 
 </body>
+
 </html>

@@ -156,3 +156,63 @@
     }
 
 }
+
+/* Muda o cursor para uma lupa quando passa o mouse na imagem da galeria */
+.zoomable {
+    cursor: zoom-in;
+}
+
+/* Esconde o Lightbox por padrão e cria o fundo escuro */
+.image-lightbox {
+    position: fixed;
+    inset: 0; /* Ocupa a tela toda */
+    z-index: 9999; /* Fica por cima de tudo no site */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: rgba(2, 5, 10, .94);
+    backdrop-filter: blur(12px);
+    
+    /* Configurações para esconder e animar o aparecimento */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+/* Classe que o JavaScript vai adicionar para fazer o Lightbox aparecer */
+.image-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Configura a imagem grande para não estourar a tela */
+.image-lightbox img {
+    max-width: 92vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    cursor: zoom-out; /* Cursor de lupa com um "menos" */
+}
+
+/* Botão de fechar */
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #333; /* Ajuste a cor se necessário */
+    background: rgba(5,9,19,.8);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+}
+
+.lightbox-close:hover {
+    border-color: #00ffff; /* Azul ciano (ajuste para a cor do seu projeto) */
+    color: #00ffff;
+}
