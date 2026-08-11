@@ -202,55 +202,46 @@
     </script>
 
     <script>
-        // Pega todos os elementos que têm a classe 'zoomable'
-        const zoomElements = document.querySelectorAll(".zoomable");
-        const lightbox = document.getElementById("imageLightbox");
-        const lightboxImage = document.getElementById("lightboxImage");
-        const closeButton = document.querySelector(".lightbox-close");
+// Pega todas as imagens que estão dentro das divs com a classe zoomable
+const zoomImages = document.querySelectorAll(".zoomable img");
+const lightbox = document.getElementById("imageLightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const closeButton = document.querySelector(".lightbox-close");
 
-        // Adiciona o evento de clique em cada imagem da galeria
-        zoomElements.forEach(element => {
-            element.addEventListener("click", () => {
-                // Pega o link da imagem lá do atributo data-img que criamos no HTML
-                const imagePath = element.getAttribute("data-img");
+// Para cada imagem clicável:
+zoomImages.forEach(image => {
+    image.addEventListener("click", () => {
+        // Pega o src da imagem clicada e joga no Lightbox
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
 
-                // Coloca a imagem no Lightbox
-                lightboxImage.src = imagePath;
+        // Mostra o Lightbox e trava a rolagem
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+    });
+});
 
-                // Faz o Lightbox aparecer
-                lightbox.classList.add("active");
+// O resto continua igual (fechar o lightbox)
+function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+    setTimeout(() => { lightboxImage.src = ""; }, 300);
+}
 
-                // Trava a rolagem da página por baixo do Lightbox
-                document.body.style.overflow = "hidden";
-            });
-        });
+closeButton.addEventListener("click", closeLightbox);
 
-        // Função que esconde o Lightbox
-        function closeLightbox() {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = ""; // Destrava a rolagem
+lightbox.addEventListener("click", event => {
+    if (event.target === lightbox || event.target === lightboxImage) {
+        closeLightbox();
+    }
+});
 
-            // Limpa a imagem depois de um tempinho só para a animação ficar suave
-            setTimeout(() => { lightboxImage.src = ""; }, 300);
-        }
-
-        // Fechar ao clicar no botão X
-        closeButton.addEventListener("click", closeLightbox);
-
-        // Fechar ao clicar na parte escura do fundo ou na própria imagem
-        lightbox.addEventListener("click", event => {
-            if (event.target === lightbox || event.target === lightboxImage) {
-                closeLightbox();
-            }
-        });
-
-        // Fechar ao apertar a tecla ESC do teclado
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape" && lightbox.classList.contains("active")) {
-                closeLightbox();
-            }
-        });
-    </script>
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && lightbox.classList.contains("active")) {
+        closeLightbox();
+    }
+});
+</script>
 
     <!-- 2. AQUI FICA O LIGHTBOX (Coloque antes de fechar o </body>) -->
     <div class="image-lightbox" id="imageLightbox">
