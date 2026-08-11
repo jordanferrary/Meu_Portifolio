@@ -1,3 +1,4 @@
+```css
 /* =========================================================
    JORDAN FERRARY
    GALLERY SYSTEM
@@ -118,10 +119,14 @@
     position: absolute;
     inset: 0;
 
+    width: 100%;
+    height: 100%;
+
     overflow: hidden;
 
     background-size: cover;
-    background-position: center;
+    background-position: center center;
+    background-repeat: no-repeat;
 
     cursor: zoom-in;
 
@@ -142,10 +147,17 @@
 
     inset: 0;
 
+    display: block;
+
     width: 100%;
     height: 100%;
 
+    max-width: none;
+
     object-fit: cover;
+    object-position: center center;
+
+    transform-origin: center center;
 
     transition:
         transform .5s ease;
@@ -502,6 +514,30 @@
         min-height: 300px;
     }
 
+    /* Mantém a thumbnail perfeitamente centralizada */
+    .gallery-card-image {
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background-position: center center;
+
+        transform-origin: center center;
+    }
+
+    .gallery-card-image img {
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center center;
+
+        transform-origin: center center;
+    }
+
     .gallery-card-content {
         left: 14px;
         right: 14px;
@@ -577,6 +613,14 @@
         min-height: 275px;
     }
 
+    .gallery-card-image {
+        background-position: center center;
+    }
+
+    .gallery-card-image img {
+        object-position: center center;
+    }
+
     .gallery-card-content {
         left: 11px;
         right: 11px;
@@ -596,3 +640,4 @@
     }
 
 }
+```
