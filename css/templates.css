@@ -1,9 +1,21 @@
+chat vc deixou tão basico que algumas coisas ficaram falhando use isto como referencia. esse é o arquivo antigo simplesmente altere uma coisa ou outra e adicione o bagulho de dar zoom quando passar o mouse por cima da imagem
+
 /* =========================================================
    JORDAN FERRARY
    DIGITAL ARCHIVE
    ARTWORK LIBRARY — MASTER CSS
 
-   PROJECT / ARTWORK TEMPLATE
+   Compatível com:
+   - Artwork pages
+   - Case Studies
+   - Process pages
+   - Image Left / Text Right
+   - Image Right / Text Left
+   - Fullscreen
+   - Fullscreen + Text
+   - Galleries
+   - Future artwork templates
+
    ========================================================= */
 
 
@@ -13,30 +25,59 @@
 
 :root {
 
-    --bg: #050913;
-    --bg-deep: #03060c;
-    --bg-soft: #081120;
+    --bg:
+        #050913;
 
-    --panel: rgba(10, 21, 38, .78);
-    --panel-solid: #091321;
+    --bg-deep:
+        #03060c;
 
-    --text: #edf4ff;
-    --text-soft: #b3c0d1;
-    --muted: #8997aa;
-    --muted-dark: #536175;
+    --bg-soft:
+        #081120;
 
-    --cyan: #28bfff;
-    --cyan-light: #78ddff;
+    --panel:
+        rgba(10, 21, 38, .78);
 
-    --gold: #d9b66d;
-    --purple: #9b72ff;
+    --panel-solid:
+        #091321;
 
-    --line: rgba(115, 160, 205, .25);
-    --line-soft: rgba(115, 160, 205, .12);
-    --line-bright: rgba(120, 190, 235, .45);
+    --text:
+        #edf4ff;
 
-    --max-width: 1500px;
-    --page-width: 90%;
+    --text-soft:
+        #b3c0d1;
+
+    --muted:
+        #8997aa;
+
+    --muted-dark:
+        #536175;
+
+    --cyan:
+        #28bfff;
+
+    --cyan-light:
+        #78ddff;
+
+    --gold:
+        #d9b66d;
+
+    --purple:
+        #9b72ff;
+
+    --line:
+        rgba(115, 160, 205, .25);
+
+    --line-soft:
+        rgba(115, 160, 205, .12);
+
+    --line-bright:
+        rgba(120, 190, 235, .45);
+
+    --max-width:
+        1500px;
+
+    --page-width:
+        90%;
 
     --transition:
         .35s cubic-bezier(.2,.7,.2,1);
@@ -54,9 +95,11 @@
     padding: 0;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
 
@@ -65,13 +108,13 @@ body {
     background:
         radial-gradient(
             circle at 70% 10%,
-            rgba(28,107,190,.16),
+            rgba(28, 107, 190, .16),
             transparent 30%
         ),
 
         radial-gradient(
             circle at 90% 80%,
-            rgba(116,45,190,.10),
+            rgba(116, 45, 190, .10),
             transparent 25%
         ),
 
@@ -112,7 +155,8 @@ body::before {
             transparent 1px
         );
 
-    background-size: 45px 45px;
+    background-size:
+        45px 45px;
 
     mask-image:
         linear-gradient(
@@ -153,7 +197,8 @@ body::after {
     background:
         rgba(40,191,255,.25);
 
-    color: white;
+    color:
+        white;
 
 }
 
@@ -161,6 +206,7 @@ body::after {
 img {
 
     display: block;
+
     max-width: 100%;
 
 }
@@ -169,6 +215,7 @@ img {
 a {
 
     color: inherit;
+
     text-decoration: none;
 
 }
@@ -199,8 +246,11 @@ footer {
     max-width:
         var(--max-width);
 
-    margin-left: auto;
-    margin-right: auto;
+    margin-left:
+        auto;
+
+    margin-right:
+        auto;
 
 }
 
@@ -212,13 +262,16 @@ footer {
 .project-nav {
 
     width: 100%;
+
     height: 78px;
 
-    padding: 0 5vw;
+    padding:
+        0 5vw;
 
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     border-bottom:
@@ -244,17 +297,22 @@ footer {
 
 .back-link {
 
+    position: relative;
+
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 9px;
+    font-size:
+        9px;
 
-    letter-spacing: .16em;
+    letter-spacing:
+        .16em;
 
     transition:
         var(--transition);
@@ -264,9 +322,11 @@ footer {
 
 .back-link span {
 
-    color: var(--cyan);
+    color:
+        var(--cyan);
 
-    font-size: 20px;
+    font-size:
+        20px;
 
     transition:
         transform var(--transition);
@@ -275,22 +335,31 @@ footer {
 
 
 .back-link:hover {
-    color: white;
+
+    color:
+        white;
+
 }
 
 
 .back-link:hover span {
-    transform: translateX(-5px);
+
+    transform:
+        translateX(-5px);
+
 }
 
 
 .project-id {
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
@@ -309,20 +378,25 @@ footer {
 
 .project-label {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 9px;
+    font-size:
+        9px;
 
-    letter-spacing: .22em;
+    letter-spacing:
+        .22em;
 
 }
 
 
 .project-title {
 
-    max-width: 1050px;
+    max-width:
+        1050px;
 
     font-family:
         "Space Grotesk",
@@ -331,29 +405,39 @@ footer {
     font-size:
         clamp(48px, 7vw, 110px);
 
-    line-height: .88;
+    line-height:
+        .88;
 
-    letter-spacing: -.05em;
+    letter-spacing:
+        -.05em;
 
 }
 
 
 .project-title span {
-    color: var(--cyan);
+
+    color:
+        var(--cyan);
+
 }
 
 
 .project-subtitle {
 
-    max-width: 620px;
+    max-width:
+        620px;
 
-    margin-top: 28px;
+    margin-top:
+        28px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
@@ -364,33 +448,37 @@ footer {
 
 .hero-image {
 
-    position: relative;
+    position:
+        relative;
 
-    margin-top: 55px;
+    margin-top:
+        55px;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border:
         1px solid var(--line);
 
-    background: #07101c;
+    background:
+        #07101c;
 
 }
 
 
 .hero-image img {
 
-    width: 100%;
+    width:
+        100%;
 
-    aspect-ratio: 21 / 9;
+    aspect-ratio:
+        21 / 9;
 
-    object-fit: cover;
-
-    object-position: center;
+    object-fit:
+        cover;
 
     transition:
-        transform .8s
-        cubic-bezier(.2,.7,.2,1);
+        transform .8s cubic-bezier(.2,.7,.2,1);
 
 }
 
@@ -404,30 +492,40 @@ footer {
 
 
 /* =========================================================
-   07 — HERO ORNAMENTAL CORNERS
+   ORNAMENTAL CORNERS
    ========================================================= */
 
 .hero-image::before,
 .hero-image::after {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 55px;
-    height: 55px;
+    width:
+        55px;
 
-    z-index: 2;
+    height:
+        55px;
 
-    pointer-events: none;
+    z-index:
+        2;
+
+    pointer-events:
+        none;
 
 }
 
 
 .hero-image::before {
 
-    top: 12px;
-    left: 12px;
+    top:
+        12px;
+
+    left:
+        12px;
 
     border-top:
         1px solid var(--gold);
@@ -440,8 +538,11 @@ footer {
 
 .hero-image::after {
 
-    right: 12px;
-    bottom: 12px;
+    right:
+        12px;
+
+    bottom:
+        12px;
 
     border-right:
         1px solid var(--gold);
@@ -453,66 +554,85 @@ footer {
 
 
 /* =========================================================
-   08 — PROJECT INFORMATION
+   07 — PROJECT INFORMATION
    ========================================================= */
 
 .project-info {
 
-    margin-top: 90px;
-    margin-bottom: 90px;
+    margin-top:
+        90px;
 
-    display: grid;
+    margin-bottom:
+        90px;
+
+    display:
+        grid;
 
     grid-template-columns:
         1.5fr .7fr;
 
-    gap: 100px;
+    gap:
+        100px;
 
-    align-items: start;
+    align-items:
+        start;
 
 }
 
 
 .section-label {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
-    color: var(--cyan);
+    color:
+        var(--cyan);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
 
 .project-description {
 
-    max-width: 700px;
+    max-width:
+        700px;
 
-    color: var(--text-soft);
+    color:
+        var(--text-soft);
 
-    font-size: 14px;
+    font-size:
+        14px;
 
-    line-height: 2;
+    line-height:
+        2;
 
 }
 
 
 .project-description p + p {
-    margin-top: 18px;
+
+    margin-top:
+        18px;
+
 }
 
 
 /* =========================================================
-   09 — PROJECT META
+   08 — PROJECT META
    ========================================================= */
 
 .project-meta {
 
-    position: relative;
+    position:
+        relative;
 
-    padding: 25px;
+    padding:
+        25px;
 
     border:
         1px solid var(--line);
@@ -527,17 +647,27 @@ footer {
 }
 
 
+/* Decorative frame */
+
 .project-meta::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    top: 9px;
-    left: 9px;
+    top:
+        9px;
 
-    width: 24px;
-    height: 24px;
+    left:
+        9px;
+
+    width:
+        24px;
+
+    height:
+        24px;
 
     border-top:
         1px solid var(--gold);
@@ -545,20 +675,31 @@ footer {
     border-left:
         1px solid var(--gold);
 
+    pointer-events:
+        none;
+
 }
 
 
 .project-meta::after {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    right: 9px;
-    bottom: 9px;
+    right:
+        9px;
 
-    width: 24px;
-    height: 24px;
+    bottom:
+        9px;
+
+    width:
+        24px;
+
+    height:
+        24px;
 
     border-right:
         1px solid var(--gold);
@@ -566,18 +707,25 @@ footer {
     border-bottom:
         1px solid var(--gold);
 
+    pointer-events:
+        none;
+
 }
 
 
 .meta-row {
 
-    padding: 14px 0;
+    padding:
+        14px 0;
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    gap: 20px;
+    gap:
+        20px;
 
     border-bottom:
         1px solid var(--line-soft);
@@ -586,87 +734,115 @@ footer {
 
 
 .meta-row:last-child {
-    border-bottom: 0;
+
+    border-bottom:
+        0;
+
 }
 
 
 .meta-row span {
 
-    color: #637187;
+    color:
+        #637187;
 
-    font-size: 7px;
+    font-size:
+        7px;
 
-    letter-spacing: .15em;
+    letter-spacing:
+        .15em;
 
 }
 
 
 .meta-row strong {
 
-    color: #dce8f7;
+    color:
+        #dce8f7;
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    font-weight: 500;
+    font-weight:
+        500;
 
-    text-align: right;
+    text-align:
+        right;
 
 }
 
 
 /* =========================================================
-   10 — UNIVERSAL SECTION
+   09 — UNIVERSAL SECTION
    ========================================================= */
 
 .section {
 
-    margin-top: 120px;
+    margin-top:
+        120px;
 
 }
 
 
 .section-title {
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 12px;
+    gap:
+        12px;
 
-    margin-bottom: 35px;
+    margin-bottom:
+        35px;
 
 }
 
 
 .section-title span {
 
-    color: var(--cyan);
+    flex:
+        0 0 auto;
 
-    font-size: 9px;
+    color:
+        var(--cyan);
+
+    font-size:
+        9px;
 
 }
 
 
 .section-title h2 {
 
+    flex:
+        0 0 auto;
+
     font-family:
         "Space Grotesk",
         sans-serif;
 
-    font-size: 18px;
+    font-size:
+        18px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
-    letter-spacing: .18em;
+    letter-spacing:
+        .18em;
 
 }
 
 
 .section-title i {
 
-    height: 1px;
+    height:
+        1px;
 
-    flex: 1;
+    flex:
+        1;
 
     background:
         linear-gradient(
@@ -679,21 +855,25 @@ footer {
 
 
 /* =========================================================
-   11 — PROCESS
+   10 — PROCESS / CASE STUDY
    ========================================================= */
 
 .process-block {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         1.35fr .65fr;
 
-    gap: 35px;
+    gap:
+        35px;
 
-    align-items: stretch;
+    align-items:
+        stretch;
 
-    margin-bottom: 80px;
+    margin-bottom:
+        80px;
 
 }
 
@@ -708,41 +888,57 @@ footer {
 
 .process-image {
 
-    position: relative;
+    position:
+        relative;
 
-    min-height: 420px;
+    min-height:
+        420px;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border:
         1px solid var(--line);
 
-    background: #07101c;
+    background:
+        #07101c;
 
 }
 
 
+/* Frame corners */
+
 .process-image::before,
 .process-image::after {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 35px;
-    height: 35px;
+    width:
+        35px;
 
-    z-index: 2;
+    height:
+        35px;
 
-    pointer-events: none;
+    z-index:
+        2;
+
+    pointer-events:
+        none;
 
 }
 
 
 .process-image::before {
 
-    top: 10px;
-    left: 10px;
+    top:
+        10px;
+
+    left:
+        10px;
 
     border-top:
         1px solid var(--gold);
@@ -755,8 +951,11 @@ footer {
 
 .process-image::after {
 
-    right: 10px;
-    bottom: 10px;
+    right:
+        10px;
+
+    bottom:
+        10px;
 
     border-right:
         1px solid var(--gold);
@@ -769,17 +968,20 @@ footer {
 
 .process-image img {
 
-    width: 100%;
-    height: 100%;
+    width:
+        100%;
 
-    min-height: 420px;
+    height:
+        100%;
 
-    object-fit: cover;
-    object-position: center;
+    min-height:
+        420px;
+
+    object-fit:
+        cover;
 
     transition:
-        transform .65s
-        cubic-bezier(.2,.7,.2,1);
+        transform .65s cubic-bezier(.2,.7,.2,1);
 
 }
 
@@ -793,20 +995,25 @@ footer {
 
 
 /* =========================================================
-   12 — PROCESS TEXT
+   PROCESS TEXT
    ========================================================= */
 
 .process-text {
 
-    position: relative;
+    position:
+        relative;
 
-    padding: 35px;
+    padding:
+        35px;
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    justify-content: center;
+    justify-content:
+        center;
 
     border:
         1px solid var(--line);
@@ -819,15 +1026,23 @@ footer {
 
 .process-text::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    top: 10px;
-    left: 10px;
+    top:
+        10px;
 
-    width: 18px;
-    height: 18px;
+    left:
+        10px;
+
+    width:
+        18px;
+
+    height:
+        18px;
 
     border-top:
         1px solid var(--cyan);
@@ -840,98 +1055,138 @@ footer {
 
 .process-number {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
 
 .process-text h3 {
 
-    margin-bottom: 15px;
+    margin-bottom:
+        15px;
 
     font-family:
         "Space Grotesk",
         sans-serif;
 
-    font-size: 28px;
+    font-size:
+        28px;
+
+    letter-spacing:
+        -.02em;
 
 }
 
 
 .process-text p {
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
 
 /* =========================================================
-   13 — IMAGE / TEXT LAYOUTS
+   11 — IMAGE LEFT / TEXT RIGHT
    ========================================================= */
 
-.layout-image-left,
-.layout-image-right {
-
-    display: grid;
-
-    gap: 40px;
-
-    align-items: center;
-
-}
-
-
 .layout-image-left {
+
+    display:
+        grid;
 
     grid-template-columns:
         1.2fr .8fr;
 
-}
+    gap:
+        40px;
 
-
-.layout-image-right {
-
-    grid-template-columns:
-        .8fr 1.2fr;
+    align-items:
+        center;
 
 }
 
 
 .layout-image-left .layout-image {
-    order: 1;
+
+    order:
+        1;
+
 }
 
 
 .layout-image-left .layout-text {
-    order: 2;
+
+    order:
+        2;
+
+}
+
+
+/* =========================================================
+   12 — IMAGE RIGHT / TEXT LEFT
+   ========================================================= */
+
+.layout-image-right {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        .8fr 1.2fr;
+
+    gap:
+        40px;
+
+    align-items:
+        center;
+
 }
 
 
 .layout-image-right .layout-text {
-    order: 1;
+
+    order:
+        1;
+
 }
 
 
 .layout-image-right .layout-image {
-    order: 2;
+
+    order:
+        2;
+
 }
 
 
+/* =========================================================
+   13 — UNIVERSAL LAYOUT IMAGE
+   ========================================================= */
+
 .layout-image {
 
-    position: relative;
+    position:
+        relative;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border:
         1px solid var(--line);
@@ -944,11 +1199,14 @@ footer {
 
 .layout-image img {
 
-    width: 100%;
+    width:
+        100%;
 
-    display: block;
+    display:
+        block;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
     transition:
         transform .65s ease;
@@ -957,37 +1215,48 @@ footer {
 
 
 .layout-image:hover img {
-    transform: scale(1.03);
+
+    transform:
+        scale(1.03);
+
 }
 
 
 .layout-text {
-    padding: 30px;
+
+    padding:
+        30px;
+
 }
 
 
 .layout-text h2 {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
     font-family:
         "Space Grotesk";
 
     font-size:
-        clamp(28px,4vw,50px);
+        clamp(28px, 4vw, 50px);
 
-    line-height: .95;
+    line-height:
+        .95;
 
 }
 
 
 .layout-text p {
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
@@ -998,13 +1267,17 @@ footer {
 
 .fullscreen-art {
 
-    width: 100%;
+    width:
+        100%;
 
-    margin-top: 80px;
+    margin-top:
+        80px;
 
-    position: relative;
+    position:
+        relative;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border-top:
         1px solid var(--line);
@@ -1017,13 +1290,14 @@ footer {
 
 .fullscreen-art img {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-height: 90vh;
+    max-height:
+        90vh;
 
-    object-fit: cover;
-
-    object-position: center;
+    object-fit:
+        cover;
 
     transition:
         transform .8s ease;
@@ -1032,7 +1306,10 @@ footer {
 
 
 .fullscreen-art:hover img {
-    transform: scale(1.015);
+
+    transform:
+        scale(1.015);
+
 }
 
 
@@ -1042,14 +1319,20 @@ footer {
 
 .fullscreen-caption {
 
-    position: absolute;
+    position:
+        absolute;
 
-    left: 5vw;
-    bottom: 40px;
+    left:
+        5vw;
 
-    max-width: 400px;
+    bottom:
+        40px;
 
-    padding: 25px;
+    max-width:
+        400px;
+
+    padding:
+        25px;
 
     border:
         1px solid rgba(115,160,205,.3);
@@ -1065,23 +1348,108 @@ footer {
 
 .fullscreen-caption small {
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 7px;
+    font-size:
+        7px;
 
-    letter-spacing: .18em;
+    letter-spacing:
+        .18em;
 
 }
 
 
 .fullscreen-caption h3 {
 
-    margin-top: 10px;
+    margin-top:
+        10px;
 
     font-family:
         "Space Grotesk";
 
-    font-size: 25px;
+    font-size:
+        25px;
+
+}
+
+
+/* =========================================================
+   FULLSCREEN TEXT — LEFT / RIGHT
+   ========================================================= */
+
+.fullscreen-text-left,
+.fullscreen-text-right {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    width:
+        min(380px, 35%);
+
+    padding:
+        30px;
+
+    background:
+        rgba(5,9,19,.78);
+
+    border:
+        1px solid var(--line);
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+.fullscreen-text-left {
+
+    left:
+        5vw;
+
+}
+
+
+.fullscreen-text-right {
+
+    right:
+        5vw;
+
+}
+
+
+.fullscreen-text-left h3,
+.fullscreen-text-right h3 {
+
+    margin:
+        10px 0 15px;
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        28px;
+
+}
+
+
+.fullscreen-text-left p,
+.fullscreen-text-right p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.8;
 
 }
 
@@ -1092,63 +1460,71 @@ footer {
 
 .gallery {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0,1fr));
 
-    gap: 18px;
+    gap:
+        18px;
 
 }
 
 
 .gallery-item {
 
-    position: relative;
+    position:
+        relative;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border:
         1px solid var(--line);
 
-    background: #07101c;
-
-    cursor: zoom-in;
+    background:
+        #07101c;
 
 }
 
 
 .gallery-item::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    inset: 10px;
+    inset:
+        10px;
 
     border:
         1px solid rgba(217,182,109,.15);
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
-    z-index: 2;
+    z-index:
+        2;
 
 }
 
 
 .gallery-item img {
 
-    width: 100%;
+    width:
+        100%;
 
-    aspect-ratio: 4 / 3;
+    aspect-ratio:
+        4 / 3;
 
-    object-fit: cover;
-
-    object-position: center;
+    object-fit:
+        cover;
 
     transition:
-        transform .6s
-        cubic-bezier(.2,.7,.2,1);
+        transform .6s cubic-bezier(.2,.7,.2,1);
 
 }
 
@@ -1156,7 +1532,7 @@ footer {
 .gallery-item:hover img {
 
     transform:
-        scale(1.045);
+        scale(1.04);
 
 }
 
@@ -1183,7 +1559,8 @@ footer {
 
 .gallery-three {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         1fr 1fr;
@@ -1191,129 +1568,162 @@ footer {
     grid-template-rows:
         1fr 1fr;
 
-    gap: 16px;
+    gap:
+        16px;
 
 }
 
 
 .gallery-three .gallery-main {
-    grid-row: span 2;
+
+    grid-row:
+        span 2;
+
 }
 
 
 .gallery-three .gallery-main img {
 
-    height: 100%;
+    height:
+        100%;
 
-    min-height: 500px;
+    min-height:
+        500px;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
 }
 
 
 .gallery-three .gallery-side img {
 
-    height: 100%;
+    height:
+        100%;
 
-    min-height: 242px;
+    min-height:
+        242px;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
 }
 
 
 /* =========================================================
-   18 — GALLERY + TEXT
+   18 — GALLERY + TEXT LEFT
    ========================================================= */
 
 .gallery-text-left {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         .7fr 1.3fr;
 
-    gap: 50px;
+    gap:
+        50px;
 
-    align-items: start;
+    align-items:
+        start;
 
 }
 
 
 .gallery-text-left .gallery-copy {
 
-    position: sticky;
+    position:
+        sticky;
 
-    top: 110px;
+    top:
+        110px;
 
 }
 
 
 .gallery-copy h2 {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
     font-family:
         "Space Grotesk";
 
-    font-size: 40px;
+    font-size:
+        40px;
 
-    line-height: .95;
+    line-height:
+        .95;
 
 }
 
 
 .gallery-copy p {
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
 
+/* =========================================================
+   19 — GALLERY + TEXT RIGHT
+   ========================================================= */
+
 .gallery-text-right {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         1.3fr .7fr;
 
-    gap: 50px;
+    gap:
+        50px;
 
-    align-items: start;
+    align-items:
+        start;
 
 }
 
 
 .gallery-text-right .gallery-copy {
 
-    order: 2;
+    order:
+        2;
 
-    position: sticky;
+    position:
+        sticky;
 
-    top: 110px;
+    top:
+        110px;
 
 }
 
 
 .gallery-text-right .gallery-content {
-    order: 1;
+
+    order:
+        1;
+
 }
 
 
 /* =========================================================
-   19 — IMAGE ZOOM
+   20 — IMAGE ZOOM
    ========================================================= */
 
 .zoomable {
 
-    cursor: zoom-in;
-
-    overflow: hidden;
+    cursor:
+        zoom-in;
 
 }
 
@@ -1321,8 +1731,7 @@ footer {
 .zoomable img {
 
     transition:
-        transform .65s
-        cubic-bezier(.2,.7,.2,1);
+        transform .6s ease;
 
 }
 
@@ -1330,40 +1739,48 @@ footer {
 .zoomable:hover img {
 
     transform:
-        scale(1.045);
+        scale(1.035);
 
 }
 
 
 /* =========================================================
-   20 — TOOLS
+   21 — TOOLS
    ========================================================= */
 
 .tools {
 
-    display: flex;
+    display:
+        flex;
 
-    flex-wrap: wrap;
+    flex-wrap:
+        wrap;
 
-    gap: 10px;
+    gap:
+        10px;
 
 }
 
 
 .tool {
 
-    position: relative;
+    position:
+        relative;
 
-    padding: 12px 18px;
+    padding:
+        12px 18px;
 
     border:
         1px solid var(--line);
 
-    color: var(--text-soft);
+    color:
+        var(--text-soft);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .12em;
+    letter-spacing:
+        .12em;
 
     background:
         rgba(255,255,255,.015);
@@ -1376,7 +1793,8 @@ footer {
 
 .tool:hover {
 
-    color: white;
+    color:
+        white;
 
     border-color:
         var(--line-bright);
@@ -1391,70 +1809,87 @@ footer {
 
 
 /* =========================================================
-   21 — FINAL STATEMENT
+   22 — FINAL STATEMENT
    ========================================================= */
 
 .final-section {
 
-    margin-top: 150px;
+    margin-top:
+        150px;
 
-    margin-bottom: 120px;
+    margin-bottom:
+        120px;
 
-    text-align: center;
+    text-align:
+        center;
 
 }
 
 
 .final-section small {
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
 
 .final-section h2 {
 
-    margin-top: 20px;
+    margin-top:
+        20px;
 
     font-family:
         "Space Grotesk";
 
     font-size:
-        clamp(40px,6vw,85px);
+        clamp(40px, 6vw, 85px);
 
-    line-height: .9;
+    line-height:
+        .9;
 
-    letter-spacing: -.04em;
+    letter-spacing:
+        -.04em;
 
 }
 
 
 .final-section h2 span {
-    color: var(--cyan);
+
+    color:
+        var(--cyan);
+
 }
 
 
 .final-section p {
 
-    max-width: 600px;
+    max-width:
+        600px;
 
-    margin: 25px auto 0;
+    margin:
+        25px auto 0;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.8;
+    line-height:
+        1.8;
 
 }
 
 
 /* =========================================================
-   22 — FOOTER
+   23 — FOOTER
    ========================================================= */
 
 footer {
@@ -1462,46 +1897,60 @@ footer {
     padding:
         25px 0 35px;
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 20px;
+    gap:
+        20px;
 
     border-top:
         1px solid var(--line);
 
-    color: var(--muted-dark);
+    color:
+        var(--muted-dark);
 
-    font-size: 7px;
+    font-size:
+        7px;
 
-    letter-spacing: .15em;
+    letter-spacing:
+        .15em;
 
 }
 
 
 footer a {
+
     transition:
         color var(--transition);
+
 }
 
 
 footer a:hover {
-    color: var(--cyan);
+
+    color:
+        var(--cyan);
+
 }
 
 
 /* =========================================================
-   23 — ARTWORK FRAME
+   24 — ARTWORK FRAME
    ========================================================= */
 
 .artwork-frame {
 
-    position: relative;
+    position:
+        relative;
 
-    padding: 12px;
+    padding:
+        12px;
 
     border:
         1px solid var(--line);
@@ -1518,59 +1967,79 @@ footer a:hover {
 
 .artwork-frame::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    inset: 5px;
+    inset:
+        5px;
 
     border:
-        1px solid rgba(217,182,109,.18);
+        1px solid
+        rgba(217,182,109,.18);
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
 }
 
 
 .artwork-frame img {
 
-    position: relative;
+    position:
+        relative;
 
-    z-index: 1;
+    z-index:
+        1;
 
 }
 
 
 /* =========================================================
-   24 — ORNAMENTAL CORNERS
+   25 — ORNAMENTAL CORNERS
    ========================================================= */
 
 .ornament-corners {
-    position: relative;
+
+    position:
+        relative;
+
 }
 
 
 .ornament-corners::before,
 .ornament-corners::after {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 40px;
-    height: 40px;
+    width:
+        40px;
 
-    pointer-events: none;
+    height:
+        40px;
 
-    z-index: 5;
+    pointer-events:
+        none;
+
+    z-index:
+        5;
 
 }
 
 
 .ornament-corners::before {
 
-    top: 10px;
-    left: 10px;
+    top:
+        10px;
+
+    left:
+        10px;
 
     border-top:
         1px solid var(--gold);
@@ -1583,8 +2052,11 @@ footer a:hover {
 
 .ornament-corners::after {
 
-    right: 10px;
-    bottom: 10px;
+    right:
+        10px;
+
+    bottom:
+        10px;
 
     border-right:
         1px solid var(--gold);
@@ -1596,102 +2068,129 @@ footer a:hover {
 
 
 /* =========================================================
-   25 — IMAGE GRIDS
+   26 — SIMPLE IMAGE GRID
    ========================================================= */
 
 .image-grid {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        repeat(3,minmax(0,1fr));
+        repeat(3, minmax(0,1fr));
 
-    gap: 16px;
+    gap:
+        16px;
 
 }
 
 
 .image-grid img {
 
-    width: 100%;
+    width:
+        100%;
 
-    aspect-ratio: 1 / 1;
+    aspect-ratio:
+        1 / 1;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
 }
 
 
+/* =========================================================
+   27 — TWO COLUMN IMAGE GRID
+   ========================================================= */
+
 .image-grid-two {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0,1fr));
 
-    gap: 18px;
+    gap:
+        18px;
 
 }
 
 
 .image-grid-two img {
 
-    width: 100%;
+    width:
+        100%;
 
-    aspect-ratio: 4 / 3;
+    aspect-ratio:
+        4 / 3;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
 }
 
 
 /* =========================================================
-   26 — EDITORIAL
+   28 — THREE IMAGE EDITORIAL LAYOUT
    ========================================================= */
 
 .editorial-gallery {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         1.15fr .85fr;
 
-    gap: 18px;
+    gap:
+        18px;
 
 }
 
 
 .editorial-gallery .editorial-main {
-    grid-row: span 2;
+
+    grid-row:
+        span 2;
+
 }
 
 
 .editorial-gallery img {
 
-    width: 100%;
-    height: 100%;
+    width:
+        100%;
 
-    min-height: 240px;
+    height:
+        100%;
 
-    object-fit: cover;
+    min-height:
+        240px;
+
+    object-fit:
+        cover;
 
 }
 
 
 /* =========================================================
-   27 — ARTWORK LAYOUT
+   29 — IMAGE + DESCRIPTION GENERIC
    ========================================================= */
 
 .artwork-layout {
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         1.2fr .8fr;
 
-    gap: 50px;
+    gap:
+        50px;
 
-    align-items: center;
+    align-items:
+        center;
 
 }
 
@@ -1705,20 +2204,28 @@ footer a:hover {
 
 
 .artwork-layout.reverse .artwork-image {
-    order: 2;
+
+    order:
+        2;
+
 }
 
 
 .artwork-layout.reverse .artwork-info {
-    order: 1;
+
+    order:
+        1;
+
 }
 
 
 .artwork-image {
 
-    position: relative;
+    position:
+        relative;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     border:
         1px solid var(--line);
@@ -1728,11 +2235,14 @@ footer a:hover {
 
 .artwork-image img {
 
-    width: 100%;
+    width:
+        100%;
 
-    aspect-ratio: 4 / 3;
+    aspect-ratio:
+        4 / 3;
 
-    object-fit: cover;
+    object-fit:
+        cover;
 
     transition:
         transform .6s ease;
@@ -1741,26 +2251,37 @@ footer a:hover {
 
 
 .artwork-image:hover img {
-    transform: scale(1.035);
+
+    transform:
+        scale(1.035);
+
 }
 
 
 .artwork-info {
-    padding: 25px;
+
+    padding:
+        25px;
+
 }
 
 
 .artwork-category {
 
-    display: block;
+    display:
+        block;
 
-    margin-bottom: 14px;
+    margin-bottom:
+        14px;
 
-    color: var(--gold);
+    color:
+        var(--gold);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
@@ -1768,81 +2289,100 @@ footer a:hover {
 .artwork-info h1,
 .artwork-info h2 {
 
-    margin-bottom: 18px;
+    margin-bottom:
+        18px;
 
     font-family:
         "Space Grotesk";
 
     font-size:
-        clamp(32px,5vw,60px);
+        clamp(32px, 5vw, 60px);
 
-    line-height: .95;
+    line-height:
+        .95;
 
 }
 
 
 .artwork-info p {
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
 
 .artwork-meta {
 
-    display: flex;
+    display:
+        flex;
 
-    flex-wrap: wrap;
+    flex-wrap:
+        wrap;
 
-    gap: 10px;
+    gap:
+        10px;
 
-    margin-top: 25px;
+    margin-top:
+        25px;
 
 }
 
 
 .artwork-meta span {
 
-    padding: 8px 12px;
+    padding:
+        8px 12px;
 
     border:
         1px solid var(--line);
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 7px;
+    font-size:
+        7px;
 
-    letter-spacing: .12em;
+    letter-spacing:
+        .12em;
 
 }
 
 
 /* =========================================================
-   28 — CASE STUDY
+   30 — CASE STUDY HEADER
    ========================================================= */
 
 .case-study-header {
 
-    max-width: 850px;
+    max-width:
+        850px;
 
-    margin-bottom: 70px;
+    margin-bottom:
+        70px;
 
 }
 
 
 .case-study-header .eyebrow {
 
-    margin-bottom: 16px;
+    margin-bottom:
+        16px;
 
-    color: var(--cyan);
+    color:
+        var(--cyan);
 
-    font-size: 8px;
+    font-size:
+        8px;
 
-    letter-spacing: .2em;
+    letter-spacing:
+        .2em;
 
 }
 
@@ -1853,59 +2393,79 @@ footer a:hover {
         "Space Grotesk";
 
     font-size:
-        clamp(45px,7vw,100px);
+        clamp(45px, 7vw, 100px);
 
-    line-height: .9;
+    line-height:
+        .9;
 
-    letter-spacing: -.05em;
+    letter-spacing:
+        -.05em;
 
 }
 
 
 .case-study-header p {
 
-    max-width: 650px;
+    max-width:
+        650px;
 
-    margin-top: 25px;
+    margin-top:
+        25px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
 
 /* =========================================================
-   29 — CASE TIMELINE
+   31 — CASE STUDY TIMELINE
    ========================================================= */
 
 .case-timeline {
-    position: relative;
+
+    position:
+        relative;
+
 }
 
 
 .case-timeline::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    left: 18px;
-    top: 0;
-    bottom: 0;
+    left:
+        18px;
 
-    width: 1px;
+    top:
+        0;
 
-    background: var(--line);
+    bottom:
+        0;
+
+    width:
+        1px;
+
+    background:
+        var(--line);
 
 }
 
 
 .case-step {
 
-    position: relative;
+    position:
+        relative;
 
     padding:
         0 0 80px 65px;
@@ -1914,68 +2474,90 @@ footer a:hover {
 
 
 .case-step:last-child {
-    padding-bottom: 0;
+
+    padding-bottom:
+        0;
+
 }
 
 
 .case-step::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    left: 13px;
-    top: 5px;
+    left:
+        13px;
 
-    width: 10px;
-    height: 10px;
+    top:
+        5px;
+
+    width:
+        10px;
+
+    height:
+        10px;
 
     border:
         1px solid var(--cyan);
 
-    background: var(--bg);
+    background:
+        var(--bg);
 
-    transform: rotate(45deg);
+    transform:
+        rotate(45deg);
 
 }
 
 
 .case-step h3 {
 
-    margin-bottom: 12px;
+    margin-bottom:
+        12px;
 
     font-family:
         "Space Grotesk";
 
-    font-size: 28px;
+    font-size:
+        28px;
 
 }
 
 
 .case-step p {
 
-    max-width: 700px;
+    max-width:
+        700px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    line-height: 1.9;
+    line-height:
+        1.9;
 
 }
 
 
 /* =========================================================
-   30 — MOBILE / TABLET
+   32 — MOBILE
    ========================================================= */
 
 @media (max-width: 900px) {
 
+
     .project-info {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
-        gap: 45px;
+        gap:
+            45px;
 
     }
 
@@ -1983,7 +2565,8 @@ footer a:hover {
     .process-block,
     .process-block.reverse {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
     }
 
@@ -1993,9 +2576,11 @@ footer a:hover {
     .artwork-layout,
     .artwork-layout.reverse {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
-        gap: 25px;
+        gap:
+            25px;
 
     }
 
@@ -2007,7 +2592,8 @@ footer a:hover {
     .artwork-layout.reverse .artwork-image,
     .artwork-layout.reverse .artwork-info {
 
-        order: initial;
+        order:
+            initial;
 
     }
 
@@ -2015,9 +2601,11 @@ footer a:hover {
     .gallery-text-left,
     .gallery-text-right {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
-        gap: 35px;
+        gap:
+            35px;
 
     }
 
@@ -2025,71 +2613,95 @@ footer a:hover {
     .gallery-text-left .gallery-copy,
     .gallery-text-right .gallery-copy {
 
-        position: static;
+        position:
+            static;
 
-        order: initial;
+        order:
+            initial;
 
     }
 
 
     .gallery-three {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
-        grid-template-rows: auto;
+        grid-template-rows:
+            auto;
 
     }
 
 
     .gallery-three .gallery-main {
-        grid-row: auto;
+
+        grid-row:
+            auto;
+
     }
 
 
     .gallery-three .gallery-main img,
     .gallery-three .gallery-side img {
 
-        min-height: auto;
+        min-height:
+            auto;
 
-        aspect-ratio: 4 / 3;
+        aspect-ratio:
+            4 / 3;
 
     }
 
 
     .editorial-gallery {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
 
     .editorial-gallery .editorial-main {
-        grid-row: auto;
+
+        grid-row:
+            auto;
+
     }
 
 
     .image-grid {
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
+
     }
 
 }
 
 
 /* =========================================================
-   31 — SMALL MOBILE
+   33 — SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 600px) {
 
+
     .project-nav {
 
-        height: 65px;
+        height:
+            65px;
 
-        padding: 0 22px;
+        padding:
+            0 22px;
 
     }
 
 
     .project-id {
-        display: none;
+
+        display:
+            none;
+
     }
 
 
@@ -2107,7 +2719,8 @@ footer a:hover {
 
     .project-hero {
 
-        padding-top: 45px;
+        padding-top:
+            45px;
 
     }
 
@@ -2126,21 +2739,24 @@ footer a:hover {
 
     .project-subtitle {
 
-        font-size: 12px;
+        font-size:
+            12px;
 
     }
 
 
     .hero-image {
 
-        margin-top: 40px;
+        margin-top:
+            40px;
 
     }
 
 
     .hero-image img {
 
-        aspect-ratio: 4 / 3;
+        aspect-ratio:
+            4 / 3;
 
     }
 
@@ -2148,64 +2764,89 @@ footer a:hover {
     .hero-image::before,
     .hero-image::after {
 
-        width: 35px;
-        height: 35px;
+        width:
+            35px;
+
+        height:
+            35px;
 
     }
 
 
     .project-info {
 
-        margin-top: 65px;
-        margin-bottom: 65px;
+        margin-top:
+            65px;
+
+        margin-bottom:
+            65px;
 
     }
 
 
     .section {
-        margin-top: 80px;
+
+        margin-top:
+            80px;
+
     }
 
 
     .section-title h2 {
-        font-size: 14px;
+
+        font-size:
+            14px;
+
     }
 
 
     .section-title i {
-        min-width: 20px;
+
+        min-width:
+            20px;
+
     }
 
 
     .process-image {
 
-        min-height: auto;
+        min-height:
+            auto;
 
     }
 
 
     .process-image img {
 
-        min-height: auto;
+        min-height:
+            auto;
 
-        aspect-ratio: 4 / 3;
+        aspect-ratio:
+            4 / 3;
 
     }
 
 
     .process-text {
-        padding: 28px;
+
+        padding:
+            28px;
+
     }
 
 
     .process-text h3 {
-        font-size: 24px;
+
+        font-size:
+            24px;
+
     }
 
 
     .gallery {
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
     }
 
@@ -2228,32 +2869,45 @@ footer a:hover {
 
     .fullscreen-art {
 
-        margin-top: 60px;
+        margin-top:
+            60px;
 
     }
 
 
     .fullscreen-art img {
 
-        min-height: 500px;
+        min-height:
+            500px;
 
-        object-fit: cover;
+        object-fit:
+            cover;
 
     }
 
 
     .fullscreen-caption {
 
-        position: relative;
+        position:
+            relative;
 
-        left: auto;
-        right: auto;
-        bottom: auto;
+        left:
+            auto;
 
-        max-width: none;
+        right:
+            auto;
 
-        border-left: 0;
-        border-right: 0;
+        bottom:
+            auto;
+
+        max-width:
+            none;
+
+        border-left:
+            0;
+
+        border-right:
+            0;
 
     }
 
@@ -2261,66 +2915,94 @@ footer a:hover {
     .fullscreen-text-left,
     .fullscreen-text-right {
 
-        position: relative;
+        position:
+            relative;
 
-        top: auto;
-        left: auto;
-        right: auto;
+        top:
+            auto;
 
-        transform: none;
+        left:
+            auto;
 
-        width: 100%;
+        right:
+            auto;
 
-        margin-top: -1px;
+        transform:
+            none;
+
+        width:
+            100%;
+
+        margin-top:
+            -1px;
 
     }
 
 
     .image-grid {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
 
     .image-grid-two {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
 
     .artwork-info {
-        padding: 10px 0;
+
+        padding:
+            10px 0;
+
     }
 
 
     .artwork-meta {
 
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
     }
 
 
     .final-section {
 
-        margin-top: 100px;
+        margin-top:
+            100px;
 
-        margin-bottom: 80px;
+        margin-bottom:
+            80px;
 
     }
 
 
     .final-section h2 {
-        font-size: 48px;
+
+        font-size:
+            48px;
+
     }
 
 
     footer {
 
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
-        padding-bottom: 30px;
+        padding-bottom:
+            30px;
 
     }
 
@@ -2328,7 +3010,7 @@ footer a:hover {
 
 
 /* =========================================================
-   32 — REDUCED MOTION
+   34 — REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -2342,9 +3024,11 @@ footer a:hover {
     *::before,
     *::after {
 
-        transition: none !important;
+        transition:
+            none !important;
 
-        animation: none !important;
+        animation:
+            none !important;
 
     }
 
