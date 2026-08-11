@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
 
@@ -11,10 +11,22 @@
     >
 
     <title>2D ARCHIVE // JORDAN FERRARY</title>
-    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 
-    <link rel="stylesheet" href="../css/gallery.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="../img/favicon.ico"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/gallery.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
 </head>
 
@@ -24,69 +36,121 @@
 
 <section class="gallery-page">
 
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <header class="gallery-header">
+
         <a
-        href="../index.html"
-        class="back"
-    >
-        <span class="back-symbol">←</span>
-        BACK TO ARCHIVE
-    </a>
+            href="../index.html"
+            class="back"
+        >
+            <span class="back-symbol">←</span>
+            BACK TO ARCHIVE
+        </a>
+
 
         <div class="gallery-kicker">
             JORDAN FERRARY // ARCHIVE 01
         </div>
 
+
         <h1 class="gallery-title">
             2D ART
         </h1>
 
+
         <p class="gallery-description">
 
-            Pinturas digitais, ilustrações e estudos
-            visuais desenvolvidos ao longo do processo
-            criativo.
+            Digital paintings, illustrations and visual
+            studies developed throughout the creative process.
 
         </p>
 
     </header>
 
 
+    <!-- =====================================================
+         FILTERS
+         ===================================================== -->
+
     <div class="gallery-controls">
 
-        <button class="filter-button active" data-filter="all">
+        <button
+            class="filter-button active"
+            data-filter="all"
+        >
             ALL
         </button>
 
-        <button class="filter-button" data-filter="painting">
+        <button
+            class="filter-button"
+            data-filter="painting"
+        >
             PAINTING
         </button>
 
-        <button class="filter-button" data-filter="illustration">
+        <button
+            class="filter-button"
+            data-filter="illustration"
+        >
             ILLUSTRATION
         </button>
 
-        <button class="filter-button" data-filter="study">
+        <button
+            class="filter-button"
+            data-filter="study"
+        >
             STUDIES
         </button>
 
     </div>
 
 
+    <!-- =====================================================
+         GALLERY
+         ===================================================== -->
+
     <div class="gallery-grid">
 
+
+        <!-- =================================================
+             PROJECT 01
+             ================================================= -->
 
         <article
             class="gallery-card"
             data-category="painting"
         >
 
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-001/thumbnail.jpg')"
-            ></div>
+            <!-- IMAGE / ZOOM AREA -->
+
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 01 preview"
+                data-image="assets/projeto-001/thumbnail.jpg"
+                data-title="PROJECT 01"
+            >
+
+                <img
+                    src="assets/projeto-001/thumbnail.jpg"
+                    alt="PROJECT 01 artwork"
+                    class="gallery-card-image"
+                >
+
+                <span class="image-zoom-indicator">
+                    ⊕
+                </span>
+
+            </button>
+
 
             <div class="gallery-card-overlay"></div>
+
+
+            <!-- CONTENT -->
 
             <div class="gallery-card-content">
 
@@ -114,17 +178,38 @@
         </article>
 
 
+        <!-- =================================================
+             PROJECT 02
+             ================================================= -->
+
         <article
             class="gallery-card"
             data-category="illustration"
         >
 
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-002/thumbnail.jpg')"
-            ></div>
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 02 preview"
+                data-image="assets/projeto-002/thumbnail.jpg"
+                data-title="PROJECT 02"
+            >
+
+                <img
+                    src="assets/projeto-002/thumbnail.jpg"
+                    alt="PROJECT 02 artwork"
+                    class="gallery-card-image"
+                >
+
+                <span class="image-zoom-indicator">
+                    ⊕
+                </span>
+
+            </button>
+
 
             <div class="gallery-card-overlay"></div>
+
 
             <div class="gallery-card-content">
 
@@ -152,17 +237,38 @@
         </article>
 
 
+        <!-- =================================================
+             PROJECT 03
+             ================================================= -->
+
         <article
             class="gallery-card"
             data-category="study"
         >
 
-            <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-003/thumbnail.jpg')"
-            ></div>
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 03 preview"
+                data-image="assets/projeto-003/thumbnail.jpg"
+                data-title="PROJECT 03"
+            >
+
+                <img
+                    src="assets/projeto-003/thumbnail.jpg"
+                    alt="PROJECT 03 artwork"
+                    class="gallery-card-image"
+                >
+
+                <span class="image-zoom-indicator">
+                    ⊕
+                </span>
+
+            </button>
+
 
             <div class="gallery-card-overlay"></div>
+
 
             <div class="gallery-card-content">
 
@@ -189,6 +295,7 @@
 
         </article>
 
+
     </div>
 
 </section>
@@ -196,50 +303,46 @@
 </main>
 
 
-<script>
+<!-- =========================================================
+     IMAGE LIGHTBOX
+     ========================================================= -->
 
-const buttons =
-    document.querySelectorAll(".filter-button");
+<div
+    class="image-lightbox"
+    id="imageLightbox"
+    aria-hidden="true"
+>
 
-const cards =
-    document.querySelectorAll(".gallery-card");
+    <button
+        class="lightbox-close"
+        type="button"
+        aria-label="Close image preview"
+    >
+        ×
+    </button>
 
 
-buttons.forEach(button => {
+    <div class="lightbox-content">
 
-    button.addEventListener("click", () => {
+        <img
+            src=""
+            alt=""
+            class="lightbox-image"
+            id="lightboxImage"
+        >
 
-        buttons.forEach(btn =>
-            btn.classList.remove("active")
-        );
+        <div
+            class="lightbox-title"
+            id="lightboxTitle"
+        ></div>
 
-        button.classList.add("active");
+    </div>
 
-        const filter =
-            button.dataset.filter;
+</div>
 
-        cards.forEach(card => {
 
-            if (
-                filter === "all" ||
-                card.dataset.category === filter
-            ) {
-
-                card.style.display = "";
-
-            } else {
-
-                card.style.display = "none";
-
-            }
-
-        });
-
-    });
-
-});
-
-</script>
+<script src="../js/gallery.js"></script>
 
 </body>
+
 </html>
