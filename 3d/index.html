@@ -100,26 +100,23 @@
                 </article>
 
 
-                <!-- 1. AQUI FICA A SUA GALERIA DE OBRAS -->
                 <article class="gallery-card" data-category="character">
-    
-    <!-- Colocamos a classe zoomable na div -->
+
                     <div class="gallery-card-image zoomable">
-                        <!-- Aqui está a sua imagem! Muito mais fácil de alterar depois -->
-                        <img src="assets/projeto-001/imagens/thumbnail.jpg" alt="Project 02">
+                        <!-- 
+          src: é a imagem que aparece no card (pode ser o thumbnail)
+          data-zoom: é a imagem gigante e SEM CORTES que vai abrir no clique!
+        -->
+                        <img src="assets/projeto-002/imagens/thumbnail.jpg"
+                            data-zoom="assets/projeto-002/imagens/imagem-completa-gigante.jpg" alt="Project 02">
                     </div>
 
                     <div class="gallery-card-overlay"></div>
-
                     <div class="gallery-card-content">
-                        <small>CHARACTER</small>
-                        <h3>PROJECT 02</h3>
-                        <p>Character modeling and presentation.</p>
-                        <a href="assets/projeto-002/index.html" class="gallery-card-link">VIEW PROJECT →</a>
+                        <!-- Seu conteúdo... -->
                     </div>
 
                 </article>
-
                 <article class="gallery-card" data-category="render">
 
                     <div class="gallery-card-image"
@@ -202,26 +199,26 @@
     </script>
 
     <script>
-// Pega todas as imagens que estão dentro das divs com a classe zoomable
 const zoomImages = document.querySelectorAll(".zoomable img");
 const lightbox = document.getElementById("imageLightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const closeButton = document.querySelector(".lightbox-close");
 
-// Para cada imagem clicável:
 zoomImages.forEach(image => {
     image.addEventListener("click", () => {
-        // Pega o src da imagem clicada e joga no Lightbox
-        lightboxImage.src = image.src;
+        
+        // Pega a imagem grande que colocamos no data-zoom!
+        // Se você esquecer de colocar o data-zoom, ele usa o src normal de fallback
+        const imagemGrande = image.getAttribute("data-zoom") || image.src;
+        
+        lightboxImage.src = imagemGrande;
         lightboxImage.alt = image.alt;
 
-        // Mostra o Lightbox e trava a rolagem
         lightbox.classList.add("active");
         document.body.style.overflow = "hidden";
     });
 });
 
-// O resto continua igual (fechar o lightbox)
 function closeLightbox() {
     lightbox.classList.remove("active");
     document.body.style.overflow = "";
@@ -242,13 +239,6 @@ document.addEventListener("keydown", event => {
     }
 });
 </script>
-
-    <!-- 2. AQUI FICA O LIGHTBOX (Coloque antes de fechar o </body>) -->
-    <div class="image-lightbox" id="imageLightbox">
-        <button class="lightbox-close" aria-label="Fechar">×</button>
-        <img id="lightboxImage" src="" alt="">
-    </div>
-
 
 </body>
 
