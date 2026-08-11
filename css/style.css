@@ -530,7 +530,7 @@ body::after {
 
     color: var(--gold);
 
-    font-size: 19px;
+    font-size: 25px;
 
     transition:
         color .25s ease,
@@ -569,7 +569,7 @@ body::after {
 
     color: var(--muted-dark);
 
-    font-size: 7px;
+    font-size: 9px;
 
     font-weight: 400;
 
@@ -604,7 +604,7 @@ body::after {
 
     color: var(--muted-dark);
 
-    font-size: 8px;
+    font-size: 9px;
 
     letter-spacing: .08em;
 }
@@ -653,7 +653,7 @@ body::after {
 
     color: var(--text-soft);
 
-    font-size: 7px;
+    font-size: 8px;
 }
 
 
@@ -856,7 +856,7 @@ main {
 
     font-size: 10px;
 
-    letter-spacing: .22em;
+    letter-spacing: .20em;
 }
 
 
@@ -896,7 +896,7 @@ main {
 
     color: var(--text-soft);
 
-    font-size: 9px;
+    font-size: 10px;
 
     letter-spacing: .14em;
 }
