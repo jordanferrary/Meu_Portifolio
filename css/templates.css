@@ -17,6 +17,62 @@
    ========================================================= */
 
    /* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+
+    /* BACKGROUNDS */
+
+    --bg: #06040d;
+    --bg-deep: #090611;
+    --bg-panel: #0d0918;
+    --bg-panel-2: #120c20;
+
+    /* PURPLE SYSTEM */
+
+    --purple: #9b5cff;
+    --purple-bright: #bd7cff;
+    --purple-neon: #d28cff;
+    --purple-dark: #542b8f;
+
+    /* GOLD SYSTEM */
+
+    --gold: #d9b66d;
+    --gold-bright: #f0d58b;
+    --gold-dark: #80652f;
+
+    /* TEXT */
+
+    --text: #f5efff;
+    --text-soft: #c7bad8;
+    --muted: #82758f;
+    --muted-dark: #554b61;
+
+    /* LINES */
+
+    --line: rgba(173, 112, 255, .20);
+    --line-bright: rgba(190, 125, 255, .48);
+    --gold-line: rgba(217, 182, 109, .45);
+
+    /* EFFECTS */
+
+    --purple-glow:
+        0 0 25px rgba(155, 92, 255, .22);
+
+    --purple-glow-strong:
+        0 0 45px rgba(178, 92, 255, .28);
+
+    --gold-glow:
+        0 0 20px rgba(217, 182, 109, .16);
+
+    --panel:
+        rgba(13, 9, 24, .78);
+
+}
+
+
+   /* =========================================================
    02 — RESET
    ========================================================= */
 
