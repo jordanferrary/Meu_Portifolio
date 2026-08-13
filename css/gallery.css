@@ -1,5 +1,6 @@
 /* =========================================================
    JORDAN FERRARY
+   DIGITAL ARCHIVE
    2D GALLERY SYSTEM
    ========================================================= */
 
@@ -13,7 +14,7 @@
     min-height: 100vh;
 
     padding:
-        80px 5vw
+        70px 5vw
         100px;
 
 }
@@ -25,25 +26,154 @@
 
 .gallery-header {
 
+    position: relative;
+
     max-width: 900px;
 
-    margin-bottom: 60px;
+    margin-bottom: 48px;
+
+    padding-top: 52px;
 
 }
 
 
+/* =========================================================
+   GALLERY NAVIGATION
+   ========================================================= */
+
+.gallery-navigation {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+}
+
+
+.back {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        7px 0;
+
+    color:
+        var(--muted);
+
+    text-decoration: none;
+
+    font-size: 9px;
+
+    letter-spacing: .16em;
+
+    transition:
+        color .25s ease,
+        gap .25s ease;
+
+}
+
+
+.back::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 1px;
+
+    background:
+        var(--cyan);
+
+    transition:
+        width .3s ease;
+
+}
+
+
+.back:hover {
+
+    color:
+        var(--text);
+
+    gap: 14px;
+
+}
+
+
+.back:hover::after {
+
+    width: 100%;
+
+}
+
+
+.back-symbol {
+
+    color:
+        var(--gold);
+
+    font-size: 14px;
+
+    line-height: 1;
+
+}
+
+
+/* =========================================================
+   HEADER KICKER
+   ========================================================= */
+
 .gallery-kicker {
 
-    color: var(--gold);
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color:
+        var(--gold);
 
     font-size: 10px;
 
     letter-spacing: .25em;
 
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 
 }
 
+
+.gallery-kicker::before {
+
+    content: "";
+
+    display: block;
+
+    width: 22px;
+    height: 1px;
+
+    background:
+        var(--gold);
+
+    opacity: .7;
+
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
 
 .gallery-title {
 
@@ -60,9 +190,14 @@
             90px
         );
 
+    font-weight: 700;
+
     line-height: .9;
 
     letter-spacing: -.035em;
+
+    color:
+        var(--text);
 
 }
 
@@ -73,7 +208,8 @@
 
     margin-top: 26px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: 13px;
 
@@ -92,9 +228,17 @@
 
     flex-wrap: wrap;
 
-    gap: 10px;
+    align-items: center;
 
-    margin-bottom: 35px;
+    gap: 8px;
+
+    margin-bottom: 30px;
+
+    padding-bottom: 18px;
+
+    border-bottom:
+        1px solid
+        var(--line);
 
 }
 
@@ -110,12 +254,17 @@
     background:
         rgba(255,255,255,.015);
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     padding:
-        11px 17px;
+        10px 15px;
 
     cursor: pointer;
+
+    font-family:
+        "Inter",
+        sans-serif;
 
     font-size: 9px;
 
@@ -125,25 +274,40 @@
         color .25s ease,
         border-color .25s ease,
         background .25s ease,
-        box-shadow .25s ease;
+        box-shadow .25s ease,
+        transform .25s ease;
 
 }
 
 
-.filter-button:hover,
+.filter-button:hover {
+
+    color:
+        var(--text);
+
+    border-color:
+        rgba(40,191,255,.45);
+
+    background:
+        rgba(40,191,255,.035);
+
+}
+
+
 .filter-button.active {
 
-    color: white;
+    color:
+        var(--text);
 
     border-color:
         var(--cyan);
 
     background:
-        rgba(40,191,255,.08);
+        rgba(40,191,255,.07);
 
     box-shadow:
         0 0 18px
-        rgba(40,191,255,.08);
+        rgba(40,191,255,.07);
 
 }
 
@@ -155,8 +319,8 @@
 
     position: absolute;
 
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
 
     border-color:
         var(--gold);
@@ -165,7 +329,8 @@
 
     opacity: 0;
 
-    transition: opacity .25s ease;
+    transition:
+        opacity .25s ease;
 
 }
 
@@ -209,7 +374,7 @@
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3, minmax(0, 1fr));
 
     gap: 18px;
 
@@ -224,7 +389,7 @@
 
     position: relative;
 
-    min-height: 360px;
+    min-height: 390px;
 
     overflow: hidden;
 
@@ -233,12 +398,12 @@
         var(--line);
 
     background:
-        #07101c;
+        rgba(255,255,255,.015);
 
     transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
+        transform .35s cubic-bezier(.2,.7,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
 
 }
 
@@ -246,17 +411,17 @@
 .gallery-card:hover {
 
     transform:
-        translateY(-6px);
+        translateY(-5px);
 
     border-color:
-        var(--cyan);
+        rgba(40,191,255,.55);
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.35),
+        0 18px 45px
+        rgba(0,0,0,.32),
 
-        0 0 25px
-        rgba(40,191,255,.08);
+        0 0 28px
+        rgba(40,191,255,.06);
 
 }
 
@@ -278,9 +443,11 @@
 
     border: 0;
 
-    background: transparent;
+    background:
+        transparent;
 
-    cursor: zoom-in;
+    cursor:
+        zoom-in;
 
     overflow: hidden;
 
@@ -305,13 +472,13 @@
     object-position: center;
 
     transition:
-        transform .55s
-        cubic-bezier(.2,.7,.2,1);
+        transform .7s
+        cubic-bezier(.2,.7,.2,1),
+
+        filter .5s ease;
 
 }
 
-
-/* Zoom visual do card */
 
 .gallery-card:hover
 .gallery-card-image {
@@ -330,11 +497,11 @@
 
     position: absolute;
 
-    top: 18px;
-    right: 18px;
+    top: 17px;
+    right: 17px;
 
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
 
     display: grid;
 
@@ -342,10 +509,10 @@
 
     border:
         1px solid
-        rgba(255,255,255,.25);
+        rgba(255,255,255,.2);
 
     background:
-        rgba(4,8,15,.45);
+        rgba(4,8,15,.42);
 
     backdrop-filter:
         blur(8px);
@@ -353,7 +520,9 @@
     color:
         var(--gold);
 
-    font-size: 16px;
+    font-size: 15px;
+
+    line-height: 1;
 
     opacity: 0;
 
@@ -362,7 +531,8 @@
 
     transition:
         opacity .25s ease,
-        transform .25s ease;
+        transform .25s ease,
+        border-color .25s ease;
 
     z-index: 5;
 
@@ -380,6 +550,15 @@
 }
 
 
+.gallery-card-image-button:hover
+.image-zoom-indicator {
+
+    border-color:
+        rgba(255,255,255,.4);
+
+}
+
+
 /* =========================================================
    IMAGE OVERLAY
    ========================================================= */
@@ -393,9 +572,10 @@
     background:
         linear-gradient(
             0deg,
-            rgba(3,7,13,.98),
-            rgba(3,7,13,.38) 42%,
-            rgba(3,7,13,.02) 75%
+            rgba(3,7,13,.98) 0%,
+            rgba(3,7,13,.78) 22%,
+            rgba(3,7,13,.28) 50%,
+            rgba(3,7,13,.02) 78%
         );
 
     pointer-events: none;
@@ -409,17 +589,14 @@
    CARD CORNERS
    ========================================================= */
 
-.gallery-card::before,
-.gallery-card::after {
-
-    content: "";
+.gallery-card-corner {
 
     position: absolute;
 
-    width: 24px;
-    height: 24px;
+    width: 23px;
+    height: 23px;
 
-    z-index: 6;
+    z-index: 8;
 
     pointer-events: none;
 
@@ -428,13 +605,20 @@
 
     border-style: solid;
 
+    opacity: .75;
+
+    transition:
+        width .3s ease,
+        height .3s ease,
+        opacity .3s ease;
+
 }
 
 
-.gallery-card::before {
+.gallery-card-corner-top {
 
-    left: 8px;
     top: 8px;
+    left: 8px;
 
     border-width:
         1px 0 0 1px;
@@ -442,13 +626,24 @@
 }
 
 
-.gallery-card::after {
+.gallery-card-corner-bottom {
 
     right: 8px;
     bottom: 8px;
 
     border-width:
         0 1px 1px 0;
+
+}
+
+
+.gallery-card:hover
+.gallery-card-corner {
+
+    width: 27px;
+    height: 27px;
+
+    opacity: 1;
 
 }
 
@@ -473,6 +668,8 @@
 
 .gallery-card-content small {
 
+    display: block;
+
     color:
         var(--cyan);
 
@@ -486,13 +683,15 @@
 .gallery-card-content h3 {
 
     margin:
-        8px 0;
+        8px 0 7px;
 
     font-family:
         "Space Grotesk",
         sans-serif;
 
     font-size: 26px;
+
+    font-weight: 600;
 
     letter-spacing: .04em;
 
@@ -509,7 +708,7 @@
     max-width: 420px;
 
     color:
-        #aeb9c9;
+        var(--muted);
 
     font-size: 10px;
 
@@ -524,16 +723,22 @@
 
 .gallery-card-link {
 
+    position: relative;
+
     display: inline-flex;
 
     align-items: center;
 
-    gap: 8px;
+    gap: 9px;
 
-    margin-top: 16px;
+    margin-top: 15px;
+
+    padding-bottom: 5px;
 
     color:
         var(--cyan);
+
+    text-decoration: none;
 
     font-size: 9px;
 
@@ -546,12 +751,66 @@
 }
 
 
+.gallery-card-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 22px;
+    height: 1px;
+
+    background:
+        var(--cyan);
+
+    opacity: .55;
+
+    transition:
+        width .3s ease,
+        opacity .3s ease;
+
+}
+
+
 .gallery-card-link:hover {
 
     color:
-        white;
+        var(--text);
 
     gap: 13px;
+
+}
+
+
+.gallery-card-link:hover::after {
+
+    width: 100%;
+
+    opacity: 1;
+
+}
+
+
+.gallery-card-link-icon {
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    transition:
+        transform .25s ease;
+
+}
+
+
+.gallery-card-link:hover
+.gallery-card-link-icon {
+
+    transform:
+        translate(2px,-2px);
 
 }
 
@@ -577,10 +836,10 @@
     padding: 40px;
 
     background:
-        rgba(2,4,10,.92);
+        rgba(2,4,10,.94);
 
     backdrop-filter:
-        blur(14px);
+        blur(16px);
 
     opacity: 0;
 
@@ -626,7 +885,7 @@
 
     align-items: center;
 
-    gap: 15px;
+    gap: 13px;
 
 }
 
@@ -756,10 +1015,18 @@ body.lightbox-open {
 
 @media(max-width:1100px) {
 
+    .gallery-page {
+
+        padding-left: 4vw;
+        padding-right: 4vw;
+
+    }
+
+
     .gallery-grid {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
 
     }
 
@@ -775,7 +1042,7 @@ body.lightbox-open {
     .gallery-page {
 
         padding:
-            50px 22px
+            45px 22px
             70px;
 
     }
@@ -783,7 +1050,16 @@ body.lightbox-open {
 
     .gallery-header {
 
-        margin-bottom: 45px;
+        padding-top: 48px;
+
+        margin-bottom: 40px;
+
+    }
+
+
+    .gallery-navigation {
+
+        top: 0;
 
     }
 
@@ -802,14 +1078,22 @@ body.lightbox-open {
 
     .gallery-description {
 
+        margin-top: 22px;
+
         font-size: 12px;
+
+        line-height: 1.8;
 
     }
 
 
     .gallery-controls {
 
-        gap: 7px;
+        gap: 6px;
+
+        margin-bottom: 24px;
+
+        padding-bottom: 15px;
 
     }
 
@@ -817,7 +1101,7 @@ body.lightbox-open {
     .filter-button {
 
         padding:
-            10px 13px;
+            9px 12px;
 
         font-size: 8px;
 
@@ -831,7 +1115,7 @@ body.lightbox-open {
     .gallery-grid {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
 
         gap: 10px;
 
@@ -848,17 +1132,41 @@ body.lightbox-open {
 
     .gallery-card-content {
 
-        left: 18px;
-        right: 18px;
+        left: 16px;
+        right: 16px;
 
-        bottom: 18px;
+        bottom: 16px;
 
     }
 
 
     .gallery-card-content h3 {
 
-        font-size: 24px;
+        font-size: 20px;
+
+    }
+
+
+    .gallery-card-content p {
+
+        font-size: 9px;
+
+    }
+
+
+    .gallery-card-link {
+
+        margin-top: 12px;
+
+        font-size: 8px;
+
+    }
+
+
+    .gallery-card-corner {
+
+        width: 18px;
+        height: 18px;
 
     }
 
@@ -869,6 +1177,12 @@ body.lightbox-open {
 
         transform:
             translateY(0);
+
+        top: 12px;
+        right: 12px;
+
+        width: 28px;
+        height: 28px;
 
     }
 
