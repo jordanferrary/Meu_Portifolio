@@ -18,28 +18,17 @@
         href="../img/favicon.ico"
     >
 
-    <!-- =====================================================
-         GLOBAL STYLES
-         Variables, reset and reusable components.
-         ===================================================== -->
-
-    <link
-        rel="stylesheet"
-        href="../css/base.css"
-    >
-
-    <!-- =====================================================
-         PAGE STYLES
-         Styles specific to the 2D gallery.
-         ===================================================== -->
-
     <link
         rel="stylesheet"
         href="../css/gallery.css"
     >
 
-</head>
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
+</head>
 
 <body>
 
@@ -48,8 +37,7 @@
 <section class="gallery-page">
 
     <!-- =====================================================
-         GALLERY HEADER
-         Page identification and navigation.
+         HEADER
          ===================================================== -->
 
     <header class="gallery-header">
@@ -57,15 +45,9 @@
         <a
             href="../index.html"
             class="back"
-            aria-label="Back to main archive"
         >
-
-            <span class="back-symbol">
-                ←
-            </span>
-
+            <span class="back-symbol">←</span>
             BACK TO ARCHIVE
-
         </a>
 
 
@@ -90,60 +72,44 @@
 
 
     <!-- =====================================================
-         GALLERY FILTERS
-         Categories used to filter projects.
+         FILTERS
          ===================================================== -->
 
-    <nav
-        class="gallery-controls"
-        aria-label="Filter 2D artwork"
-    >
+    <div class="gallery-controls">
 
         <button
             class="filter-button active"
-            type="button"
             data-filter="all"
-            aria-pressed="true"
         >
             ALL
         </button>
 
-
         <button
             class="filter-button"
-            type="button"
             data-filter="painting"
-            aria-pressed="false"
         >
             PAINTING
         </button>
 
-
         <button
             class="filter-button"
-            type="button"
             data-filter="illustration"
-            aria-pressed="false"
         >
             ILLUSTRATION
         </button>
 
-
         <button
             class="filter-button"
-            type="button"
             data-filter="study"
-            aria-pressed="false"
         >
             STUDIES
         </button>
 
-    </nav>
+    </div>
 
 
     <!-- =====================================================
-         PROJECT GRID
-         Main gallery containing all 2D projects.
+         GALLERY
          ===================================================== -->
 
     <div class="gallery-grid">
@@ -151,7 +117,6 @@
 
         <!-- =================================================
              PROJECT 01
-             Category: Digital Painting
              ================================================= -->
 
         <article
@@ -159,10 +124,7 @@
             data-category="painting"
         >
 
-            <!-- -------------------------------------------------
-                 PROJECT IMAGE
-                 Clicking the image opens the lightbox.
-                 ------------------------------------------------- -->
+            <!-- IMAGE / ZOOM AREA -->
 
             <button
                 class="gallery-card-image-button"
@@ -174,35 +136,21 @@
 
                 <img
                     src="assets/projeto-001/imagens/thumbnail.jpg"
-                    alt="PROJECT 01 digital painting"
+                    alt="PROJECT 01 artwork"
                     class="gallery-card-image"
-                    loading="lazy"
                 >
 
-                <span
-                    class="image-zoom-indicator"
-                    aria-hidden="true"
-                >
+                <span class="image-zoom-indicator">
                     ⊕
                 </span>
 
             </button>
 
 
-            <!-- -------------------------------------------------
-                 VISUAL OVERLAY
-                 Decorative layer over the artwork.
-                 ------------------------------------------------- -->
-
-            <div
-                class="gallery-card-overlay"
-                aria-hidden="true"
-            ></div>
+            <div class="gallery-card-overlay"></div>
 
 
-            <!-- -------------------------------------------------
-                 PROJECT INFORMATION
-                 ------------------------------------------------- -->
+            <!-- CONTENT -->
 
             <div class="gallery-card-content">
 
@@ -210,9 +158,9 @@
                     DIGITAL PAINTING
                 </small>
 
-                <h2>
+                <h3>
                     PROJECT 01
-                </h2>
+                </h3>
 
                 <p>
                     Atmospheric digital artwork.
@@ -232,7 +180,6 @@
 
         <!-- =================================================
              PROJECT 02
-             Category: Illustration
              ================================================= -->
 
         <article
@@ -250,25 +197,18 @@
 
                 <img
                     src="assets/projeto-002/imagens/thumbnail.jpg"
-                    alt="PROJECT 02 illustration"
+                    alt="PROJECT 02 artwork"
                     class="gallery-card-image"
-                    loading="lazy"
                 >
 
-                <span
-                    class="image-zoom-indicator"
-                    aria-hidden="true"
-                >
+                <span class="image-zoom-indicator">
                     ⊕
                 </span>
 
             </button>
 
 
-            <div
-                class="gallery-card-overlay"
-                aria-hidden="true"
-            ></div>
+            <div class="gallery-card-overlay"></div>
 
 
             <div class="gallery-card-content">
@@ -277,9 +217,9 @@
                     ILLUSTRATION
                 </small>
 
-                <h2>
+                <h3>
                     PROJECT 02
-                </h2>
+                </h3>
 
                 <p>
                     Character and visual development.
@@ -299,7 +239,6 @@
 
         <!-- =================================================
              PROJECT 03
-             Category: Study
              ================================================= -->
 
         <article
@@ -317,25 +256,18 @@
 
                 <img
                     src="assets/projeto-003/imagens/thumbnail.jpg"
-                    alt="PROJECT 03 art study"
+                    alt="PROJECT 03 artwork"
                     class="gallery-card-image"
-                    loading="lazy"
                 >
 
-                <span
-                    class="image-zoom-indicator"
-                    aria-hidden="true"
-                >
+                <span class="image-zoom-indicator">
                     ⊕
                 </span>
 
             </button>
 
 
-            <div
-                class="gallery-card-overlay"
-                aria-hidden="true"
-            ></div>
+            <div class="gallery-card-overlay"></div>
 
 
             <div class="gallery-card-content">
@@ -344,9 +276,9 @@
                     STUDY
                 </small>
 
-                <h2>
+                <h3>
                     PROJECT 03
-                </h2>
+                </h3>
 
                 <p>
                     Composition and lighting study.
@@ -373,7 +305,6 @@
 
 <!-- =========================================================
      IMAGE LIGHTBOX
-     Displays a larger preview of the selected artwork.
      ========================================================= -->
 
 <div
@@ -409,11 +340,6 @@
 
 </div>
 
-
-<!-- =========================================================
-     GALLERY SCRIPT
-     Handles filters and image lightbox.
-     ========================================================= -->
 
 <script src="../js/gallery.js"></script>
 
