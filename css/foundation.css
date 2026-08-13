@@ -1,0 +1,231 @@
+/* =========================================================
+   JORDAN FERRARY // DIGITAL ARCHIVE
+   ARCANE TECH // VISUAL PORTFOLIO
+
+   FOUNDATION
+   Variables + Reset + Global Base
+   ========================================================= */
+
+
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
+:root {
+
+    /* -----------------------------------------------------
+       BACKGROUNDS
+       ----------------------------------------------------- */
+
+    --bg: #06040d;
+    --bg-deep: #090611;
+    --bg-panel: #0d0918;
+    --bg-panel-2: #120c20;
+
+
+    /* -----------------------------------------------------
+       PURPLE SYSTEM
+       ----------------------------------------------------- */
+
+    --purple: #9b5cff;
+    --purple-bright: #bd7cff;
+    --purple-neon: #d28cff;
+    --purple-dark: #542b8f;
+
+
+    /* -----------------------------------------------------
+       GOLD SYSTEM
+       ----------------------------------------------------- */
+
+    --gold: #d9b66d;
+    --gold-bright: #f0d58b;
+    --gold-dark: #80652f;
+
+
+    /* -----------------------------------------------------
+       TEXT
+       ----------------------------------------------------- */
+
+    --text: #f5efff;
+    --text-soft: #c7bad8;
+    --muted: #82758f;
+    --muted-dark: #554b61;
+
+
+    /* -----------------------------------------------------
+       LINES
+       ----------------------------------------------------- */
+
+    --line: rgba(173, 112, 255, .20);
+    --line-bright: rgba(190, 125, 255, .48);
+    --gold-line: rgba(217, 182, 109, .45);
+
+
+    /* -----------------------------------------------------
+       EFFECTS
+       ----------------------------------------------------- */
+
+    --purple-glow:
+        0 0 25px rgba(155, 92, 255, .22);
+
+    --purple-glow-strong:
+        0 0 45px rgba(178, 92, 255, .28);
+
+    --gold-glow:
+        0 0 20px rgba(217, 182, 109, .16);
+
+
+    /* -----------------------------------------------------
+       PANELS
+       ----------------------------------------------------- */
+
+    --panel:
+        rgba(13, 9, 24, .78);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+
+    scroll-behavior: smooth;
+    scroll-padding-top: 40px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 70% 10%,
+            rgba(143, 63, 255, .14),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 20% 55%,
+            rgba(91, 31, 165, .08),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #05030a,
+            #08050f 50%,
+            #05030a
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   GLOBAL ELEMENTS
+   ========================================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin-top: 0;
+}
+
+/* =========================================================
+   GLOBAL ATMOSPHERE
+   Site-wide grid and ambient particles
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -3;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(176, 112, 255, .025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(176, 112, 255, .025) 1px,
+            transparent 1px
+        );
+
+    background-size: 46px 46px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black 0%,
+            transparent 90%
+        );
+}
+
+body::after {
+    content: "✦     ·          ✧              ·       ✦             ·              ✧";
+
+    position: fixed;
+    inset: 0;
+
+    z-index: -2;
+    pointer-events: none;
+
+    color: rgba(214, 165, 255, .20);
+
+    font-size: 11px;
+    letter-spacing: 70px;
+    line-height: 100px;
+
+    white-space: normal;
+
+    opacity: .35;
+
+    transform: rotate(-8deg);
+
+    overflow: hidden;
+}

@@ -2607,6 +2607,12 @@ footer a:hover {
 
 }
 
+.gallery-card:hover
+.image-zoom-indicator {
+    opacity: 1;
+    transform:translateY(0);
+}
+
 
 /* =========================================================
    32 — MOBILE

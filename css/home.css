@@ -1,0 +1,1098 @@
+/* =========================================================
+   JORDAN FERRARY // DIGITAL ARCHIVE
+   ARCANE TECH // VISUAL PORTFOLIO
+
+   HOME PAGE
+   Homepage-specific sections and visuals
+   ========================================================= */
+
+
+/* =========================================================
+   HERO
+   Homepage introduction / main visual
+   ========================================================= */
+
+.hero {
+    min-height: 700px;
+
+    padding:
+        75px 5vw 65px;
+
+    display: grid;
+
+    grid-template-columns:
+        .95fr
+        1.05fr;
+
+    gap: 50px;
+
+    align-items: center;
+
+    position: relative;
+}
+
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 550px;
+    height: 550px;
+
+    right: 5%;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(147, 66, 255, .13),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO COPY
+   ========================================================= */
+
+.hero-copy {
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.eyebrow {
+    margin-bottom: 18px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+
+    letter-spacing: .20em;
+}
+
+
+.hero h1 {
+    margin: 0;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size:
+        clamp(
+            52px,
+            6vw,
+            100px
+        );
+
+    line-height: .87;
+
+    letter-spacing: -.045em;
+}
+
+
+.hero h1 span {
+    color: var(--purple-bright);
+
+    text-shadow:
+        0 0 35px rgba(178, 100, 255, .18);
+}
+
+
+.roles {
+    margin-top: 27px;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
+
+    letter-spacing: .14em;
+}
+
+
+.roles b {
+    padding: 0 6px;
+
+    color: var(--gold);
+}
+
+
+.hero-description {
+    max-width: 480px;
+
+    margin: 27px 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+    letter-spacing: .025em;
+}
+
+
+.scroll {
+    margin-top: 38px;
+
+    color: var(--muted-dark);
+
+    font-size: 7px;
+
+    letter-spacing: .2em;
+}
+
+
+/* =========================================================
+   HERO ART
+   Homepage visual showcase
+   ========================================================= */
+
+.hero-art {
+    width: min(520px, 100%);
+
+    margin: auto;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.hero-art-frame {
+    min-height: 500px;
+
+    position: relative;
+
+    display: grid;
+
+    place-items: center;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line-bright);
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(148, 68, 255, .16),
+            transparent 38%
+        ),
+
+        linear-gradient(
+            145deg,
+            rgba(22, 12, 36, .95),
+            rgba(7, 4, 14, .98)
+        );
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, .35),
+        0 0 50px rgba(117, 50, 200, .08);
+}
+
+
+.hero-art-frame::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 18px;
+
+    border:
+        1px solid rgba(217, 182, 109, .14);
+
+    pointer-events: none;
+}
+
+
+.hero-art-frame::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 49.8%,
+            rgba(217, 182, 109, .06) 50%,
+            transparent 50.2%
+        ),
+
+        linear-gradient(
+            0deg,
+            transparent 49.8%,
+            rgba(217, 182, 109, .06) 50%,
+            transparent 50.2%
+        );
+}
+
+
+/* =========================================================
+   HERO ART CORNERS
+   ========================================================= */
+
+.hero-art-corner {
+    position: absolute;
+
+    width: 32px;
+    height: 32px;
+
+    z-index: 4;
+
+    border-color:
+        var(--gold);
+
+    border-style: solid;
+
+    opacity: .8;
+}
+
+
+.hero-art-corner.top-left {
+    top: 10px;
+    left: 10px;
+
+    border-width:
+        1px 0 0 1px;
+}
+
+
+.hero-art-corner.top-right {
+    top: 10px;
+    right: 10px;
+
+    border-width:
+        1px 1px 0 0;
+}
+
+
+.hero-art-corner.bottom-left {
+    bottom: 10px;
+    left: 10px;
+
+    border-width:
+        0 0 1px 1px;
+}
+
+
+.hero-art-corner.bottom-right {
+    right: 10px;
+    bottom: 10px;
+
+    border-width:
+        0 1px 1px 0;
+}
+
+
+/* =========================================================
+   HERO ART PLACEHOLDER
+   ========================================================= */
+
+.hero-art-placeholder {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+
+.hero-art-symbol {
+    margin-bottom: 18px;
+
+    color: var(--purple-bright);
+
+    font-size: 52px;
+
+    text-shadow:
+        0 0 30px rgba(190, 124, 255, .55);
+}
+
+
+.hero-art-placeholder small {
+    color: var(--gold);
+
+    font-size: 8px;
+
+    letter-spacing: .25em;
+}
+
+
+.hero-art-placeholder strong {
+    margin-top: 12px;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 24px;
+
+    letter-spacing: .12em;
+}
+
+
+.hero-art-placeholder i {
+    margin-top: 10px;
+
+    color: var(--muted);
+
+    font-size: 7px;
+
+    font-style: normal;
+
+    letter-spacing: .2em;
+}
+
+
+.hero-art-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 14px;
+
+    padding: 0 5px;
+}
+
+
+.hero-art-label > span {
+    color: var(--gold);
+
+    font-size: 8px;
+}
+
+
+.hero-art-label div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.hero-art-label small {
+    color: var(--muted-dark);
+
+    font-size: 7px;
+
+    letter-spacing: .15em;
+}
+
+
+.hero-art-label strong {
+    color: var(--text-soft);
+
+    font-size: 8px;
+
+    letter-spacing: .12em;
+}
+
+
+/* =========================================================
+   COMMISSIONS
+   Homepage commission showcase
+   ========================================================= */
+
+.commissions {
+    padding: 38px 30px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 10, 32, .65),
+            rgba(8, 5, 14, .50)
+        );
+
+    position: relative;
+}
+
+
+.commissions::before,
+.commissions::after {
+    content: "";
+
+    position: absolute;
+
+    width: 26px;
+    height: 26px;
+
+    border:
+        1px solid var(--gold);
+
+    opacity: .7;
+}
+
+
+.commissions::before {
+    left: -1px;
+    top: -1px;
+
+    border-right: 0;
+    border-bottom: 0;
+}
+
+
+.commissions::after {
+    right: -1px;
+    bottom: -1px;
+
+    border-left: 0;
+    border-top: 0;
+}
+
+
+.commission-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+}
+
+
+.commission-card {
+    min-height: 470px;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(8, 5, 15, .72);
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.commission-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -45px;
+    top: -45px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(160, 80, 255, .16),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.commission-card:hover {
+    transform: translateY(-6px);
+
+    border-color:
+        var(--line-bright);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .3),
+        0 0 30px rgba(130, 55, 210, .08);
+}
+
+
+.commission-card.featured {
+    border-color:
+        rgba(217, 182, 109, .38);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 16, 45, .82),
+            rgba(10, 6, 17, .75)
+        );
+}
+
+
+.commission-card.featured::after {
+    content: "RECOMMENDED";
+
+    position: absolute;
+
+    top: 16px;
+    right: 16px;
+
+    padding:
+        5px 8px;
+
+    border:
+        1px solid
+        rgba(217, 182, 109, .35);
+
+    color:
+        var(--gold);
+
+    font-size: 6px;
+
+    letter-spacing: .14em;
+}
+
+
+.commission-number {
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    color:
+        var(--muted-dark);
+
+    font-size: 8px;
+
+    letter-spacing: .12em;
+}
+
+
+.commission-icon {
+    margin-top: 35px;
+
+    color:
+        var(--gold);
+
+    font-size: 28px;
+
+    text-shadow:
+        0 0 15px rgba(217, 182, 109, .15);
+}
+
+
+.commission-content {
+    margin-top: 22px;
+}
+
+
+.commission-content > small {
+    color:
+        var(--purple-bright);
+
+    font-size: 7px;
+
+    letter-spacing: .16em;
+}
+
+
+.commission-content h3 {
+    margin:
+        8px 0 15px;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 27px;
+
+    letter-spacing: .08em;
+}
+
+
+.commission-content p {
+    margin: 0;
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+.commission-content ul {
+    margin:
+        20px 0 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+
+.commission-content li {
+    padding:
+        7px 0;
+
+    border-bottom:
+        1px solid
+        rgba(173, 112, 255, .08);
+
+    color:
+        var(--text-soft);
+
+    font-size: 9px;
+}
+
+
+.commission-content li::before {
+    content: "✦";
+
+    margin-right: 8px;
+
+    color:
+        var(--gold);
+
+    font-size: 7px;
+}
+
+
+.commission-price {
+    margin-top: auto;
+
+    padding-top: 25px;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    border-top:
+        1px solid var(--line);
+}
+
+
+.commission-price span {
+    color:
+        var(--muted-dark);
+
+    font-size: 6px;
+
+    letter-spacing: .14em;
+}
+
+
+.commission-price strong {
+    color:
+        var(--gold-bright);
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 500;
+}
+
+
+.commission-link {
+    margin-top: 18px;
+
+    padding:
+        12px 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    color:
+        var(--purple-bright);
+
+    border-top:
+        1px solid
+        rgba(173, 112, 255, .10);
+
+    font-size: 7px;
+
+    letter-spacing: .14em;
+
+    transition:
+        color .25s ease,
+        padding .25s ease;
+}
+
+
+.commission-link span {
+    color:
+        var(--gold);
+
+    font-size: 15px;
+}
+
+
+.commission-link:hover {
+    padding-left: 5px;
+
+    color:
+        var(--text);
+}
+
+
+/* =========================================================
+   ARCHIVE
+   Homepage portfolio preview
+   ========================================================= */
+
+.archive {
+    margin-top: 100px;
+
+    padding: 30px;
+
+    position: relative;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        rgba(12, 7, 20, .45);
+}
+
+
+.archive::before,
+.archive::after {
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    border:
+        1px solid var(--gold);
+
+    pointer-events: none;
+}
+
+
+.archive::before {
+    top: -1px;
+    left: -1px;
+
+    border-right: 0;
+    border-bottom: 0;
+}
+
+
+.archive::after {
+    right: -1px;
+    bottom: -1px;
+
+    border-left: 0;
+    border-top: 0;
+}
+
+
+.archive-intro {
+    max-width: 650px;
+
+    margin:
+        -5px 0 28px;
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   HOMEPAGE CARD VISUALS
+   Specific artwork previews
+   ========================================================= */
+
+.card-2d {
+    background:
+        radial-gradient(
+            circle at 72% 25%,
+            rgba(197, 121, 255, .28),
+            transparent 10%
+        ),
+
+        linear-gradient(
+            145deg,
+            #24133b,
+            #17102a 48%,
+            #07040d
+        );
+}
+
+
+.mountain {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 60%;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            135deg,
+            transparent 30%,
+            #3a2258 31% 48%,
+            transparent 49%
+        ),
+
+        linear-gradient(
+            45deg,
+            transparent 38%,
+            #1d1233 39% 63%,
+            transparent 64%
+        );
+}
+
+
+.card-3d {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(163, 83, 255, .22),
+            transparent 35%
+        ),
+
+        #0a0612;
+}
+
+
+.cube {
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    left: 50%;
+    top: 45%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(30deg);
+
+    border:
+        1px solid var(--purple-bright);
+
+    box-shadow:
+        0 0 45px rgba(173, 93, 255, .22);
+
+    transition:
+        transform .4s ease;
+}
+
+
+.card:hover .cube {
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(1.08);
+}
+
+
+/* =========================================================
+   HOMEPAGE PROCESS
+   ========================================================= */
+
+.process-section {
+    padding-top: 110px;
+}
+
+
+/* =========================================================
+   HOMEPAGE TERMS
+   ========================================================= */
+
+.terms-section {
+    padding-top: 110px;
+}
+
+
+.about-mini {
+    max-width: 700px;
+
+    margin-top: 35px;
+
+    padding:
+        24px 0;
+
+    border-top:
+        1px solid var(--line);
+}
+
+
+.about-mini small {
+    color:
+        var(--gold);
+
+    font-size: 7px;
+
+    letter-spacing: .18em;
+}
+
+
+.about-mini p {
+    margin:
+        12px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   HOMEPAGE RESPONSIVE
+   ========================================================= */
+
+@media(max-width: 1100px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+    }
+
+    .hero-art {
+        width:
+            min(560px, 80%);
+    }
+
+    .commission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .commission-card {
+        min-height: auto;
+    }
+}
+
+
+@media(max-width: 760px) {
+
+    .hero {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding:
+            55px 22px 45px;
+    }
+
+    .hero-copy {
+        order: 1;
+    }
+
+    .hero-art {
+        order: 0;
+
+        width: 100%;
+
+        margin-bottom: 50px;
+    }
+
+    .hero-art-frame {
+        min-height: 420px;
+    }
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+    .roles {
+        line-height: 2;
+    }
+
+    .roles b {
+        padding: 0 3px;
+    }
+
+    .commissions {
+        padding: 25px 20px;
+    }
+
+    .commission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .archive {
+        padding: 20px;
+    }
+
+    .process-section,
+    .terms-section {
+        padding-top: 80px;
+    }
+
+    .about-mini {
+        margin-top: 25px;
+    }
+
+    .hero-art-frame {
+        min-height: 420px;
+    }
+}
+
+
+@media(max-width: 420px) {
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero-art-frame {
+        min-height: 350px;
+    }
+
+    .card {
+        min-height: 290px;
+    }
+
+    .card-content h3 {
+        font-size: 27px;
+    }
+}
