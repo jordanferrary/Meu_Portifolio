@@ -337,35 +337,32 @@ if (templateLightboxImage) {
 
 
 /* =========================================================
-   10 — DOUBLE CLICK ZOOM
+   10 — CLICK ZOOM
    ========================================================= */
 
 if (templateLightboxImage) {
 
     templateLightboxImage.addEventListener(
-        "dblclick",
+        "click",
         event => {
 
-            event.preventDefault();
-
-
             /*
-               Se estiver normal,
-               vai para 2x.
+               Evita que o clique seja interpretado
+               pelo sistema de fechamento.
             */
+
+            event.stopPropagation();
+
+
+            /* -----------------------------------------
+               TOGGLE ZOOM
+               ----------------------------------------- */
 
             if (lightboxZoom === 1) {
 
                 lightboxZoom = 2;
 
-            }
-
-            /*
-               Se já estiver ampliado,
-               volta para 1x.
-            */
-
-            else {
+            } else {
 
                 lightboxZoom = 1;
 
