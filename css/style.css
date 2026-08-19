@@ -2308,7 +2308,7 @@ html {
            page layout, without forcing horizontal padding
            on every page.
         */
-        padding-top: 80px;
+        padding-top: 0px;
 
     }
 
