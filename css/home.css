@@ -412,6 +412,21 @@
     letter-spacing: .12em;
 }
 
+a.cta {
+    margin-top: 18px;
+    padding: 12px 0;
+    display: flex;
+    color: var(--purple-bright);
+    border-top: 1px solid rgba(173, 112, 255, .10);
+    font-size: 10px;
+    letter-spacing: .20em;
+    transition: color .25s ease, padding .25s ease;
+}
+
+a.cta:hover{
+   color: var(--gold);
+   padding: 12px 5px;
+}
 
 /* =========================================================
    COMMISSIONS
