@@ -738,7 +738,7 @@ appearance: none;
 
 -webkit-appearance: none;
 
-cursor: pointer;
+cursor: url("../img/cursor/Link.cur"), pointer;
 
 padding-right: 42px;
 
@@ -806,7 +806,7 @@ background:
         rgba(8,25,45,.5)
     );
 
-cursor: pointer;
+cursor: url("../img/cursor/Link.cur"), pointer;
 
 font-size: 9px;
 

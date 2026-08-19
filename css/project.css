@@ -37,7 +37,7 @@
     overflow: hidden;
     border: 1px solid var(--line);
     background: #050913;
-    cursor: zoom-in;
+    cursor: url("../img/cursor/Precision.cur"), zoom-in;
 }
 
 .project-hero img {
@@ -113,7 +113,7 @@
     margin: 0;
     border: 1px solid var(--line);
     overflow: hidden;
-    cursor: zoom-in;
+    cursor: url("../img/cursor/Precision.cur"), zoom-in;
     background: #050913;
 }
 
@@ -156,7 +156,7 @@
     right: 30px;
     color: white;
     font-size: 28px;
-    cursor: pointer;
+    cursor: url("../img/cursor/Link.cur"),pointer;
 }
 
 .project-navigation {

@@ -798,7 +798,7 @@ main {
 
     background: none;
 
-    cursor: pointer;
+    cursor: url("../img/cursor/Link.cur"), pointer;
 
     transition: .25s ease;
 }
