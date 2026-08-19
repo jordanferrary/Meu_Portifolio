@@ -1,6 +1,6 @@
 /* =========================================================
    JORDAN FERRARY // DIGITAL ARCHIVE
-   ARCANE TECH // VISUAL PORTFOLIO
+   ARCANE TECH // GLOBAL STYLE SYSTEM
    ========================================================= */
 
 
@@ -10,12 +10,18 @@
 
 :root {
 
+    /* LAYOUT */
+
+    --sidebar-width: 245px;
+
+
     /* BACKGROUNDS */
 
     --bg: #06040d;
     --bg-deep: #090611;
     --bg-panel: #0d0918;
     --bg-panel-2: #120c20;
+
 
     /* PURPLE SYSTEM */
 
@@ -24,11 +30,13 @@
     --purple-neon: #d28cff;
     --purple-dark: #542b8f;
 
+
     /* GOLD SYSTEM */
 
     --gold: #d9b66d;
     --gold-bright: #f0d58b;
     --gold-dark: #80652f;
+
 
     /* TEXT */
 
@@ -37,11 +45,13 @@
     --muted: #82758f;
     --muted-dark: #554b61;
 
+
     /* LINES */
 
     --line: rgba(173, 112, 255, .20);
     --line-bright: rgba(190, 125, 255, .48);
     --gold-line: rgba(217, 182, 109, .45);
+
 
     /* EFFECTS */
 
@@ -64,14 +74,18 @@
    RESET
    ========================================================= */
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
+
 
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 40px;
 }
+
 
 body {
 
@@ -107,10 +121,12 @@ body {
     overflow-x: hidden;
 }
 
+
 a {
     color: inherit;
     text-decoration: none;
 }
+
 
 button {
     font: inherit;
@@ -202,7 +218,7 @@ body::after {
     top: 0;
     left: 0;
 
-    width: 245px;
+    width: var(--sidebar-width);
     height: 100vh;
 
     padding: 38px 18px 25px;
@@ -248,6 +264,7 @@ body::after {
 
     position: relative;
 }
+
 
 .brand::after {
 
@@ -669,14 +686,29 @@ body::after {
 
 
 /* =========================================================
-   MAIN
+   MAIN LAYOUT
    ========================================================= */
+
+/*
+   IMPORTANT:
+   The sidebar is part of the global layout.
+
+   Instead of hard-coding 245px in multiple places,
+   the main content follows --sidebar-width.
+
+   This keeps every page synchronized with the sidebar.
+*/
 
 main {
 
-    margin-left: 245px;
+    width: auto;
 
     min-height: 100vh;
+
+    margin-left: var(--sidebar-width);
+
+    padding: 0;
+
 }
 
 
@@ -783,561 +815,28 @@ main {
 
 
 /* =========================================================
-   HERO
+   GLOBAL CONTENT CONTAINER
    ========================================================= */
 
-.hero {
-
-    min-height: 700px;
-
-    padding:
-        75px 5vw
-        65px;
-
-    display: grid;
-
-    grid-template-columns:
-        .95fr
-        1.05fr;
-
-    gap: 50px;
-
-    align-items: center;
-
-    position: relative;
-}
-
-
-.hero::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 550px;
-    height: 550px;
-
-    right: 5%;
-    top: 50%;
-
-    transform:
-        translateY(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(147, 66, 255, .13),
-            transparent 65%
-        );
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   HERO COPY
-   ========================================================= */
-
-.hero-copy {
-
-    position: relative;
-
-    z-index: 2;
-}
-
-
-.eyebrow {
-
-    margin-bottom: 18px;
-
-    color: var(--gold);
-
-    font-size: 10px;
-
-    letter-spacing: .20em;
-}
-
-
-.hero h1 {
-
-    margin: 0;
-
-    font-family:
-        "Space Grotesk",
-        sans-serif;
-
-    font-size:
-        clamp(
-            52px,
-            6vw,
-            100px
-        );
-
-    line-height: .87;
-
-    letter-spacing: -.045em;
-}
-
-
-.hero h1 span {
-
-    color: var(--purple-bright);
-
-    text-shadow:
-        0 0 35px rgba(178, 100, 255, .18);
-}
-
-
-.roles {
-
-    margin-top: 27px;
-
-    color: var(--text-soft);
-
-    font-size: 10px;
-
-    letter-spacing: .14em;
-}
-
-
-.roles b {
-
-    padding: 0 6px;
-
-    color: var(--gold);
-}
-
-
-.hero-description {
-
-    max-width: 480px;
-
-    margin: 27px 0;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.9;
-
-    letter-spacing: .025em;
-}
-
-
-/* =========================================================
-   CTA
-   ========================================================= */
-
-.cta {
-
-    width: 250px;
-
-    min-height: 52px;
-
-    padding: 0 14px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    position: relative;
-
-    border:
-        1px solid var(--line-bright);
-
-    background:
-
-        linear-gradient(
-            90deg,
-            rgba(115, 48, 191, .20),
-            rgba(33, 15, 49, .50)
-        );
-
-    color: var(--text);
-
-    font-size: 10px;
-
-    letter-spacing: .15em;
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-}
-
-
-.cta::before,
-.cta::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 10px;
-    height: 10px;
-
-    border:
-        1px solid var(--gold);
-}
-
-
-.cta::before {
-
-    left: -1px;
-    top: -1px;
-
-    border-right: 0;
-    border-bottom: 0;
-}
-
-
-.cta::after {
-
-    right: -1px;
-    bottom: -1px;
-
-    border-left: 0;
-    border-top: 0;
-}
-
-
-.cta:hover {
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        var(--purple-bright);
-
-    box-shadow:
-        var(--purple-glow-strong);
-}
-
-
-.cta span {
-
-    color: var(--gold);
-
-    font-size: 20px;
-}
-
-
-.scroll {
-
-    margin-top: 38px;
-
-    color: var(--muted-dark);
-
-    font-size: 7px;
-
-    letter-spacing: .2em;
-}
-
-
-/* =========================================================
-   HERO ART
-   ========================================================= */
-
-.hero-art {
-
-    width: min(520px, 100%);
-
-    margin: auto;
-
-    position: relative;
-
-    z-index: 2;
-}
-
-
-.hero-art-frame {
-
-    min-height: 500px;
-
-    position: relative;
-
-    display: grid;
-
-    place-items: center;
-
-    overflow: hidden;
-
-    border:
-        1px solid var(--line-bright);
-
-    background:
-
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(148, 68, 255, .16),
-            transparent 38%
-        ),
-
-        linear-gradient(
-            145deg,
-            rgba(22, 12, 36, .95),
-            rgba(7, 4, 14, .98)
-        );
-
-    box-shadow:
-        0 25px 80px rgba(0, 0, 0, .35),
-        0 0 50px rgba(117, 50, 200, .08);
-}
-
-
-.hero-art-frame::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 18px;
-
-    border:
-        1px solid rgba(217, 182, 109, .14);
-
-    pointer-events: none;
-}
-
-
-.hero-art-frame::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent 49.8%,
-            rgba(217, 182, 109, .06) 50%,
-            transparent 50.2%
-        ),
-
-        linear-gradient(
-            0deg,
-            transparent 49.8%,
-            rgba(217, 182, 109, .06) 50%,
-            transparent 50.2%
-        );
-}
-
-
-/* =========================================================
-   HERO ART CORNERS
-   ========================================================= */
-
-.hero-art-corner {
-
-    position: absolute;
-
-    width: 32px;
-    height: 32px;
-
-    z-index: 4;
-
-    border-color:
-        var(--gold);
-
-    border-style: solid;
-
-    opacity: .8;
-}
-
-
-.hero-art-corner.top-left {
-
-    top: 10px;
-    left: 10px;
-
-    border-width:
-        1px 0 0 1px;
-}
-
-
-.hero-art-corner.top-right {
-
-    top: 10px;
-    right: 10px;
-
-    border-width:
-        1px 1px 0 0;
-}
-
-
-.hero-art-corner.bottom-left {
-
-    bottom: 10px;
-    left: 10px;
-
-    border-width:
-        0 0 1px 1px;
-}
-
-
-.hero-art-corner.bottom-right {
-
-    right: 10px;
-    bottom: 10px;
-
-    border-width:
-        0 1px 1px 0;
-}
-
-
-/* =========================================================
-   HERO ART PLACEHOLDER
-   ========================================================= */
-
-.hero-art-placeholder {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    position: relative;
-
-    z-index: 2;
-
-    text-align: center;
-}
-
-
-.hero-art-symbol {
-
-    margin-bottom: 18px;
-
-    color: var(--purple-bright);
-
-    font-size: 52px;
-
-    text-shadow:
-        0 0 30px rgba(190, 124, 255, .55);
-}
-
-
-.hero-art-placeholder small {
-
-    color: var(--gold);
-
-    font-size: 8px;
-
-    letter-spacing: .25em;
-}
-
-
-.hero-art-placeholder strong {
-
-    margin-top: 12px;
-
-    font-family:
-        "Space Grotesk",
-        sans-serif;
-
-    font-size: 24px;
-
-    letter-spacing: .12em;
-}
-
-
-.hero-art-placeholder i {
-
-    margin-top: 10px;
-
-    color: var(--muted);
-
-    font-size: 7px;
-
-    font-style: normal;
-
-    letter-spacing: .2em;
-}
-
-
-.hero-art-label {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    margin-top: 14px;
-
-    padding:
-        0 5px;
-
-}
-
-
-.hero-art-label > span {
-
-    color: var(--gold);
-
-    font-size: 8px;
-}
-
-
-.hero-art-label div {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 4px;
-}
-
-
-.hero-art-label small {
-
-    color: var(--muted-dark);
-
-    font-size: 7px;
-
-    letter-spacing: .15em;
-}
-
-
-.hero-art-label strong {
-
-    color: var(--text-soft);
-
-    font-size: 8px;
-
-    letter-spacing: .12em;
-}
-
-
-/* =========================================================
-   SECTION
-   ========================================================= */
-
-.section,
-.content {
+/*
+   This is intentionally limited to direct children of main.
+
+   It prevents generic .content/.section rules from accidentally
+   affecting nested components or structures on other pages.
+*/
+
+main > .section,
+main > .content {
 
     width:
         calc(100% - 10vw);
 
-    margin:
-        0 5vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 
-.section {
-
+main > .section {
     position: relative;
 }
 
@@ -2626,13 +2125,10 @@ footer {
 
 @media(max-width: 1100px) {
 
-    .sidebar {
-        width: 205px;
+    :root {
+        --sidebar-width: 205px;
     }
 
-    main {
-        margin-left: 205px;
-    }
 
     .hero {
 
@@ -2642,11 +2138,13 @@ footer {
         gap: 60px;
     }
 
+
     .hero-art {
 
         width:
             min(560px, 80%);
     }
+
 
     .commission-grid {
 
@@ -2654,10 +2152,12 @@ footer {
             1fr;
     }
 
+
     .commission-card {
 
         min-height: auto;
     }
+
 
     .cards {
 
@@ -2673,6 +2173,11 @@ footer {
    ========================================================= */
 
 @media(max-width: 760px) {
+
+    :root {
+        --sidebar-width: 0px;
+    }
+
 
     .sidebar {
 
@@ -2696,8 +2201,16 @@ footer {
 
 
     main {
-        padding: 80px 5vw 100px;
+
         margin-left: 0;
+
+        /*
+           Keep the mobile top spacing only for the actual
+           page layout, without forcing horizontal padding
+           on every page.
+        */
+        padding-top: 80px;
+
     }
 
 
@@ -2785,9 +2298,8 @@ footer {
     }
 
 
-    .section,
-    .content,
-    .contact {
+    main > .section,
+    main > .content {
 
         width:
             calc(100% - 44px);
@@ -2855,6 +2367,12 @@ footer {
 
 
     .contact {
+
+        width:
+            calc(100% - 44px);
+
+        margin-left: 22px;
+        margin-right: 22px;
 
         flex-direction: column;
 
