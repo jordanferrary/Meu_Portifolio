@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
 
@@ -11,10 +11,22 @@
     >
 
     <title>3D ARCHIVE // JORDAN FERRARY</title>
-    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 
-    <link rel="stylesheet" href="../css/gallery.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="../img/favicon.ico"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/gallery.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
 </head>
 
@@ -24,170 +36,427 @@
 
 <section class="gallery-page">
 
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
     <header class="gallery-header">
-        <a
-        href="../index.html"
-        class="back"
-    >
-        <span class="back-symbol">←</span>
-        BACK TO ARCHIVE
-    </a>
 
         <div class="gallery-kicker">
             JORDAN FERRARY // ARCHIVE 01
         </div>
 
+
         <h1 class="gallery-title">
             3D ART
         </h1>
 
+
         <p class="gallery-description">
 
-            Pinturas digitais, ilustrações e estudos
-            visuais desenvolvidos ao longo do processo
-            criativo.
+            Digital paintings, illustrations and visual
+            studies developed throughout the creative process.
 
         </p>
+
+
+        <!-- =================================================
+             BACK NAVIGATION
+             ================================================= -->
+
+        <nav
+            class="gallery-navigation"
+            aria-label="Gallery navigation"
+        >
+
+            <a
+                href="../index.html"
+                class="back"
+            >
+
+                <span
+                    class="back-symbol"
+                    aria-hidden="true"
+                >
+                    ←
+                </span>
+
+                <span>
+                    BACK TO ARCHIVE
+                </span>
+
+            </a>
+
+        </nav>
 
     </header>
 
 
-    <div class="gallery-controls">
+    <!-- =====================================================
+         FILTERS
+         ===================================================== -->
 
-        <button class="filter-button active" data-filter="all">
+    <div
+        class="gallery-controls"
+        aria-label="Filter artworks"
+    >
+
+        <button
+            class="filter-button active"
+            type="button"
+            data-filter="all"
+            aria-pressed="true"
+        >
             ALL
         </button>
 
-        <button class="filter-button" data-filter="painting">
-            ENVIROMENT
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="painting"
+            aria-pressed="false"
+        >
+            PAINTING
         </button>
 
-        <button class="filter-button" data-filter="illustration">
-            CHARACTER
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="illustration"
+            aria-pressed="false"
+        >
+            ILLUSTRATION
         </button>
 
-        <button class="filter-button" data-filter="study">
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="study"
+            aria-pressed="false"
+        >
             STUDIES
         </button>
 
     </div>
 
 
+    <!-- =====================================================
+         GALLERY
+         ===================================================== -->
+
     <div class="gallery-grid">
 
+
+        <!-- =================================================
+             PROJECT 01
+             ================================================= -->
 
         <article
             class="gallery-card"
             data-category="painting"
         >
 
+            <!-- =================================================
+                 IMAGE / ZOOM AREA
+                 ================================================= -->
+
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 01 preview"
+                data-image="assets/projeto-001/imagens/thumbnail.jpg"
+                data-title="PROJECT 01"
+            >
+
+                <img
+                    src="assets/projeto-001/imagens/thumbnail.jpg"
+                    alt="PROJECT 01 artwork"
+                    class="gallery-card-image"
+                >
+
+
+                <span
+                    class="image-zoom-indicator"
+                    aria-hidden="true"
+                >
+                    ⊕
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 IMAGE OVERLAY
+                 ================================================= -->
+
             <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-001/thumbnail.jpg')"
+                class="gallery-card-overlay"
+                aria-hidden="true"
             ></div>
 
-            <div class="gallery-card-overlay"></div>
+
+            <!-- =================================================
+                 CARD CORNER DECORATION
+                 ================================================= -->
+
+            <span
+                class="gallery-card-corner gallery-card-corner-top"
+                aria-hidden="true"
+            ></span>
+
+            <span
+                class="gallery-card-corner gallery-card-corner-bottom"
+                aria-hidden="true"
+            ></span>
+
+
+            <!-- =================================================
+                 CONTENT
+                 ================================================= -->
 
             <div class="gallery-card-content">
 
                 <small>
-                    STUDIES
+                    DIGITAL PAINTING
                 </small>
+
 
                 <h3>
                     PROJECT 01
                 </h3>
 
+
                 <p>
                     Atmospheric digital artwork.
                 </p>
 
+
+                <!-- =================================================
+                     PROJECT LINK
+                     ================================================= -->
+
                 <a
                     href="assets/projeto-001/index.html"
                     class="gallery-card-link"
+                    aria-label="View PROJECT 01 project page"
                 >
-                    VIEW PROJECT →
+
+                    <span class="gallery-card-link-label">
+                        VIEW PROJECT
+                    </span>
+
+                    <span
+                        class="gallery-card-link-icon"
+                        aria-hidden="true"
+                    >
+                        ↗
+                    </span>
+
                 </a>
 
             </div>
 
         </article>
 
+
+        <!-- =================================================
+             PROJECT 02
+             ================================================= -->
 
         <article
             class="gallery-card"
             data-category="illustration"
         >
 
+            <!-- IMAGE / ZOOM AREA -->
+
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 02 preview"
+                data-image="assets/projeto-002/imagens/thumbnail.jpg"
+                data-title="PROJECT 02"
+            >
+
+                <img
+                    src="assets/projeto-002/imagens/thumbnail.jpg"
+                    alt="PROJECT 02 artwork"
+                    class="gallery-card-image"
+                >
+
+
+                <span
+                    class="image-zoom-indicator"
+                    aria-hidden="true"
+                >
+                    ⊕
+                </span>
+
+            </button>
+
+
             <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-002/thumbnail.jpg')"
+                class="gallery-card-overlay"
+                aria-hidden="true"
             ></div>
 
-            <div class="gallery-card-overlay"></div>
+
+            <!-- CARD CORNER DECORATION -->
+
+            <span
+                class="gallery-card-corner gallery-card-corner-top"
+                aria-hidden="true"
+            ></span>
+
+            <span
+                class="gallery-card-corner gallery-card-corner-bottom"
+                aria-hidden="true"
+            ></span>
+
+
+            <!-- CONTENT -->
 
             <div class="gallery-card-content">
 
                 <small>
-                    STUDIES
+                    ILLUSTRATION
                 </small>
+
 
                 <h3>
                     PROJECT 02
                 </h3>
 
+
                 <p>
                     Character and visual development.
                 </p>
 
+
                 <a
                     href="assets/projeto-002/index.html"
                     class="gallery-card-link"
+                    aria-label="View PROJECT 02 project page"
                 >
-                    VIEW PROJECT →
+
+                    <span class="gallery-card-link-label">
+                        VIEW PROJECT
+                    </span>
+
+                    <span
+                        class="gallery-card-link-icon"
+                        aria-hidden="true"
+                    >
+                        ↗
+                    </span>
+
                 </a>
 
             </div>
 
         </article>
 
+
+        <!-- =================================================
+             PROJECT 03
+             ================================================= -->
 
         <article
             class="gallery-card"
             data-category="study"
         >
 
+            <!-- IMAGE / ZOOM AREA -->
+
+            <button
+                class="gallery-card-image-button"
+                type="button"
+                aria-label="Open PROJECT 03 preview"
+                data-image="assets/projeto-003/imagens/thumbnail.jpg"
+                data-title="PROJECT 03"
+            >
+
+                <img
+                    src="assets/projeto-003/imagens/thumbnail.jpg"
+                    alt="PROJECT 03 artwork"
+                    class="gallery-card-image"
+                >
+
+
+                <span
+                    class="image-zoom-indicator"
+                    aria-hidden="true"
+                >
+                    ⊕
+                </span>
+
+            </button>
+
+
             <div
-                class="gallery-card-image"
-                style="background-image:url('assets/projeto-003/thumbnail.jpg')"
+                class="gallery-card-overlay"
+                aria-hidden="true"
             ></div>
 
-            <div class="gallery-card-overlay"></div>
+
+            <!-- CARD CORNER DECORATION -->
+
+            <span
+                class="gallery-card-corner gallery-card-corner-top"
+                aria-hidden="true"
+            ></span>
+
+            <span
+                class="gallery-card-corner gallery-card-corner-bottom"
+                aria-hidden="true"
+            ></span>
+
+
+            <!-- CONTENT -->
 
             <div class="gallery-card-content">
 
                 <small>
-                    STUDIES
+                    STUDY
                 </small>
+
 
                 <h3>
                     PROJECT 03
                 </h3>
 
+
                 <p>
                     Composition and lighting study.
                 </p>
 
+
                 <a
                     href="assets/projeto-003/index.html"
                     class="gallery-card-link"
+                    aria-label="View PROJECT 03 project page"
                 >
-                    VIEW PROJECT →
+
+                    <span class="gallery-card-link-label">
+                        VIEW PROJECT
+                    </span>
+
+                    <span
+                        class="gallery-card-link-icon"
+                        aria-hidden="true"
+                    >
+                        ↗
+                    </span>
+
                 </a>
 
             </div>
 
         </article>
+
 
     </div>
 
@@ -196,50 +465,50 @@
 </main>
 
 
-<script>
+<!-- =========================================================
+     IMAGE LIGHTBOX
+     ========================================================= -->
 
-const buttons =
-    document.querySelectorAll(".filter-button");
+<div
+    class="image-lightbox"
+    id="imageLightbox"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Artwork preview"
+>
 
-const cards =
-    document.querySelectorAll(".gallery-card");
+    <button
+        class="lightbox-close"
+        type="button"
+        aria-label="Close image preview"
+    >
+        ×
+    </button>
 
 
-buttons.forEach(button => {
+    <div class="lightbox-content">
 
-    button.addEventListener("click", () => {
+        <img
+            src=""
+            alt=""
+            class="lightbox-image"
+            id="lightboxImage"
+        >
 
-        buttons.forEach(btn =>
-            btn.classList.remove("active")
-        );
 
-        button.classList.add("active");
+        <div
+            class="lightbox-title"
+            id="lightboxTitle"
+        ></div>
 
-        const filter =
-            button.dataset.filter;
+    </div>
 
-        cards.forEach(card => {
+</div>
 
-            if (
-                filter === "all" ||
-                card.dataset.category === filter
-            ) {
 
-                card.style.display = "";
-
-            } else {
-
-                card.style.display = "none";
-
-            }
-
-        });
-
-    });
-
-});
-
-</script>
+<script src="../js/gallery.js"></script>
 
 </body>
+
 </html>
