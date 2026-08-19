@@ -2,12 +2,16 @@
    JORDAN FERRARY
    DIGITAL ARCHIVE
    GALLERY SYSTEM
-   ---------------------------------------------------------
+
    Funções:
    - Gallery Filter
    - Universal Image Lightbox
-   - Artwork Project Pages
    - Gallery Cards
+   - Artwork Project Pages
+   - Scroll Zoom
+   - Zoom to Mouse Position
+   - Click Zoom
+   - Image Pan / Drag
    - ESC para fechar
    - Clique fora para fechar
    - Bloqueio de scroll durante o lightbox
@@ -15,6 +19,9 @@
    Compatível com:
    .gallery-card-image-button
    .artwork-image-button
+
+   IMPORTANTE:
+   Este arquivo continua sendo independente do template.js.
    ========================================================= */
 
 
@@ -79,7 +86,6 @@ filterButtons.forEach(button => {
 });
 
 
-
 /* =========================================================
    02 — LIGHTBOX ELEMENTS
    ========================================================= */
@@ -97,7 +103,6 @@ const lightboxClose =
     document.querySelector(".lightbox-close");
 
 
-
 /* =========================================================
    03 — UNIVERSAL IMAGE BUTTONS
    ========================================================= */
@@ -110,9 +115,6 @@ const lightboxClose =
 
    Project / Artwork:
    .artwork-image-button
-
-   Isso permite que o mesmo gallery.js
-   funcione em diferentes templates.
 */
 
 const imageButtons =
@@ -121,9 +123,75 @@ const imageButtons =
     );
 
 
+/* =========================================================
+   04 — ZOOM STATE
+   ========================================================= */
+
+let lightboxZoom = 1;
+
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 5;
+const ZOOM_STEP = 0.15;
+
 
 /* =========================================================
-   04 — OPEN LIGHTBOX
+   05 — PAN STATE
+   ========================================================= */
+
+let translateX = 0;
+let translateY = 0;
+
+let isDragging = false;
+
+let startX = 0;
+let startY = 0;
+
+
+/* =========================================================
+   06 — APPLY TRANSFORM
+   ========================================================= */
+
+function updateLightboxTransform() {
+
+    if (!lightboxImage) {
+        return;
+    }
+
+
+    lightboxImage.style.transform =
+        `translate(${translateX}px, ${translateY}px) scale(${lightboxZoom})`;
+
+}
+
+
+/* =========================================================
+   07 — RESET ZOOM
+   ========================================================= */
+
+function resetLightboxZoom() {
+
+    lightboxZoom = 1;
+
+    translateX = 0;
+    translateY = 0;
+
+    isDragging = false;
+
+    if (lightboxImage) {
+
+        lightboxImage.style.transform =
+            "translate(0px, 0px) scale(1)";
+
+        lightboxImage.style.cursor =
+            "zoom-out";
+
+    }
+
+}
+
+
+/* =========================================================
+   08 — OPEN LIGHTBOX
    ========================================================= */
 
 function openLightbox(button) {
@@ -157,19 +225,32 @@ function openLightbox(button) {
     }
 
 
-    /* Define imagem */
+    /* -----------------------------------------
+       RESET ZOOM
+       ----------------------------------------- */
+
+    resetLightboxZoom();
+
+
+    /* -----------------------------------------
+       Define imagem
+       ----------------------------------------- */
 
     lightboxImage.src =
         image;
 
 
-    /* Define acessibilidade */
+    /* -----------------------------------------
+       Define acessibilidade
+       ----------------------------------------- */
 
     lightboxImage.alt =
         title || "Artwork preview";
 
 
-    /* Define título */
+    /* -----------------------------------------
+       Define título
+       ----------------------------------------- */
 
     if (lightboxTitle) {
 
@@ -179,7 +260,9 @@ function openLightbox(button) {
     }
 
 
-    /* Abre lightbox */
+    /* -----------------------------------------
+       Abre lightbox
+       ----------------------------------------- */
 
     lightbox.classList.add("open");
 
@@ -202,9 +285,8 @@ function openLightbox(button) {
 }
 
 
-
 /* =========================================================
-   05 — BUTTON EVENTS
+   09 — BUTTON EVENTS
    ========================================================= */
 
 imageButtons.forEach(button => {
@@ -213,14 +295,7 @@ imageButtons.forEach(button => {
         "click",
         event => {
 
-            /*
-               Impede comportamento padrão
-               caso o botão tenha alguma
-               ação adicional.
-            */
-
             event.preventDefault();
-
 
             openLightbox(button);
 
@@ -230,9 +305,266 @@ imageButtons.forEach(button => {
 });
 
 
+/* =========================================================
+   10 — SCROLL ZOOM TO MOUSE
+   ========================================================= */
+
+if (lightboxImage) {
+
+    lightboxImage.addEventListener(
+        "wheel",
+        event => {
+
+            event.preventDefault();
+
+
+            /* -----------------------------------------
+               ZOOM ATUAL
+               ----------------------------------------- */
+
+            const oldZoom =
+                lightboxZoom;
+
+
+            /* -----------------------------------------
+               NOVO ZOOM
+               ----------------------------------------- */
+
+            if (event.deltaY < 0) {
+
+                lightboxZoom += ZOOM_STEP;
+
+            } else {
+
+                lightboxZoom -= ZOOM_STEP;
+
+            }
+
+
+            /* -----------------------------------------
+               LIMITA ZOOM
+               ----------------------------------------- */
+
+            lightboxZoom =
+                Math.min(
+                    MAX_ZOOM,
+                    Math.max(
+                        MIN_ZOOM,
+                        lightboxZoom
+                    )
+                );
+
+
+            /*
+               Se o zoom não mudou,
+               não precisa recalcular.
+            */
+
+            if (lightboxZoom === oldZoom) {
+                return;
+            }
+
+
+            /* -----------------------------------------
+               POSIÇÃO DA IMAGEM
+               ----------------------------------------- */
+
+            const rect =
+                lightboxImage.getBoundingClientRect();
+
+
+            const mouseX =
+                event.clientX - rect.left;
+
+            const mouseY =
+                event.clientY - rect.top;
+
+
+            const imageCenterX =
+                rect.width / 2;
+
+            const imageCenterY =
+                rect.height / 2;
+
+
+            const offsetX =
+                mouseX - imageCenterX;
+
+            const offsetY =
+                mouseY - imageCenterY;
+
+
+            /* -----------------------------------------
+               RATIO DO ZOOM
+               ----------------------------------------- */
+
+            const zoomRatio =
+                lightboxZoom / oldZoom;
+
+
+            /* -----------------------------------------
+               MANTÉM O MOUSE COMO REFERÊNCIA
+               ----------------------------------------- */
+
+            translateX -=
+                offsetX * (zoomRatio - 1);
+
+            translateY -=
+                offsetY * (zoomRatio - 1);
+
+
+            /* -----------------------------------------
+               RESET EM 1X
+               ----------------------------------------- */
+
+            if (lightboxZoom === MIN_ZOOM) {
+
+                translateX = 0;
+                translateY = 0;
+
+            }
+
+
+            updateLightboxTransform();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+}
+
 
 /* =========================================================
-   06 — CLOSE LIGHTBOX
+   11 — CLICK ZOOM
+   ========================================================= */
+
+if (lightboxImage) {
+
+    lightboxImage.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+
+            /* -----------------------------------------
+               1X → 2X
+               ----------------------------------------- */
+
+            if (lightboxZoom === 1) {
+
+                lightboxZoom = 2;
+
+            }
+
+
+            /* -----------------------------------------
+               2X+ → 1X
+               ----------------------------------------- */
+
+            else {
+
+                lightboxZoom = 1;
+
+                translateX = 0;
+                translateY = 0;
+
+            }
+
+
+            updateLightboxTransform();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   12 — DRAG / PAN
+   ========================================================= */
+
+if (lightboxImage) {
+
+    lightboxImage.addEventListener(
+        "mousedown",
+        event => {
+
+            /*
+               Só permite pan quando
+               estiver ampliado.
+            */
+
+            if (lightboxZoom <= 1) {
+                return;
+            }
+
+
+            isDragging = true;
+
+
+            startX =
+                event.clientX - translateX;
+
+            startY =
+                event.clientY - translateY;
+
+
+            lightboxImage.style.cursor =
+                "grabbing";
+
+        }
+    );
+
+
+    window.addEventListener(
+        "mousemove",
+        event => {
+
+            if (!isDragging) {
+                return;
+            }
+
+
+            translateX =
+                event.clientX - startX;
+
+            translateY =
+                event.clientY - startY;
+
+
+            updateLightboxTransform();
+
+        }
+    );
+
+
+    window.addEventListener(
+        "mouseup",
+        () => {
+
+            isDragging = false;
+
+
+            if (lightboxImage) {
+
+                lightboxImage.style.cursor =
+                    lightboxZoom > 1
+                        ? "grab"
+                        : "zoom-out";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   13 — CLOSE LIGHTBOX
    ========================================================= */
 
 function closeLightbox() {
@@ -262,6 +594,11 @@ function closeLightbox() {
     );
 
 
+    /* Reseta zoom */
+
+    resetLightboxZoom();
+
+
     /*
        Limpa a imagem depois da
        transição do lightbox.
@@ -269,7 +606,10 @@ function closeLightbox() {
 
     setTimeout(() => {
 
-        if (lightboxImage) {
+        if (
+            lightboxImage &&
+            !lightbox.classList.contains("open")
+        ) {
 
             lightboxImage.src = "";
 
@@ -280,9 +620,8 @@ function closeLightbox() {
 }
 
 
-
 /* =========================================================
-   07 — CLOSE BUTTON
+   14 — CLOSE BUTTON
    ========================================================= */
 
 if (lightboxClose) {
@@ -295,9 +634,8 @@ if (lightboxClose) {
 }
 
 
-
 /* =========================================================
-   08 — CLICK OUTSIDE IMAGE
+   15 — CLICK OUTSIDE IMAGE
    ========================================================= */
 
 if (lightbox) {
@@ -306,15 +644,25 @@ if (lightbox) {
         "click",
         event => {
 
-            /*
-               Só fecha quando o clique
-               acontece no fundo do lightbox.
+            const clickedImage =
+                event.target === lightboxImage;
 
-               Clique na imagem não fecha.
+            const clickedTitle =
+                event.target === lightboxTitle;
+
+            const clickedClose =
+                event.target === lightboxClose;
+
+
+            /*
+               Qualquer área que não seja
+               imagem, título ou botão fecha.
             */
 
             if (
-                event.target === lightbox
+                !clickedImage &&
+                !clickedTitle &&
+                !clickedClose
             ) {
 
                 closeLightbox();
@@ -327,9 +675,8 @@ if (lightbox) {
 }
 
 
-
 /* =========================================================
-   09 — ESC KEY
+   16 — ESC KEY
    ========================================================= */
 
 document.addEventListener(
@@ -350,16 +697,9 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
-   10 — PREVENT IMAGE DRAG
+   17 — PREVENT IMAGE DRAG
    ========================================================= */
-
-/*
-   Evita que o usuário arraste a imagem
-   acidentalmente enquanto interage
-   com o lightbox.
-*/
 
 if (lightboxImage) {
 
@@ -375,18 +715,15 @@ if (lightboxImage) {
 }
 
 
-
 /* =========================================================
-   11 — LIGHTBOX STATE
+   18 — INITIAL LIGHTBOX STATE
    ========================================================= */
 
-/*
-   Garante que o lightbox nunca fique
-   travado aberto caso a página seja
-   carregada novamente.
-*/
-
 if (lightbox) {
+
+    lightbox.classList.remove(
+        "open"
+    );
 
     lightbox.setAttribute(
         "aria-hidden",
