@@ -1790,6 +1790,46 @@ footer a:hover {
 
 }
 
+/* =========================================================
+   IMAGE BUTTON
+
+   IMPORTANT:
+   This remains the clickable zoom target used by gallery.js.
+   Do not replace this with pointer-events:none.
+   ========================================================= */
+
+.gallery-card-image-button {
+
+    position: absolute;
+
+    inset: 0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    padding:
+        0;
+
+    border:
+        0;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    cursor:
+        zoom-in;
+
+    overflow:
+        hidden;
+
+}
+
 
 /* =========================================================
    22 — TABLET
@@ -2325,3 +2365,4 @@ footer a:hover {
     }
 
 }
+
