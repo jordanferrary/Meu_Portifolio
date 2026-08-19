@@ -2219,6 +2219,68 @@ html {
 
 
 /* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
+/* Cursor padrão */
+
+html,
+body {
+
+    cursor:
+        url("../img/cursor/Normal.cur"),
+        auto;
+
+}
+
+
+/* Links */
+
+a {
+
+    cursor:
+        url("../img/cursor/Link.cur"),
+        pointer;
+
+}
+
+
+/* Botões */
+
+button {
+
+    cursor:
+        url("../img/cursor/Link.cur"),
+        pointer;
+
+}
+
+
+/* Campos de texto */
+
+input,
+textarea {
+
+    cursor:
+        url("../img/cursor/Text.cur"),
+        text;
+
+}
+
+
+/* Imagens clicáveis / Lightbox */
+
+.artwork-image-button,
+.gallery-card-image-button {
+
+    cursor:
+        url("../img/cursor/Precision.cur"),
+        zoom-in;
+
+}
+
+
+/* =========================================================
    TABLET
    ========================================================= */
 
