@@ -243,59 +243,40 @@
    ========================================================= */
 
 .artwork-image-button {
-
-    position:
-        relative;
-
-    display:
+        position: relative;
+        display:
         block;
-
-    width:
+        width:
         100%;
-
-    height:
+        height:
         100%;
-
-    min-width:
+        min-width:
         0;
-
-    min-height:
+        min-height:
         0;
-
-    padding:
+        padding:
         0;
-
-    margin:
+        margin:
         0;
-
-    border:
+        border:
         0;
-
-    outline:
+        outline:
         0;
-
-    overflow:
+        overflow:
         hidden;
-
-    background:
+        background:
         transparent;
-
-    cursor:
+        cursor:
         zoom-in;
-
-    text-align:
+        text-align:
         left;
-
-    font:
+        font:
         inherit;
-
-    appearance:
+        appearance:
         none;
-
-    -webkit-appearance:
+        -webkit-appearance:
         none;
-
-}
+        }
 
 
 /* =========================================================
@@ -966,14 +947,11 @@
 */
 
 .process-image .artwork-image-button {
-
-    width:
+        width: 64%;
+        height:
         100%;
-
-    height:
-        100%;
-
-}
+        margin: auto;
+        }
 
 
 /*
@@ -1828,6 +1806,12 @@ footer a:hover {
     overflow:
         hidden;
 
+}
+
+.comparation {
+    margin: auto;
+    height: 100%;
+    width: 64%;
 }
 
 
