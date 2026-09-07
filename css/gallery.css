@@ -988,7 +988,7 @@
 
 .gallery-card-link {
     border-radius: 50px;
-    background: var(--muted);
+    background: var(--line);
 
     position:
         relative;
@@ -1006,7 +1006,7 @@
         14px;
 
     padding:
-        5px 0;
+        5px 5px;
 
     color:
         var(--purple-bright);
@@ -1036,7 +1036,7 @@
         absolute;
 
     left:
-        0;
+        6px;
 
     bottom:
         0;
@@ -1074,7 +1074,7 @@
 .gallery-card-link:hover::after {
 
     width:
-        100%;
+        90%;
 
     opacity:
         1;
