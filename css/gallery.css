@@ -987,6 +987,8 @@
    ========================================================= */
 
 .gallery-card-link {
+    border-radius: 50px;
+    background: var(--muted);
 
     position:
         relative;
