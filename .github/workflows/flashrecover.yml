@@ -1,0 +1,35 @@
+name: FlashRecover Windows
+on:
+  push:
+    branches: [flashrecover-v0.1]
+    paths:
+      - 'FlashRecover/**'
+      - '.github/workflows/flashrecover.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: FlashRecover
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate syntax and simulate flash
+        run: |
+          python -m py_compile flashrecover.py
+          python flashrecover.py --self-test
+      - name: Package desktop executable
+        run: |
+          python -m pip install pyinstaller==6.11.1
+          python -m PyInstaller --clean --noconfirm --onefile --windowed --uac-admin --name FlashRecover flashrecover.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FlashRecover-Windows-x64
+          path: FlashRecover/dist/FlashRecover.exe
+          if-no-files-found: error
