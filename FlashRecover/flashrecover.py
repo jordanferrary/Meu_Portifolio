@@ -1,4 +1,4 @@
-"""FlashRecover 0.2.1 - Windows removable media laboratory."""
+"""FlashRecover 0.2.2 - Windows removable media laboratory."""
 import base64, ctypes, hashlib, json, os, queue, secrets, subprocess, sys, threading, time
 from ctypes import wintypes as W
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 MIB=1024**2
 GIB=1024**3
 START=MIB
-VERSION="0.2.1"
+VERSION="0.2.2"
 BUS={"USB","SD","MMC"}
 class Cancelled(Exception): pass
 class DeviceTimeout(RuntimeError): pass
@@ -27,16 +27,16 @@ def eligible(d,readonly_ok=False):
             and bool(d.get("Path")) and int(d.get("Size") or 0)>2*MIB
             and int(d.get("LogicalSectorSize") or 0) in (512,1024,2048,4096)
             and int(d.get("PhysicalSectorSize") or 0) in (512,1024,2048,4096))
-def ps(script):
+def ps(script,timeout=None):
     script="$ErrorActionPreference='Stop'; $ProgressPreference='SilentlyContinue'; [Console]::OutputEncoding=[Text.Encoding]::UTF8; "+script
     encoded=base64.b64encode(script.encode("utf-16-le")).decode("ascii")
     p=subprocess.run(["powershell.exe","-NoProfile","-NonInteractive","-EncodedCommand",encoded],
-        capture_output=True,encoding="utf-8",errors="replace",creationflags=getattr(subprocess,"CREATE_NO_WINDOW",0))
+        capture_output=True,encoding="utf-8",errors="replace",creationflags=getattr(subprocess,"CREATE_NO_WINDOW",0),timeout=timeout)
     if p.returncode: raise RuntimeError((p.stderr or p.stdout).strip())
     return p.stdout.strip()
 FIELDS="Number,FriendlyName,Path,UniqueId,SerialNumber,Size,LogicalSectorSize,PhysicalSectorSize,BusType,IsBoot,IsSystem,IsOffline,IsReadOnly,NumberOfPartitions,PartitionStyle,HealthStatus,OperationalStatus"
-def disks():
-    raw=ps("Get-Disk | Select-Object "+FIELDS+" | ForEach-Object { $_.BusType=[string]$_.BusType; $_.PartitionStyle=[string]$_.PartitionStyle; $_ } | ConvertTo-Json -Depth 4 -Compress")
+def disks(timeout=None):
+    raw=ps("Get-Disk | Select-Object "+FIELDS+" | ForEach-Object { $_.BusType=[string]$_.BusType; $_.PartitionStyle=[string]$_.PartitionStyle; $_ } | ConvertTo-Json -Depth 4 -Compress",timeout=timeout)
     if not raw:return []
     d=json.loads(raw)
     return d if isinstance(d,list) else [d]
@@ -266,24 +266,24 @@ def main():
         root=tk.Tk();root.withdraw()
         messagebox.showerror("FlashRecover","Execute como administrador usando INICIAR.cmd.")
         root.destroy();return
-    root=tk.Tk();root.title("FlashRecover 0.2.1 | Laboratorio de memoria");root.geometry("1300x720");root.minsize(1100,560)
+    root=tk.Tk();root.title("FlashRecover 0.2.2 | Laboratorio de memoria");root.geometry("1300x720");root.minsize(1100,560)
     root.configure(bg="#111827")
     style=ttk.Style(root);style.theme_use("clam")
     style.configure("TFrame",background="#111827");style.configure("TLabel",background="#111827",foreground="#e5e7eb")
-    style.configure("TButton",padding=8);style.configure("Title.TLabel",font=("Segoe UI",23,"bold"),foreground="#93c5fd")
+    style.configure("TButton",padding=8,background="#26364b",foreground="#e5e7eb");style.map("TButton",background=[("active","#3b5270"),("disabled","#1f2937")],foreground=[("disabled","#8492a6")]);style.configure("Title.TLabel",font=("Segoe UI",23,"bold"),foreground="#93c5fd")
     frame=ttk.Frame(root,padding=18);frame.pack(fill="both",expand=True)
-    ttk.Label(frame,text="FLASHRECOVER / 0.2.1",style="Title.TLabel").pack(anchor="w")
+    ttk.Label(frame,text="FLASHRECOVER / 0.2.2",style="Title.TLabel").pack(anchor="w")
     ttk.Label(frame,text="Diagnostico RAW  /  Capacidade real  /  Reconstrucao limitada").pack(anchor="w",pady=(0,12))
     row=ttk.Frame(frame);row.pack(fill="x")
     selector=ttk.Combobox(row,state="readonly");selector.pack(side="left",fill="x",expand=True)
     controls=ttk.Frame(frame);controls.pack(fill="x",pady=10)
-    status=tk.StringVar(value="Pronto. Apenas discos externos elegiveis sao exibidos.")
+    status=tk.StringVar(value="Iniciando... procurando discos externos.")
     ttk.Label(frame,textvariable=status,wraplength=930).pack(anchor="w")
     canvas=tk.Canvas(frame,height=85,bg="#1f2937",highlightthickness=0);canvas.pack(fill="x",pady=8)
     logbox=tk.Text(frame,bg="#0b1220",fg="#dbeafe",insertbackground="white",font=("Consolas",10),wrap="word",state="disabled")
     logbox.pack(fill="both",expand=True)
     ttk.Label(frame,text="Verde: OK na amostra | Vermelho: divergencia | Amarelo: gravacao | Azul: leitura | Cinza: nao testado").pack(anchor="w")
-    state={"devices":[],"busy":False,"results":{},"report":{},"verified":None}
+    state={"devices":[],"busy":False,"searching":False,"results":{},"report":{},"verified":None,"search_timer":None}
     events=queue.Queue();cancel=threading.Event();buttons=[]
     def log(s):events.put(("log",str(s)))
     def append(s):
@@ -303,29 +303,66 @@ def main():
             x=(i%64)*w/64;y=(i//64)*20
             canvas.create_rectangle(x+1,y+1,x+w/64-1,y+18,fill=c,outline="")
     canvas.bind("<Configure>",lambda e:render())
+    def update_controls():
+        locked=state["busy"] or state["searching"]
+        for i,b in enumerate(buttons):
+            available=not locked and (i==0 or (i==len(buttons)-1 and bool(state["report"])) or (0<i<len(buttons)-1 and bool(state["devices"])))
+            b.configure(state="normal" if available else "disabled")
+        selector.configure(state="readonly" if not locked and state["devices"] else "disabled")
+    def schedule_search():
+        if state["search_timer"] is None and not state["devices"] and not state["busy"] and not state["searching"]:
+            state["search_timer"]=root.after(4000,auto_search)
+    def auto_search():
+        state["search_timer"]=None
+        if not state["devices"] and not state["busy"] and not state["searching"]:refresh()
     def refresh():
+        if state["busy"] or state["searching"]:return
+        if state["search_timer"] is not None:
+            root.after_cancel(state["search_timer"]);state["search_timer"]=None
         state["verified"]=None
-        try:
-            state["devices"]=[d for d in disks() if eligible(d,True)]
-            selector["values"]=["Disco %s | %s | %.2f GiB | %s | %s"%(d["Number"],d["FriendlyName"],int(d["Size"])/GIB,d["BusType"],d["PartitionStyle"]) for d in state["devices"]]
-            selector.set("")
-            if len(state["devices"])==1:selector.current(0)
-            status.set("Discos elegiveis: %d. Disco 0 e discos do sistema excluidos."%len(state["devices"]))
-        except Exception as e:messagebox.showerror("Falha de enumeracao",str(e))
+        state["searching"]=True
+        previous=selector.current()
+        identity=disk_identity(state["devices"][previous]) if 0<=previous<len(state["devices"]) else None
+        status.set("Procurando discos externos... a interface permanece disponivel.")
+        update_controls()
+        def worker():
+            try:
+                visible=disks(timeout=20)
+                found=[d for d in visible if eligible(d,True)]
+                events.put(("disks_found",(found,identity,len(visible))))
+            except Exception as e:events.put(("disks_failed",str(e)))
+        threading.Thread(target=worker,daemon=True).start()
+    def apply_disks(found,identity,total,error=None):
+        state["searching"]=False
+        state["devices"]=found
+        selector["values"]=["Disco %s | %s | %.2f GiB | %s | %s"%(d["Number"],d["FriendlyName"],int(d["Size"])/GIB,d["BusType"],d["PartitionStyle"]) for d in found]
+        selector.set("")
+        if found:
+            match=next((i for i,d in enumerate(found) if disk_identity(d)==identity),None)
+            if match is not None:selector.current(match)
+            elif len(found)==1:selector.current(0)
+            status.set("Discos elegiveis: %d. Disco 0 e discos do sistema excluidos."%len(found))
+        else:
+            if error:
+                append("Busca de discos: "+error)
+                status.set("Falha ao consultar discos. Nova tentativa em 4 segundos.")
+            else:status.set("Nenhum disco elegivel (%d detectados pelo Windows). Nova busca em 4 segundos."%total)
+            schedule_search()
+        update_controls()
     def confirm(d,action):
         if not messagebox.askyesno("Operacao destrutiva",action+"\n\nTODOS OS DADOS DO CARTAO PODEM SER PERDIDOS. Remova outros dispositivos USB de armazenamento. Nao desconecte o cartao durante a operacao.\n\nDisco %s - %s - %.2f GiB\nContinuar?"%(d["Number"],d["FriendlyName"],int(d["Size"])/GIB)):return False
         phrase="APAGAR DISCO "+str(d["Number"])
         return simpledialog.askstring("Confirmacao","Digite exatamente: "+phrase,parent=root)==phrase
     def launch(name,job):
-        if state["busy"]:return
+        if state["busy"] or state["searching"]:return
         state["busy"]=True;cancel.clear()
-        for b in buttons:b.configure(state="disabled")
-        selector.configure(state="disabled");status.set(name+" em andamento...")
+        update_controls();status.set(name+" em andamento...")
         def work():
+            failed=False
             try:job()
             except Cancelled:log("Cancelado. Uma operacao de gravacao cancelada deixa dados invalidos.")
-            except Exception as e:log("ERRO: "+str(e));events.put(("error",str(e)))
-            finally:events.put(("done",name))
+            except Exception as e:log("ERRO: "+str(e));events.put(("error",str(e)));failed=True
+            finally:events.put(("done",(name,failed)))
         threading.Thread(target=work,daemon=True).start()
     def run_scan(mode):
         try:
@@ -442,18 +479,22 @@ def main():
                 elif typ=="error":messagebox.showerror("Operacao interrompida",value)
                 elif typ=="result":
                     state["report"],state["results"],state["verified"]=value;render()
+                elif typ=="disks_found":apply_disks(*value)
+                elif typ=="disks_failed":apply_disks([],None,0,value)
                 elif typ=="done":
                     state["busy"]=False
-                    for b in buttons:b.configure(state="normal")
-                    selector.configure(state="readonly");status.set(value+" encerrado. Confira o log.")
+                    name,failed=value
+                    update_controls();status.set(name+" encerrado. Confira o log.")
+                    if failed:refresh()
+                    else:schedule_search()
         except queue.Empty:pass
         root.after(100,poll)
-    for label,fn in [("Atualizar discos",refresh),("Diagnostico USB",inspect_device),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("Microteste",lambda:run_scan("local")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
+    for label,fn in [("Reprocurar discos",refresh),("Diagnostico USB",inspect_device),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("Microteste",lambda:run_scan("local")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
         b=ttk.Button(controls,text=label,command=fn);b.pack(side="left",padx=2);buttons.append(b)
     ttk.Button(frame,text="Cancelar operacao (aguarda driver)",command=cancel.set).pack(anchor="e",pady=4)
     def close():
         if state["busy"]:
             cancel.set();messagebox.showinfo("Operacao em andamento","Cancelamento solicitado. Aguarde o retorno da operacao de I/O antes de fechar.")
         else:root.destroy()
-    root.protocol("WM_DELETE_WINDOW",close);refresh();poll();root.mainloop()
+    root.protocol("WM_DELETE_WINDOW",close);update_controls();root.after(50,refresh);poll();root.mainloop()
 if __name__=="__main__":main()
