@@ -1,4 +1,4 @@
-# FlashRecover 0.2.0
+# FlashRecover 0.2.1
 Aplicativo desktop experimental para diagnosticar e tentar reutilizar cartoes SD/microSD e armazenamento USB com capacidade suspeita. Windows 10/11, Python 3.10+ com Tkinter, sem bibliotecas externas.
 
 ## Executar
@@ -47,3 +47,10 @@ Execute `py -3 flashrecover.py --self-test`. O autoteste verifica padroes, detec
 - Referencia: https://learn.microsoft.com/en-us/windows/win32/fileio/canceling-pending-i-o-operations
 - Referencia: https://learn.microsoft.com/en-us/windows/win32/fileio/synchronous-and-asynchronous-i-o
 - Referencia: https://fight-flash-fraud.readthedocs.io/en/latest/introduction.html
+
+## Inventario de transporte (0.2.1)
+- Diagnostico USB: consulta o estado do disco, modelo, revisao de firmware e identificador PnP reportados pelo Windows, e os eventos de armazenamento das ultimas duas horas. Nao grava na midia. O relatorio inclui eventos possivelmente relacionados a outros discos; confira os identificadores antes de concluir. Dados ficam locais ate o usuario exportar/compartilhar. Remova numeros de serie e identificadores pessoais antes de compartilhar.
+- Discos externos somente leitura podem ser selecionados para leitura RAW e inventario; as operacoes de escrita continuam bloqueadas. Nao existe chave universal para desbloquear um controlador SD. A revisao de firmware USB pode ser a do leitor e nao a do cartao.
+- O teste integral agora sugere 16 MiB para iniciar. Isso nao confirma a capacidade inteira nem autoriza reconstruir acima do prefixo validado.
+- Referencia: https://learn.microsoft.com/pt-br/windows/win32/cimwin32prov/win32-diskdrive
+- Remover particoes nao equivale a sanitizar dados com garantia; este aplicativo nao e uma ferramenta certificada de apagamento seguro.
