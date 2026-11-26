@@ -6,9 +6,17 @@ from pathlib import Path
 MIB=1024**2
 GIB=1024**3
 START=MIB
-VERSION="0.1.1"
+VERSION="0.2.0"
 BUS={"USB","SD","MMC"}
 class Cancelled(Exception): pass
+class DeviceTimeout(RuntimeError): pass
+
+class Overlapped(ctypes.Structure):
+    _fields_=[("Internal",ctypes.c_size_t),("InternalHigh",ctypes.c_size_t),("Offset",W.DWORD),("OffsetHigh",W.DWORD),("hEvent",W.HANDLE)]
+
+def local_offsets(size,align):
+    """Small addresses only; do not assume successful reads imply writable flash."""
+    return sorted({x//align*align for x in (START,START+align,2*MIB,4*MIB,8*MIB,16*MIB,32*MIB,64*MIB,128*MIB,256*MIB-align,256*MIB) if START<=x and x+align<=size})
 
 def disk_identity(d):
     return tuple(str(d.get(k,"")) for k in ("Number","Path","UniqueId","SerialNumber","Size","LogicalSectorSize","PhysicalSectorSize","BusType"))
@@ -72,18 +80,20 @@ def verify(io,offsets,length,log,cancel,write=False,seed=None):
     if write:
         for i,o in enumerate(offsets):
             if cancel.is_set():raise Cancelled()
+            if len(offsets)<=512 or i%32==0:log("Gravacao %d/%d | offset 0x%x"%(i+1,len(offsets),o))
             try:
                 io.write(o,pattern(seed,o,length));consecutive=0
             except OSError as e:
                 results[o]=("write_error",str(e));consecutive+=1
                 log("Falha de gravacao em 0x%x: %s"%(o,e))
                 if consecutive>=3:raise RuntimeError("Tres falhas consecutivas de gravacao; operacao abortada. Nenhuma capacidade aprovada.") from e
-            if i%32==0:log("Gravacao %d/%d"%(i+1,len(offsets)))
+
         io.flush()
         io.reopen()
     consecutive=0
     for i,o in enumerate(offsets):
         if cancel.is_set():raise Cancelled()
+        if len(offsets)<=512 or i%32==0:log("Leitura %d/%d | offset 0x%x"%(i+1,len(offsets),o))
         try:
             data=io.read(o,length);consecutive=0
             if o not in results:
@@ -95,7 +105,7 @@ def verify(io,offsets,length,log,cancel,write=False,seed=None):
             if consecutive>=3 and write:raise RuntimeError("Tres falhas consecutivas de leitura apos gravacao; nenhuma capacidade aprovada.") from e
             if consecutive>=3 and not write:
                 log("Leitura interrompida apos tres falhas consecutivas. Restante nao testado.");break
-        if i%32==0:log("Leitura %d/%d"%(i+1,len(offsets)))
+
     return results
 def continuous_prefix(results,chunk):
     end=START
@@ -110,8 +120,9 @@ def summary(results):
 
 class RawDisk:
     """Unbuffered, aligned I/O via Windows APIs. Never selects a disk itself."""
-    def __init__(self,d,writable):
+    def __init__(self,d,writable,cancel=None,log=None,timeout=30):
         self.d=d;self.writable=writable;self.handle=None;self.ptr=None
+        self.cancel=cancel or threading.Event();self.log=log or (lambda _:None);self.timeout=timeout
         self.k=ctypes.WinDLL("kernel32",use_last_error=True)
         k=self.k
         k.CreateFileW.argtypes=[W.LPCWSTR,W.DWORD,W.DWORD,ctypes.c_void_p,W.DWORD,W.DWORD,W.HANDLE];k.CreateFileW.restype=W.HANDLE
@@ -122,12 +133,16 @@ class RawDisk:
         k.VirtualAlloc.argtypes=[ctypes.c_void_p,ctypes.c_size_t,W.DWORD,W.DWORD];k.VirtualAlloc.restype=ctypes.c_void_p
         k.VirtualFree.argtypes=[ctypes.c_void_p,ctypes.c_size_t,W.DWORD];k.VirtualFree.restype=W.BOOL
         k.FlushFileBuffers.argtypes=[W.HANDLE];k.FlushFileBuffers.restype=W.BOOL
+        k.CreateEventW.argtypes=[ctypes.c_void_p,W.BOOL,W.BOOL,W.LPCWSTR];k.CreateEventW.restype=W.HANDLE
+        k.GetOverlappedResult.argtypes=[W.HANDLE,ctypes.POINTER(Overlapped),ctypes.POINTER(W.DWORD),W.BOOL];k.GetOverlappedResult.restype=W.BOOL
+        k.WaitForSingleObject.argtypes=[W.HANDLE,W.DWORD];k.WaitForSingleObject.restype=W.DWORD
+        k.CancelIoEx.argtypes=[W.HANDLE,ctypes.POINTER(Overlapped)];k.CancelIoEx.restype=W.BOOL
         self.align=max(int(d["LogicalSectorSize"]),int(d["PhysicalSectorSize"]))
         self.open()
     def open(self):
         check(self.d,self.writable)
         access=0x80000000 | (0x40000000 if self.writable else 0)
-        h=self.k.CreateFileW(r"\\.\PhysicalDrive"+str(self.d["Number"]),access,3,None,3,0x20000000|(0x80000000 if self.writable else 0),None)
+        h=self.k.CreateFileW(r"\\.\PhysicalDrive"+str(self.d["Number"]),access,3,None,3,0x60000000|(0x80000000 if self.writable else 0),None)
         if h in (None,ctypes.c_void_p(-1).value):raise ctypes.WinError(ctypes.get_last_error())
         self.handle=h
         try:check(self.d,self.writable)
@@ -149,17 +164,46 @@ class RawDisk:
         if data is not None and (not self.writable or offset<START):raise PermissionError("Gravacao bloqueada")
         buf=self.k.VirtualAlloc(None,n,0x3000,4)
         if not buf:raise ctypes.WinError(ctypes.get_last_error())
+        event=self.k.CreateEventW(None,True,False,None)
+        if not event:
+            self.k.VirtualFree(buf,0,0x8000)
+            raise ctypes.WinError(ctypes.get_last_error())
+        ov=Overlapped();ov.Offset=offset&0xffffffff;ov.OffsetHigh=offset>>32;ov.hEvent=event
+        pending=False
         try:
-            if not self.k.SetFilePointerEx(self.handle,offset,None,0):raise ctypes.WinError(ctypes.get_last_error())
+            if self.cancel.is_set():raise Cancelled()
             done=W.DWORD()
-            if data is None:ok=self.k.ReadFile(self.handle,buf,n,ctypes.byref(done),None)
-            else:
-                ctypes.memmove(buf,data,n)
-                ok=self.k.WriteFile(self.handle,buf,n,ctypes.byref(done),None)
-            if not ok:raise ctypes.WinError(ctypes.get_last_error())
+            deadline=time.monotonic()+self.timeout
+            if data is not None:ctypes.memmove(buf,data,n)
+            fn=self.k.ReadFile if data is None else self.k.WriteFile
+            ok=fn(self.handle,buf,n,None,ctypes.byref(ov))
+            if not ok:
+                error=ctypes.get_last_error()
+                if error!=997:raise ctypes.WinError(error)
+                pending=True
+                while True:
+                    wait=self.k.WaitForSingleObject(event,200)
+                    if wait==0:break
+                    if wait!=258:raise ctypes.WinError(ctypes.get_last_error())
+                    if self.cancel.is_set() or time.monotonic()>=deadline:
+                        self.log("Cancelamento de I/O solicitado em 0x%x; aguardando o driver confirmar. Nenhuma nova gravacao sera iniciada."%offset)
+                        if self.cancel.is_set():raise Cancelled()
+                        raise DeviceTimeout("Prazo de %s s excedido em 0x%x; diagnostico interrompido."%(self.timeout,offset))
+            ok=self.k.GetOverlappedResult(self.handle,ctypes.byref(ov),ctypes.byref(done),False)
+            error=ctypes.get_last_error() if not ok else 0
+            if error!=996:pending=False
+            if not ok:raise ctypes.WinError(error)
+            if self.cancel.is_set():raise Cancelled()
             if done.value!=n:raise OSError("Transferencia incompleta: %s/%s"%(done.value,n))
             return ctypes.string_at(buf,n) if data is None else None
-        finally:self.k.VirtualFree(buf,0,0x8000)
+        finally:
+            if pending:
+                # The buffer and OVERLAPPED must remain alive until the driver completes.
+                self.k.CancelIoEx(self.handle,ctypes.byref(ov))
+                done=W.DWORD()
+                self.k.GetOverlappedResult(self.handle,ctypes.byref(ov),ctypes.byref(done),True)
+            self.k.CloseHandle(event)
+            self.k.VirtualFree(buf,0,0x8000)
     def read(self,o,n):return self.transfer(o,n)
     def write(self,o,b):self.transfer(o,len(b),b)
 
@@ -182,6 +226,8 @@ def self_test():
     offsets=sample_offsets(960*GIB,4096,256)
     assert offsets==sorted(set(offsets)) and offsets[0]==START and offsets[-1]==960*GIB-4096
     assert all(x%4096==0 for x in offsets)
+    assert local_offsets(960*GIB,512)[-1]==256*MIB
+    assert all(x%4096==0 for x in local_offsets(960*GIB,4096))
     assert not eligible({"Number":0,"BusType":"USB"})
     assert not eligible({"Number":2,"BusType":"SATA"})
     class Broken(Fake):
@@ -207,13 +253,13 @@ def main():
         root=tk.Tk();root.withdraw()
         messagebox.showerror("FlashRecover","Execute como administrador usando INICIAR.cmd.")
         root.destroy();return
-    root=tk.Tk();root.title("FlashRecover 0.1.1 | Laboratorio de memoria");root.geometry("1000x720");root.minsize(820,560)
+    root=tk.Tk();root.title("FlashRecover 0.2.0 | Laboratorio de memoria");root.geometry("1200x720");root.minsize(1050,560)
     root.configure(bg="#111827")
     style=ttk.Style(root);style.theme_use("clam")
     style.configure("TFrame",background="#111827");style.configure("TLabel",background="#111827",foreground="#e5e7eb")
     style.configure("TButton",padding=8);style.configure("Title.TLabel",font=("Segoe UI",23,"bold"),foreground="#93c5fd")
     frame=ttk.Frame(root,padding=18);frame.pack(fill="both",expand=True)
-    ttk.Label(frame,text="FLASHRECOVER / 0.1.1",style="Title.TLabel").pack(anchor="w")
+    ttk.Label(frame,text="FLASHRECOVER / 0.2.0",style="Title.TLabel").pack(anchor="w")
     ttk.Label(frame,text="Diagnostico RAW  /  Capacidade real  /  Reconstrucao limitada").pack(anchor="w",pady=(0,12))
     row=ttk.Frame(frame);row.pack(fill="x")
     selector=ttk.Combobox(row,state="readonly");selector.pack(side="left",fill="x",expand=True)
@@ -277,13 +323,13 @@ def main():
                 if amount is None:return
                 chunk=MIB;offsets=range(START,START+amount*MIB,chunk)
             else:
-                chunk=length;offsets=sample_offsets(int(d["Size"]),length,256)
+                chunk=length;offsets=local_offsets(int(d["Size"]),length) if mode=="local" else sample_offsets(int(d["Size"]),length,256)
             if mode!="read" and not confirm(d,"Teste RAW destrutivo: gravar padroes unicos e verificar todos depois."):return
             state["verified"]=None;state["results"]={};state["report"]={};render()
             def job():
                 check(d,mode!="read")
                 seed=secrets.token_bytes(32)
-                with RawDisk(d,mode!="read") as io:
+                with RawDisk(d,mode!="read",cancel,log) as io:
                     results=verify(io,offsets,chunk,log,cancel,mode!="read",seed)
                 check(d,mode!="read")
                 report={"version":VERSION,"mode":mode,"device":d,"chunk_bytes":chunk,"counts":summary(results),"results":[{"offset":o,"status":s,"detail":e} for o,(s,e) in results.items()]}
@@ -296,7 +342,7 @@ def main():
                 log("Resultado: "+json.dumps(report["counts"]))
                 if mode!="full":log("Amostragem: nao certifica capacidade real nem autoriza reconstrucao.")
                 events.put(("result",(report,results,verified)))
-            launch({"read":"Leitura RAW","sample":"Teste RAW amostral","full":"Teste integral de prefixo"}[mode],job)
+            launch({"read":"Leitura RAW","sample":"Teste RAW amostral","full":"Teste integral de prefixo","local":"Teste localizado ate 256 MiB"}[mode],job)
         except Exception as e:messagebox.showerror("FlashRecover",str(e))
     def erase():
         try:
@@ -325,7 +371,7 @@ def main():
                 size=amount*MIB
                 # Re-read unique challenges on the same media immediately before destructive changes.
                 points=sorted({START, START+((size//MIB)//2)*MIB, START+size-MIB})
-                with RawDisk(d,False) as io:
+                with RawDisk(d,False,cancel,log) as io:
                     for o in points:
                         if cancel.is_set():raise Cancelled()
                         if io.read(o,MIB)!=pattern(v[2],o,MIB):
@@ -360,9 +406,9 @@ def main():
                     selector.configure(state="readonly");status.set(value+" encerrado. Confira o log.")
         except queue.Empty:pass
         root.after(100,poll)
-    for label,fn in [("Atualizar discos",refresh),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
+    for label,fn in [("Atualizar discos",refresh),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("Microteste",lambda:run_scan("local")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
         b=ttk.Button(controls,text=label,command=fn);b.pack(side="left",padx=2);buttons.append(b)
-    ttk.Button(frame,text="Solicitar cancelamento (entre operacoes)",command=cancel.set).pack(anchor="e",pady=4)
+    ttk.Button(frame,text="Cancelar operacao (aguarda driver)",command=cancel.set).pack(anchor="e",pady=4)
     def close():
         if state["busy"]:
             cancel.set();messagebox.showinfo("Operacao em andamento","Cancelamento solicitado. Aguarde o retorno da operacao de I/O antes de fechar.")
