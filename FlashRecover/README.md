@@ -1,4 +1,4 @@
-# FlashRecover 0.2.1
+# FlashRecover 0.2.2
 Aplicativo desktop experimental para diagnosticar e tentar reutilizar cartoes SD/microSD e armazenamento USB com capacidade suspeita. Windows 10/11, Python 3.10+ com Tkinter, sem bibliotecas externas.
 
 ## Executar
@@ -54,3 +54,10 @@ Execute `py -3 flashrecover.py --self-test`. O autoteste verifica padroes, detec
 - O teste integral agora sugere 16 MiB para iniciar. Isso nao confirma a capacidade inteira nem autoriza reconstruir acima do prefixo validado.
 - Referencia: https://learn.microsoft.com/pt-br/windows/win32/cimwin32prov/win32-diskdrive
 - Remover particoes nao equivale a sanitizar dados com garantia; este aplicativo nao e uma ferramenta certificada de apagamento seguro.
+
+## Busca automatica (0.2.2)
+- A janela inicia antes da enumeracao de discos. A consulta Get-Disk roda em uma thread separada, com timeout de 20 segundos para o processo PowerShell.
+- Se nenhum disco elegivel for encontrado ou se a consulta falhar, uma nova tentativa e agendada 4 segundos apos a conclusao da anterior. Sem buscas concorrentes; a busca automatica para quando encontra um disco elegivel.
+- O botao Reprocurar discos permite atualizar manualmente a lista quando nao houver operacao ativa. Se houver apenas um disco elegivel, ele e selecionado automaticamente, sem iniciar testes ou gravacoes. A atualizacao invalida a aprovacao de prefixo anterior.
+- Apos falhas em operacoes, a lista e atualizada. Nenhuma busca inicia durante teste ativo. O timeout de enumeracao nao altera o comportamento de cancelamento do driver RAW.
+- Botoes com tema escuro e estados desabilitados durante consultas/operacoes.
