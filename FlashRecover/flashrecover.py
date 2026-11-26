@@ -6,7 +6,7 @@ from pathlib import Path
 MIB=1024**2
 GIB=1024**3
 START=MIB
-VERSION="0.1.0"
+VERSION="0.1.1"
 BUS={"USB","SD","MMC"}
 class Cancelled(Exception): pass
 
@@ -33,9 +33,12 @@ def disks():
     d=json.loads(raw)
     return d if isinstance(d,list) else [d]
 def check(d,empty=False):
-    current=next((x for x in disks() if x["Number"]==d["Number"]),None)
+    visible=disks()
+    current=next((x for x in visible if x["Number"]==d["Number"]),None)
     if not current or not eligible(current) or disk_identity(current)!=disk_identity(d):
         raise RuntimeError("Dispositivo mudou, desapareceu ou nao passou na protecao de disco.")
+    if empty and sum(eligible(x) for x in visible)!=1:
+        raise RuntimeError("Desconecte outros dispositivos externos elegiveis antes de gravar.")
     if empty and (current.get("NumberOfPartitions")!=0 or current.get("PartitionStyle") not in ("RAW","MBR")):
         raise RuntimeError("O teste RAW exige disco vazio, sem particoes, RAW ou MBR.")
     return current
@@ -65,22 +68,33 @@ def verify(io,offsets,length,log,cancel,write=False,seed=None):
     """Writes ALL positions before any readback, exposing sampled aliasing."""
     seed=seed or secrets.token_bytes(32)
     results={}
+    consecutive=0
     if write:
         for i,o in enumerate(offsets):
             if cancel.is_set():raise Cancelled()
-            try: io.write(o,pattern(seed,o,length))
-            except OSError as e: results[o]=("write_error",str(e))
+            try:
+                io.write(o,pattern(seed,o,length));consecutive=0
+            except OSError as e:
+                results[o]=("write_error",str(e));consecutive+=1
+                log("Falha de gravacao em 0x%x: %s"%(o,e))
+                if consecutive>=3:raise RuntimeError("Tres falhas consecutivas de gravacao; operacao abortada. Nenhuma capacidade aprovada.") from e
             if i%32==0:log("Gravacao %d/%d"%(i+1,len(offsets)))
         io.flush()
         io.reopen()
+    consecutive=0
     for i,o in enumerate(offsets):
         if cancel.is_set():raise Cancelled()
         try:
-            data=io.read(o,length)
+            data=io.read(o,length);consecutive=0
             if o not in results:
                 results[o]=("ok","") if not write or data==pattern(seed,o,length) else ("mismatch","Dados retornados diferentes")
         except OSError as e:
+            consecutive+=1
             if o not in results:results[o]=("read_error",str(e))
+            log("Falha de leitura em 0x%x: %s"%(o,e))
+            if consecutive>=3 and write:raise RuntimeError("Tres falhas consecutivas de leitura apos gravacao; nenhuma capacidade aprovada.") from e
+            if consecutive>=3 and not write:
+                log("Leitura interrompida apos tres falhas consecutivas. Restante nao testado.");break
         if i%32==0:log("Leitura %d/%d"%(i+1,len(offsets)))
     return results
 def continuous_prefix(results,chunk):
@@ -111,10 +125,14 @@ class RawDisk:
         self.align=max(int(d["LogicalSectorSize"]),int(d["PhysicalSectorSize"]))
         self.open()
     def open(self):
+        check(self.d,self.writable)
         access=0x80000000 | (0x40000000 if self.writable else 0)
         h=self.k.CreateFileW(r"\\.\PhysicalDrive"+str(self.d["Number"]),access,3,None,3,0x20000000|(0x80000000 if self.writable else 0),None)
         if h in (None,ctypes.c_void_p(-1).value):raise ctypes.WinError(ctypes.get_last_error())
         self.handle=h
+        try:check(self.d,self.writable)
+        except Exception:
+            self.close();raise
     def close(self):
         if self.handle is not None:self.k.CloseHandle(self.handle);self.handle=None
     def __enter__(self):return self
@@ -166,7 +184,19 @@ def self_test():
     assert all(x%4096==0 for x in offsets)
     assert not eligible({"Number":0,"BusType":"USB"})
     assert not eligible({"Number":2,"BusType":"SATA"})
-    print("Self-test OK: patterns, aliasing, prefix, offsets, disk exclusion.")
+    class Broken(Fake):
+        def write(self,o,b):raise OSError("simulated disconnect")
+        def read(self,o,n):raise OSError("simulated disconnect")
+    try:
+        verify(Broken(8*MIB),[START,2*MIB,3*MIB,4*MIB],4096,quiet,ev,True)
+    except RuntimeError as e:assert "Tres falhas" in str(e)
+    else:raise AssertionError("write circuit breaker did not fire")
+    assert len(verify(Broken(8*MIB),[START,2*MIB,3*MIB,4*MIB],4096,quiet,ev))==3
+    ev.set()
+    try:verify(Fake(8*MIB),[START],4096,quiet,ev)
+    except Cancelled:pass
+    else:raise AssertionError("cancel ignored")
+    print("Self-test OK: patterns, aliasing, prefix, offsets, disk exclusion, fault cutoff and cancellation.")
 
 def main():
     if "--self-test" in sys.argv:self_test();return
@@ -177,13 +207,13 @@ def main():
         root=tk.Tk();root.withdraw()
         messagebox.showerror("FlashRecover","Execute como administrador usando INICIAR.cmd.")
         root.destroy();return
-    root=tk.Tk();root.title("FlashRecover 0.1 | Laboratorio de memoria");root.geometry("1000x720");root.minsize(820,560)
+    root=tk.Tk();root.title("FlashRecover 0.1.1 | Laboratorio de memoria");root.geometry("1000x720");root.minsize(820,560)
     root.configure(bg="#111827")
     style=ttk.Style(root);style.theme_use("clam")
     style.configure("TFrame",background="#111827");style.configure("TLabel",background="#111827",foreground="#e5e7eb")
     style.configure("TButton",padding=8);style.configure("Title.TLabel",font=("Segoe UI",23,"bold"),foreground="#93c5fd")
     frame=ttk.Frame(root,padding=18);frame.pack(fill="both",expand=True)
-    ttk.Label(frame,text="FLASHRECOVER / 0.1",style="Title.TLabel").pack(anchor="w")
+    ttk.Label(frame,text="FLASHRECOVER / 0.1.1",style="Title.TLabel").pack(anchor="w")
     ttk.Label(frame,text="Diagnostico RAW  /  Capacidade real  /  Reconstrucao limitada").pack(anchor="w",pady=(0,12))
     row=ttk.Frame(frame);row.pack(fill="x")
     selector=ttk.Combobox(row,state="readonly");selector.pack(side="left",fill="x",expand=True)
@@ -215,6 +245,7 @@ def main():
             canvas.create_rectangle(x+1,y+1,x+w/64-1,y+18,fill=c,outline="")
     canvas.bind("<Configure>",lambda e:render())
     def refresh():
+        state["verified"]=None
         try:
             state["devices"]=[d for d in disks() if eligible(d)]
             selector["values"]=["Disco %s | %s | %.2f GiB | %s | %s"%(d["Number"],d["FriendlyName"],int(d["Size"])/GIB,d["BusType"],d["PartitionStyle"]) for d in state["devices"]]
@@ -251,14 +282,16 @@ def main():
             state["verified"]=None;state["results"]={};state["report"]={};render()
             def job():
                 check(d,mode!="read")
+                seed=secrets.token_bytes(32)
                 with RawDisk(d,mode!="read") as io:
-                    results=verify(io,offsets,chunk,log,cancel,mode!="read")
+                    results=verify(io,offsets,chunk,log,cancel,mode!="read",seed)
+                check(d,mode!="read")
                 report={"version":VERSION,"mode":mode,"device":d,"chunk_bytes":chunk,"counts":summary(results),"results":[{"offset":o,"status":s,"detail":e} for o,(s,e) in results.items()]}
                 verified=None
                 if mode=="full":
                     end=continuous_prefix(results,chunk)
                     report["contiguous_prefix_bytes"]=end-START
-                    if end>START:verified=(disk_identity(d),end)
+                    if end>START:verified=(disk_identity(d),end,seed)
                     log("Prefixo contiguo verificado: %.2f MiB (nao garante durabilidade)."%((end-START)/MIB))
                 log("Resultado: "+json.dumps(report["counts"]))
                 if mode!="full":log("Amostragem: nao certifica capacidade real nem autoriza reconstrucao.")
@@ -267,7 +300,8 @@ def main():
         except Exception as e:messagebox.showerror("FlashRecover",str(e))
     def erase():
         try:
-            d=selected()
+            d=selected();check(d)
+            if sum(eligible(x) for x in disks())!=1:raise RuntimeError("Desconecte outros discos externos antes de limpar particoes.")
             if not confirm(d,"Remover todas as particoes existentes para liberar o teste RAW."):return
             state["verified"]=None
             def job():
@@ -289,6 +323,15 @@ def main():
             state["verified"]=None
             def job():
                 size=amount*MIB
+                # Re-read unique challenges on the same media immediately before destructive changes.
+                points=sorted({START, START+((size//MIB)//2)*MIB, START+size-MIB})
+                with RawDisk(d,False) as io:
+                    for o in points:
+                        if cancel.is_set():raise Cancelled()
+                        if io.read(o,MIB)!=pattern(v[2],o,MIB):
+                            raise RuntimeError("Identidade dos dados ou persistencia falhou; reconstrucao bloqueada.")
+                check(d,True)
+                if cancel.is_set():raise Cancelled()
                 action=("if ($d.PartitionStyle -eq 'RAW'){Initialize-Disk -InputObject $d -PartitionStyle MBR}; "
                         "$p=New-Partition -DiskNumber $d.Number -Offset 1048576 -Size "+str(size)+" -AssignDriveLetter; "
                         "if ($p.DiskNumber -ne $d.Number -or $p.Offset -lt 1048576 -or ($p.Offset+$p.Size) -gt "+str(v[1])+"){throw 'Particao fora do prefixo validado'}; "
