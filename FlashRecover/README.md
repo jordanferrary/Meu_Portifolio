@@ -1,4 +1,4 @@
-# FlashRecover 0.1.0
+# FlashRecover 0.1.1
 Aplicativo desktop experimental para diagnosticar e tentar reutilizar cartoes SD/microSD e armazenamento USB com capacidade suspeita. Windows 10/11, Python 3.10+ com Tkinter, sem bibliotecas externas.
 
 ## Executar
@@ -30,3 +30,10 @@ Execute `py -3 flashrecover.py --self-test`. O autoteste verifica padroes, detec
 - https://learn.microsoft.com/en-us/powershell/module/storage/new-partition
 - https://learn.microsoft.com/en-us/powershell/module/storage/format-volume
 - https://www.sdcard.org/downloads/formatter/
+
+## Protecoes adicionais (0.1.1)
+- Interrompe a fase de gravacao ou verificacao destrutiva apos tres falhas de I/O consecutivas, sem aprovar capacidade nessa tentativa. A leitura simples retorna apenas os resultados parciais.
+- Confere novamente a identidade antes e depois de abrir o disco e exige apenas um dispositivo externo elegivel para testes destrutivos RAW. A limpeza tambem exige essa condicao na verificacao inicial.
+- Atualizar a lista invalida a aprovacao anterior. Antes de reconstruir, rele tres blocos com padroes aleatorios da sessao para detectar troca de midia ou perda dos dados; isto nao elimina todas as possibilidades de erro.
+- Inclui simulacoes de falha consecutiva e cancelamento no autoteste.
+- A interrupcao nao desfaz gravacoes ja realizadas e nao pode cancelar instantaneamente uma chamada bloqueada do driver. Nenhum modo promete recuperar dados ou hardware fisicamente danificado. Firmware universal nao e suportado.
