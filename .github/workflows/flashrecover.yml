@@ -1,7 +1,7 @@
 name: FlashRecover Windows
 on:
   push:
-    branches: [flashrecover-v0.1]
+    branches: [main, flashrecover-v0.1]
     paths:
       - 'FlashRecover/**'
       - '.github/workflows/flashrecover.yml'
