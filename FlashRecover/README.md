@@ -1,4 +1,4 @@
-# FlashRecover 0.1.1
+# FlashRecover 0.2.0
 Aplicativo desktop experimental para diagnosticar e tentar reutilizar cartoes SD/microSD e armazenamento USB com capacidade suspeita. Windows 10/11, Python 3.10+ com Tkinter, sem bibliotecas externas.
 
 ## Executar
@@ -37,3 +37,13 @@ Execute `py -3 flashrecover.py --self-test`. O autoteste verifica padroes, detec
 - Atualizar a lista invalida a aprovacao anterior. Antes de reconstruir, rele tres blocos com padroes aleatorios da sessao para detectar troca de midia ou perda dos dados; isto nao elimina todas as possibilidades de erro.
 - Inclui simulacoes de falha consecutiva e cancelamento no autoteste.
 - A interrupcao nao desfaz gravacoes ja realizadas e nao pode cancelar instantaneamente uma chamada bloqueada do driver. Nenhum modo promete recuperar dados ou hardware fisicamente danificado. Firmware universal nao e suportado.
+
+## Diagnostico localizado e cancelamento (0.2.0)
+- Microteste: grava e verifica pequenas amostras nos primeiros 256 MiB, incluindo a vizinhanca do erro observado em 0xffffe00. Destrutivo; exige disco vazio e confirmacao. Nao autoriza reconstruir nem comprova a capacidade.
+- Mostra o endereco de cada operacao amostral antes de executa-la. Se houver erro 121 ou outros erros de transporte durante escrita/verificacao, interrompe imediatamente em vez de insistir.
+- I/O RAW usa FILE_FLAG_OVERLAPPED, evento por operacao e CancelIoEx. Solicita cancelamento depois de 30 segundos de espera pendente ou por pedido do usuario. Aguardamos a conclusao real da operacao antes de liberar buffer e handle. A chamada inicial, FlushFileBuffers, enumeracao e cmdlets de particionamento ainda podem bloquear; 30 segundos nao e garantia de retorno. Nao retire a midia enquanto houver I/O.
+- Depois de um erro, teste outro leitor SDXC e nao repita gravacoes indefinidamente. Uma falha de transporte nao identifica o controlador nem prova falsificacao.
+- Firmware: nao ha reprogramacao generica. Nao execute ferramentas de firmware de pendrives em microSD nem imagens desconhecidas. O identificador USB normalmente pertence ao leitor. Uma rotina especifica dependeria de identificacao e documentacao verificaveis do controlador.
+- Referencia: https://learn.microsoft.com/en-us/windows/win32/fileio/canceling-pending-i-o-operations
+- Referencia: https://learn.microsoft.com/en-us/windows/win32/fileio/synchronous-and-asynchronous-i-o
+- Referencia: https://fight-flash-fraud.readthedocs.io/en/latest/introduction.html
