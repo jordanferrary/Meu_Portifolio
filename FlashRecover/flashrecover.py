@@ -1,4 +1,4 @@
-"""FlashRecover 0.1 - Windows removable media laboratory."""
+"""FlashRecover 0.2.0 - Windows removable media laboratory."""
 import base64, ctypes, hashlib, json, os, queue, secrets, subprocess, sys, threading, time
 from ctypes import wintypes as W
 from pathlib import Path
@@ -86,6 +86,8 @@ def verify(io,offsets,length,log,cancel,write=False,seed=None):
             except OSError as e:
                 results[o]=("write_error",str(e));consecutive+=1
                 log("Falha de gravacao em 0x%x: %s"%(o,e))
+                if getattr(e,"winerror",None) in (21,55,121,995,1117,1167,1460):
+                    raise DeviceTimeout("Falha de transporte ou dispositivo em 0x%x; nenhuma nova gravacao sera iniciada."%o) from e
                 if consecutive>=3:raise RuntimeError("Tres falhas consecutivas de gravacao; operacao abortada. Nenhuma capacidade aprovada.") from e
 
         io.flush()
@@ -102,6 +104,8 @@ def verify(io,offsets,length,log,cancel,write=False,seed=None):
             consecutive+=1
             if o not in results:results[o]=("read_error",str(e))
             log("Falha de leitura em 0x%x: %s"%(o,e))
+            if write and getattr(e,"winerror",None) in (21,55,121,995,1117,1167,1460):
+                raise DeviceTimeout("Falha de transporte na verificacao; nenhuma capacidade aprovada.") from e
             if consecutive>=3 and write:raise RuntimeError("Tres falhas consecutivas de leitura apos gravacao; nenhuma capacidade aprovada.") from e
             if consecutive>=3 and not write:
                 log("Leitura interrompida apos tres falhas consecutivas. Restante nao testado.");break
@@ -230,6 +234,12 @@ def self_test():
     assert all(x%4096==0 for x in local_offsets(960*GIB,4096))
     assert not eligible({"Number":0,"BusType":"USB"})
     assert not eligible({"Number":2,"BusType":"SATA"})
+    class TimedOut(Fake):
+        def write(self,o,b):
+            e=OSError("simulated timeout");e.winerror=121;raise e
+    try:verify(TimedOut(8*MIB),[START,2*MIB],4096,quiet,ev,True)
+    except DeviceTimeout:pass
+    else:raise AssertionError("transport failure did not abort")
     class Broken(Fake):
         def write(self,o,b):raise OSError("simulated disconnect")
         def read(self,o,n):raise OSError("simulated disconnect")
