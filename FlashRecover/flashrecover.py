@@ -1,4 +1,4 @@
-"""FlashRecover 0.2.0 - Windows removable media laboratory."""
+"""FlashRecover 0.2.1 - Windows removable media laboratory."""
 import base64, ctypes, hashlib, json, os, queue, secrets, subprocess, sys, threading, time
 from ctypes import wintypes as W
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 MIB=1024**2
 GIB=1024**3
 START=MIB
-VERSION="0.2.0"
+VERSION="0.2.1"
 BUS={"USB","SD","MMC"}
 class Cancelled(Exception): pass
 class DeviceTimeout(RuntimeError): pass
@@ -20,10 +20,10 @@ def local_offsets(size,align):
 
 def disk_identity(d):
     return tuple(str(d.get(k,"")) for k in ("Number","Path","UniqueId","SerialNumber","Size","LogicalSectorSize","PhysicalSectorSize","BusType"))
-def eligible(d):
+def eligible(d,readonly_ok=False):
     return (d.get("Number") not in (None,0,"0") and d.get("BusType") in BUS
             and d.get("IsBoot") is False and d.get("IsSystem") is False
-            and d.get("IsOffline") is False and d.get("IsReadOnly") is False
+            and d.get("IsOffline") is False and (d.get("IsReadOnly") is False or (readonly_ok and d.get("IsReadOnly") is True))
             and bool(d.get("Path")) and int(d.get("Size") or 0)>2*MIB
             and int(d.get("LogicalSectorSize") or 0) in (512,1024,2048,4096)
             and int(d.get("PhysicalSectorSize") or 0) in (512,1024,2048,4096))
@@ -40,10 +40,10 @@ def disks():
     if not raw:return []
     d=json.loads(raw)
     return d if isinstance(d,list) else [d]
-def check(d,empty=False):
+def check(d,empty=False,readonly_ok=False):
     visible=disks()
     current=next((x for x in visible if x["Number"]==d["Number"]),None)
-    if not current or not eligible(current) or disk_identity(current)!=disk_identity(d):
+    if not current or not eligible(current,readonly_ok) or disk_identity(current)!=disk_identity(d):
         raise RuntimeError("Dispositivo mudou, desapareceu ou nao passou na protecao de disco.")
     if empty and sum(eligible(x) for x in visible)!=1:
         raise RuntimeError("Desconecte outros dispositivos externos elegiveis antes de gravar.")
@@ -144,12 +144,12 @@ class RawDisk:
         self.align=max(int(d["LogicalSectorSize"]),int(d["PhysicalSectorSize"]))
         self.open()
     def open(self):
-        check(self.d,self.writable)
+        check(self.d,self.writable,readonly_ok=not self.writable)
         access=0x80000000 | (0x40000000 if self.writable else 0)
         h=self.k.CreateFileW(r"\\.\PhysicalDrive"+str(self.d["Number"]),access,3,None,3,0x60000000|(0x80000000 if self.writable else 0),None)
         if h in (None,ctypes.c_void_p(-1).value):raise ctypes.WinError(ctypes.get_last_error())
         self.handle=h
-        try:check(self.d,self.writable)
+        try:check(self.d,self.writable,readonly_ok=not self.writable)
         except Exception:
             self.close();raise
     def close(self):
@@ -158,7 +158,7 @@ class RawDisk:
     def __exit__(self,*args):self.close()
     def reopen(self):
         self.close()
-        check(self.d,self.writable)
+        check(self.d,self.writable,readonly_ok=not self.writable)
         self.open()
     def flush(self):
         if self.writable and not self.k.FlushFileBuffers(self.handle):raise ctypes.WinError(ctypes.get_last_error())
@@ -232,6 +232,9 @@ def self_test():
     assert all(x%4096==0 for x in offsets)
     assert local_offsets(960*GIB,512)[-1]==256*MIB
     assert all(x%4096==0 for x in local_offsets(960*GIB,4096))
+    read_only={"Number":1,"BusType":"USB","IsBoot":False,"IsSystem":False,"IsOffline":False,"IsReadOnly":True,"Path":"example","Size":32*MIB,"LogicalSectorSize":512,"PhysicalSectorSize":512}
+    assert eligible(read_only,True) and not eligible(read_only)
+    assert not eligible(dict(read_only,IsSystem=True),True)
     assert not eligible({"Number":0,"BusType":"USB"})
     assert not eligible({"Number":2,"BusType":"SATA"})
     class TimedOut(Fake):
@@ -263,13 +266,13 @@ def main():
         root=tk.Tk();root.withdraw()
         messagebox.showerror("FlashRecover","Execute como administrador usando INICIAR.cmd.")
         root.destroy();return
-    root=tk.Tk();root.title("FlashRecover 0.2.0 | Laboratorio de memoria");root.geometry("1200x720");root.minsize(1050,560)
+    root=tk.Tk();root.title("FlashRecover 0.2.1 | Laboratorio de memoria");root.geometry("1300x720");root.minsize(1100,560)
     root.configure(bg="#111827")
     style=ttk.Style(root);style.theme_use("clam")
     style.configure("TFrame",background="#111827");style.configure("TLabel",background="#111827",foreground="#e5e7eb")
     style.configure("TButton",padding=8);style.configure("Title.TLabel",font=("Segoe UI",23,"bold"),foreground="#93c5fd")
     frame=ttk.Frame(root,padding=18);frame.pack(fill="both",expand=True)
-    ttk.Label(frame,text="FLASHRECOVER / 0.2.0",style="Title.TLabel").pack(anchor="w")
+    ttk.Label(frame,text="FLASHRECOVER / 0.2.1",style="Title.TLabel").pack(anchor="w")
     ttk.Label(frame,text="Diagnostico RAW  /  Capacidade real  /  Reconstrucao limitada").pack(anchor="w",pady=(0,12))
     row=ttk.Frame(frame);row.pack(fill="x")
     selector=ttk.Combobox(row,state="readonly");selector.pack(side="left",fill="x",expand=True)
@@ -303,7 +306,7 @@ def main():
     def refresh():
         state["verified"]=None
         try:
-            state["devices"]=[d for d in disks() if eligible(d)]
+            state["devices"]=[d for d in disks() if eligible(d,True)]
             selector["values"]=["Disco %s | %s | %.2f GiB | %s | %s"%(d["Number"],d["FriendlyName"],int(d["Size"])/GIB,d["BusType"],d["PartitionStyle"]) for d in state["devices"]]
             selector.set("")
             if len(state["devices"])==1:selector.current(0)
@@ -326,10 +329,10 @@ def main():
         threading.Thread(target=work,daemon=True).start()
     def run_scan(mode):
         try:
-            d=selected();check(d,mode!="read")
+            d=selected();check(d,mode!="read",readonly_ok=mode=="read")
             length=max(int(d["LogicalSectorSize"]),int(d["PhysicalSectorSize"]))
             if mode=="full":
-                amount=simpledialog.askinteger("Teste integral","Quantos MiB verificar a partir do primeiro MiB? (ex.: 8192)",initialvalue=8192,minvalue=16,maxvalue=(int(d["Size"])-START)//MIB,parent=root)
+                amount=simpledialog.askinteger("Teste integral","Quantos MiB verificar a partir do primeiro MiB? (ex.: 8192)",initialvalue=16,minvalue=16,maxvalue=(int(d["Size"])-START)//MIB,parent=root)
                 if amount is None:return
                 chunk=MIB;offsets=range(START,START+amount*MIB,chunk)
             else:
@@ -337,11 +340,11 @@ def main():
             if mode!="read" and not confirm(d,"Teste RAW destrutivo: gravar padroes unicos e verificar todos depois."):return
             state["verified"]=None;state["results"]={};state["report"]={};render()
             def job():
-                check(d,mode!="read")
+                check(d,mode!="read",readonly_ok=mode=="read")
                 seed=secrets.token_bytes(32)
                 with RawDisk(d,mode!="read",cancel,log) as io:
                     results=verify(io,offsets,chunk,log,cancel,mode!="read",seed)
-                check(d,mode!="read")
+                check(d,mode!="read",readonly_ok=mode=="read")
                 report={"version":VERSION,"mode":mode,"device":d,"chunk_bytes":chunk,"counts":summary(results),"results":[{"offset":o,"status":s,"detail":e} for o,(s,e) in results.items()]}
                 verified=None
                 if mode=="full":
@@ -353,6 +356,35 @@ def main():
                 if mode!="full":log("Amostragem: nao certifica capacidade real nem autoriza reconstrucao.")
                 events.put(("result",(report,results,verified)))
             launch({"read":"Leitura RAW","sample":"Teste RAW amostral","full":"Teste integral de prefixo","local":"Teste localizado ate 256 MiB"}[mode],job)
+        except Exception as e:messagebox.showerror("FlashRecover",str(e))
+    def inspect_device():
+        try:
+            d=selected()
+            def job():
+                now=check(d,readonly_ok=True)
+                number=int(now["Number"])
+                report={"version":VERSION,"mode":"transport_inventory","device":now,"notes":[]}
+                query=("Get-CimInstance Win32_DiskDrive -Filter 'Index="+str(number)+"' | "
+                       "Select-Object Model,Manufacturer,FirmwareRevision,PNPDeviceID,InterfaceType,MediaType,Status,Size,BytesPerSector | ConvertTo-Json -Depth 4 -Compress")
+                try:
+                    raw=ps(query)
+                    report["windows_descriptor"]=json.loads(raw) if raw else None
+                except Exception as e:report["notes"].append("Descriptor indisponivel: "+str(e))
+                if cancel.is_set():raise Cancelled()
+                query=("$ErrorActionPreference='SilentlyContinue'; Get-WinEvent -FilterHashtable "
+                       "@{LogName='System';Id=7,11,15,51,129,153,157;StartTime=(Get-Date).AddHours(-2)} -MaxEvents 100 | "
+                       "Select-Object Id,ProviderName,TimeCreated,Message | ConvertTo-Json -Depth 4 -Compress")
+                try:
+                    raw=ps(query)
+                    report["recent_storage_events_unfiltered"]=json.loads(raw) if raw else []
+                except Exception as e:report["notes"].append("Eventos indisponiveis: "+str(e))
+                report["notes"].append("Eventos podem pertencer a outros discos; confirme o numero na mensagem. Descritores USB podem identificar apenas o leitor, nao a NAND.")
+                log("Protecao de gravacao informada pelo Windows: "+str(now.get("IsReadOnly")))
+                log("Descritor Windows: "+json.dumps(report.get("windows_descriptor"),ensure_ascii=False))
+                log("Eventos recentes coletados. Exporte o JSON e confira antes de compartilhar.")
+                events.put(("result",(report,{},None)))
+            state["verified"]=None;state["results"]={};state["report"]={};render()
+            launch("Inventario do transporte",job)
         except Exception as e:messagebox.showerror("FlashRecover",str(e))
     def erase():
         try:
@@ -416,7 +448,7 @@ def main():
                     selector.configure(state="readonly");status.set(value+" encerrado. Confira o log.")
         except queue.Empty:pass
         root.after(100,poll)
-    for label,fn in [("Atualizar discos",refresh),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("Microteste",lambda:run_scan("local")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
+    for label,fn in [("Atualizar discos",refresh),("Diagnostico USB",inspect_device),("1 / Ler RAW",lambda:run_scan("read")),("2 / Limpar particoes",erase),("3 / Testar amostras",lambda:run_scan("sample")),("Microteste",lambda:run_scan("local")),("4 / Testar prefixo",lambda:run_scan("full")),("5 / Reconstruir",rebuild),("Exportar",export)]:
         b=ttk.Button(controls,text=label,command=fn);b.pack(side="left",padx=2);buttons.append(b)
     ttk.Button(frame,text="Cancelar operacao (aguarda driver)",command=cancel.set).pack(anchor="e",pady=4)
     def close():
